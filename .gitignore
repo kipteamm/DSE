@@ -1,0 +1,10 @@
+# Ignore all .pyc files in __pycache__ folders
+__pycache__/*.pyc
+/__pycache__
+__pycache__/
+
+# Ignore db.sqlite3
+db.sqlite3
+
+# Ignore secrets
+secrets.py
