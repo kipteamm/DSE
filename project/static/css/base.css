@@ -111,8 +111,15 @@ input, button {
     border-radius: 10px;
 }
 
+input, textarea {
+    width: 100%;
+}
+
 input {
-    border: 2px solid transparent;
+    border: 2px solid var(--primary-bg-acc);
+}
+input.secondary {
+    border-color: transparent;
 }
 
 input:focus {

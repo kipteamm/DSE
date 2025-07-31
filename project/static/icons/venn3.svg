@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="500px" height="500px">
-    <ellipse style="fill: rgba(69, 109, 255, 0.4)" cx="175" cy="162.5" rx="112.5" ry="112.5"/>
-    <ellipse style="fill: rgba(69, 109, 255, 0.4)" cx="325" cy="162.5" rx="112.5" ry="112.5"/>
-    <ellipse style="fill: rgba(69, 109, 255, 0.4)" cx="250" cy="312.5" rx="112.5" ry="112.5"/>
+    <ellipse style="fill: rgba(69, 109, 255, 0.4)" cx="175" cy="175" rx="112.5" ry="112.5"/>
+    <ellipse style="fill: rgba(69, 109, 255, 0.4)" cx="325" cy="175" rx="112.5" ry="112.5"/>
+    <ellipse style="fill: rgba(69, 109, 255, 0.4)" cx="250" cy="325" rx="112.5" ry="112.5"/>
 </svg>

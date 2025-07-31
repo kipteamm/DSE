@@ -4,7 +4,6 @@ function selectTemplate(_templateId) {
     document.getElementById("step-2").classList.add("active");
     
     templateId = _templateId;
-    console.log(templateId)
 
     document.getElementById("warning").innerText = "You must provide a value for all categories.";
     document.getElementById("page-templates").classList.remove("active");
@@ -15,6 +14,9 @@ function selectTemplate(_templateId) {
     page.classList.add(templateId);
 
     loadTemplate(page);
+
+    if (templateId === "venn3" || templateId === "venn2") categories[4] = "%$%EMPTY%$%";
+    if (templateId === "venn2") categories[3] = "%$%EMPTY%$%";
 }
 
 function loadTemplate(elm) {
@@ -42,7 +44,8 @@ function focusCategory(input) {
     categorySettings = true;
 }
 
-categories = {1: null, 2: null, 3: null, 4: null}
+categories = {1: null, 2: null, 3: null, 4: null};
+sections = {};
 function setCategory(id, value) {
     categories[id] = value? value: null;
 
@@ -51,6 +54,7 @@ function setCategory(id, value) {
         document.getElementById("continue-btn").classList.remove("active");
         return;
     };
+
     document.getElementById("warning").innerText = "";
 
     const continueBtn = document.getElementById("continue-btn");
@@ -68,11 +72,105 @@ function setCategory(id, value) {
         };
 
         document.getElementById("warning").innerText = "You must provide a value for all sections.";
-        document.getElementById("page-" + templateId).classList.remove("active");
+        document.getElementById("page-category").classList.remove("active");
         
         this.classList.remove("active");
-        loadTemplate("page-" + templateId + "-sections")
+        const page = document.getElementById("page-sections");
+        page.classList.add("active");
+        page.classList.add(templateId);
+
+        loadTemplate(page);
+        loadSections(page);
     };
+}
+
+function loadSections(page) {
+    page.querySelectorAll("input").forEach(input => {
+        input.placeholder = input.placeholder.replace("CATEGORY_1", categories[1]);
+        input.placeholder = input.placeholder.replace("CATEGORY_2", categories[2]);
+
+        if (categories[3] !== "%$%EMPTY%$%") input.placeholder = input.placeholder.replace("CATEGORY_3", categories[3]);
+        if (categories[3] !== "%$%EMPTY%$%") input.placeholder = input.placeholder.replace("CATEGORY_4", categories[4]);
+    });
+
+    if (templateId === "venn2") sections[1] = null;
+    else if (templateId === "venn3") sections = {1: null, 2: null, 3: null, 4: null};
+    else sections = {1: null, 2: null, 3: null, 4: null, 5: null, 6: null, 7: null, 8: null, 9: null, 10: null, 11: null};
+}
+
+function setSection(elm ,id, value) {
+    sections[id] = value? value: null;
+
+    if (!sections[id]) return;
+    if (!Object.values(sections).includes(null)) {
+        document.getElementById("warning").innerText = "";
+    }
+
+    const continueBtn = document.getElementById("continue-btn");
+    continueBtn.classList.add("active");
+    continueBtn.onclick = function () {
+        this.classList.remove("active");
+        
+        elm.classList.remove("active");
+        if (Object.values(sections).includes(null)) {
+            elm.parentNode.children[id].classList.add("active");
+            return;
+        };
+
+        document.getElementById("step-3").classList.remove("active");
+        document.getElementById("step-4").classList.add("active");
+
+        const listOptions = document.getElementById("list-options");
+        listOptions.classList.add("active");
+        listOptions.scrollIntoView();
+    }
+}
+
+let options = [];
+function addOption(input) {
+    if (!input.value) return;
+
+    const elm = document.createElement("div");
+    elm.classList.add("pri-sec-con");
+    elm.classList.add("option-element");
+    elm.innerHTML = `
+        <p>${input.value}</p>
+        <iconify-icon icon="fa7-solid:circle-xmark" onclick="removeOption(this.parentNode)"></iconify-icon>
+    `;
+
+    options.push(elm);
+    document.getElementById("option-elements").appendChild(elm);
+    input.value = "";
+}
+
+function removeOption(elm) {
+    options.splice(options.indexOf(elm), 1);
+    elm.remove();
+}
+
+async function create() {
+    data = {
+        "template": templateId,
+        "categories": categories,
+        "sections": sections,
+        "options": options.map((option) => option.innerText.trim())
+    }
+
+    console.log(data);
+
+    const response = await fetch("/api/create", {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+            "Authorization": `Bearer AAAAAa`,
+            "Content-Type": "application/json"
+        }
+    });
+
+    if (!response.ok) return;
+    const json = await response.json();
+
+    document.getElementById("share_url") = `${window.location.protocol}//${window.location.host}/d/${json.id}`;
 }
 
 window.onclick = (event) => {
@@ -80,4 +178,3 @@ window.onclick = (event) => {
     if (event.target.closest("#chart-settings") || event.target.tagName === "INPUT") return;
     document.getElementById("chart-settings").classList.remove("active");
 }
-

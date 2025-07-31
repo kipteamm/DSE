@@ -6,6 +6,8 @@
     
     <title>new</title>
 
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+
     <script src="/static/js/newProject.js"></script>
 
     <link rel="stylesheet" href="/static/css/newProject.css">
@@ -28,10 +30,10 @@
 
             <div class="preview-page" id="page-category">
                 <div class="edit-chart">
-                    <input type="text" placeholder="Category 1" oninput="setCategory(1, this.value)" onfocus="focusCategory(this)">
-                    <input type="text" placeholder="Category 2" oninput="setCategory(2, this.value)" onfocus="focusCategory(this)">
-                    <input type="text" placeholder="Category 3" oninput="setCategory(3, this.value)" onfocus="focusCategory(this)">
-                    <input type="text" placeholder="Category 4" oninput="setCategory(4, this.value)" onfocus="focusCategory(this)">
+                    <input class="secondary" type="text" placeholder="Category 1" oninput="setCategory(1, this.value)" onfocus="focusCategory(this)">
+                    <input class="secondary" type="text" placeholder="Category 2" oninput="setCategory(2, this.value)" onfocus="focusCategory(this)">
+                    <input class="secondary" type="text" placeholder="Category 3" oninput="setCategory(3, this.value)" onfocus="focusCategory(this)">
+                    <input class="secondary" type="text" placeholder="Category 4" oninput="setCategory(4, this.value)" onfocus="focusCategory(this)">
 
                     <div class="chart-settings" id="chart-settings">
                         <div class="input-placeholder"></div>
@@ -55,10 +57,24 @@
 
             <div class="preview-page" id="page-sections">
                 <div class="edit-chart">
-                    <input type="text" placeholder="Category 4" oninput="setCategory(4, this.value)" onfocus="focusCategory(this)">
-                    <input type="text" placeholder="Category 1" oninput="setCategory(1, this.value)" onfocus="focusCategory(this)">
-                    <input type="text" placeholder="Category 2" oninput="setCategory(2, this.value)" onfocus="focusCategory(this)">
-                    <input type="text" placeholder="Category 3" oninput="setCategory(3, this.value)" onfocus="focusCategory(this)">
+                    <!-- 2 Set Venn Diagram -->
+                    <input class="secondary active" class="venn2 active" type="text" placeholder="CATEGORY_1 & CATEGORY_2" oninput="setSection(this, 1, this.value)">
+                    
+                    <!-- 3 Set Venn Diagram -->
+                    <input class="secondary" class="venn3" type="text" placeholder="CATEGORY_1 & CATEGORY_3" oninput="setSection(this, 2, this.value)">
+                    <input class="secondary" class="venn3" type="text" placeholder="CATEGORY_2 & CATEGORY_3" oninput="setSection(this, 3, this.value)">
+                    <input class="secondary" class="venn3" type="text" placeholder="CATEGORY_1 & CATEGORY_2 & CATEGORY_3" oninput="setSection(this, 4, this.value)">
+                    
+                    <!-- 4 Set Venn Diagram -->
+                    <input class="secondary" class="venn4" type="text" placeholder="CATEGORY_1 & CATEGORY_4" oninput="setSection(this, 5, this.value)">
+                    <input class="secondary" class="venn4" type="text" placeholder="CATEGORY_2 & CATEGORY_4" oninput="setSection(this, 6, this.value)">
+                    <input class="secondary" class="venn4" type="text" placeholder="CATEGORY_3 & CATEGORY_4" oninput="setSection(this, 7, this.value)">
+                    
+                    <input class="secondary" class="venn4" type="text" placeholder="CATEGORY_1 & CATEGORY_2 & CATEGORY_4" oninput="setSection(this, 8, this.value)">
+                    <input class="secondary" class="venn4" type="text" placeholder="CATEGORY_1 & CATEGORY_3 & CATEGORY_4" oninput="setSection(this, 9, this.value)">
+                    <input class="secondary" class="venn4" type="text" placeholder="CATEGORY_2 & CATEGORY_3 & CATEGORY_4" oninput="setSection(this, 10, this.value)">
+                    
+                    <input class="secondary" class="venn4" type="text" placeholder="CATEGORY_1 & CATEGORY_2 & CATEGORY_3 & CATEGORY_4" oninput="setSection(this, 11, this.value)">
                 </div>
             </div>
         </div>
@@ -108,7 +124,23 @@
     </header>
 
     <section class="content list-options" id="list-options">
-        OLA SENOR
+        <div class="pri-sec-con final active">
+            <div class="sec">
+                <b>List options</b>
+                <p class="secondary">Make a list with all the options.</p>
+            </div>
+            <div class="divider"></div>
+            <div class="pri">
+                <button class="primary" onclick="create()">Finish & Share</button>
+            </div>
+        </div>
+
+        <div class="pri-sec-con option-input">
+            <input type="text" placeholder="Option" id="option-input" onkeydown="if(event.key === 'Enter')addOption(this);">
+            <iconify-icon icon="fa7-solid:circle-plus" onclick="addOption(document.getElementById('option-input'))"></iconify-icon>
+        </div>
+
+        <div class="option-elements" id="option-elements"></div>
     </section>
 </body>
 </html>
