@@ -8,6 +8,13 @@
 @font-face {
     font-family: "Montserrat";
     font-style: normal;
+    font-weight: 500;
+    src: local("Montserrat"), url("/static/font/Montserrat-Medium.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "Montserrat";
+    font-style: normal;
     font-weight: 700;
     src: local("Montserrat"), url("/static/font/Montserrat-Bold.ttf") format("truetype");
 }
@@ -62,11 +69,17 @@
     --primary-clr-60: #456dff99;
     --primary-clr-40: #456dff66;
     --primary-clr-20: #456dff33;
+
+    --danger-clr: #FF5D5D;
 }
 
 * {
     margin: 0px;
     box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
 }
 
 body {
@@ -84,6 +97,39 @@ p.secondary {
 header {
     width: 100vw;
     height: 100vh;
+}
+
+input, textarea, button {
+    font-family: var(--secondary-font);
+    font-size: 16px;
+    border: none;
+    transition: .2s;
+}
+
+input, button {
+    padding: 5px 15px;
+    border-radius: 10px;
+}
+
+input {
+    border: 2px solid transparent;
+}
+
+input:focus {
+    outline: none;
+    border: 2px solid #000;
+}
+
+button.primary {
+    background: var(--primary-clr);
+    color: #fff;
+    font-weight: 500;
+    padding: 10px 20px;
+    border-radius: 50px;
+    cursor: pointer;
+}
+button.primary:hover {
+    background: var(--primary-clr-80);
 }
 
 .content {

@@ -1,8 +1,41 @@
+header {
+    overflow: hidden;
+}
+
 .preview {
     aspect-ratio: 1/1;
     position: relative;
     border: 2px solid var(--primary-bg-acc);
     border-radius: 25px;
+    /* overflow: hidden; */
+}
+
+.preview button {
+    position: absolute;
+    right: 20px;
+    bottom: -110%;
+    z-index: 2;
+}
+.preview button.active {
+    animation: bounce 1s ease;
+    animation-fill-mode: forwards;
+}
+
+.preview b {
+    position: absolute;
+    left: 20px;
+    bottom: 20px;
+    color: var(--danger-clr);
+    font-size: 14px;
+}
+
+@keyframes bounce {
+    0%   { bottom: -110%; }
+    60%  { bottom: 20px; }
+    75%  { bottom: 10px; }
+    85%  { bottom: 20px; }
+    95%  { bottom: 18px; }
+    100% { bottom: 20px; }
 }
 
 .preview-page {
@@ -14,7 +47,6 @@
     transition: .2s;
     opacity: 0;
     pointer-events: none;
-    padding: 5vw;
 }
 
 .preview-page.active {
@@ -22,7 +54,9 @@
     pointer-events: all;
 }
 
+/* STEP 1 CHART OPTIONS */
 .chart-options {
+    padding: 5vw;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
 }
@@ -38,6 +72,137 @@
     filter: brightness(0.75);
 }
 
+/* STEP 2 CATEGORIES */
+.preview-page svg,
+.edit-chart {
+    width: 100%;
+    height: 100%;
+}
+
+.edit-chart {
+    position: relative;
+}
+
+.edit-chart input {
+    position: absolute;
+    z-index: 1;
+    font-weight: bold;
+    width: 130px;
+    text-align: center;
+}
+
+.quadrant input:nth-child(1) {
+    top: 50%;
+    left: 7.5%;
+    transform: translateY(-50%);
+}
+.quadrant input:nth-child(2) {
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.quadrant input:nth-child(3) {
+    top: 50%;
+    right: 7.5%;
+    transform: translateY(-50%);
+}
+.quadrant input:nth-child(4) {
+    bottom: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.venn4 input:nth-child(1) {
+    top: 20%;
+    left: 5%;
+}
+.venn4 input:nth-child(2) {
+    top: 15%;
+    left: 25%;
+}
+.venn4 input:nth-child(3) {
+    top: 15%;
+    right: 25%;
+}
+.venn4 input:nth-child(4) {
+    top: 20%;
+    right: 5%;
+}
+
+.venn3 input:nth-child(1) {
+    top: 5%;
+    left: 15%;
+}
+.venn3 input:nth-child(2) {
+    top: 5%;
+    right: 15%;
+}
+.venn3 input:nth-child(3) {
+    bottom: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.venn3 input:nth-child(4) {
+    display: none
+}
+
+.venn2 input:nth-child(1) {
+    top: 18%;
+    left: 25%;
+}
+.venn2 input:nth-child(2) {
+    top: 18%;
+    right: 25%;
+}
+.venn2 input:nth-child(3),
+.venn2 input:nth-child(4) {
+    display: none
+}
+
+.chart-settings {
+    display: none;
+    position: absolute;
+    padding: 10px;
+    width: 150px;
+    border-radius: 15px;
+    background: var(--primary-bg);
+    margin-top: -42.4px;
+}
+.chart-settings.active {
+    display: block;
+}
+
+.chart-settings .input-placeholder {
+    height: 32.4px;
+}
+
+.chart-settings .colors {
+    margin-top: 10px;
+    gap: 5px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.chart-settings .color {
+    width: 100%;
+    aspect-ratio: 1/1;
+    border-radius: 100%;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: .2s;
+}
+.chart-settings .color:hover {
+    border-color: #000;
+}
+
+.chart-settings input {
+    display: none;
+}
+
+/* STEP 3 SECTIONS */
+
+
+/* STEPS */
 .options .pri-sec-con {
     color: var(--primary-font-clr-acc);
     transition: .2s;
@@ -50,6 +215,7 @@
 .options .pri-sec-con .pri {
     width: 15px;
     text-align: center;
+    font-size: 25px;
 }
 
 .options .pri-sec-con .divider {
@@ -59,8 +225,37 @@
     border-radius: 50px;
     margin: 0px 10px;
     transition: .2s;
+    position: relative;
 }
 
-.options .pri-sec-con.active .divider {
-    background:  #000;
+.options .pri-sec-con .divider::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 2px;
+    height: 0;
+    background: #000;
+    transition: .2s;
+}
+
+.options .pri-sec-con.active .divider::after {
+    height: 100%;
+    top: 0;
+    bottom: unset;
+}
+
+.not-step-3,
+.step-3 {
+    display: none !important;
+}
+.options:not(.step-3-active) .not-step-3,
+.step-3-active .step-3 {
+    display: flex !important;
+}
+
+.list-options {
+    display: none;
+    min-height: 100vh;
+    width: 100vw;
 }

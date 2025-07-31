@@ -6,25 +6,64 @@
     
     <title>new</title>
 
+    <script src="/static/js/newProject.js"></script>
+
     <link rel="stylesheet" href="/static/css/newProject.css">
     <link rel="stylesheet" href="/static/css/base.css">
 </head>
 <body>
     <header class="content even-con">
         <div class="preview cen-con">
-            <div class="preview-page active">
+            <button class="primary" id="continue-btn">Continue</button>
+            <b id="warning"></b>
+
+            <div class="preview-page active" id="page-templates">
                 <div class="chart-options">
-                    <img src="/static/icons/quadrant_chart.svg">
-                    <img src="/static/icons/venn_4.svg">
-                    <img src="/static/icons/venn_3.svg">
-                    <img src="/static/icons/venn_2.svg">
+                    <img src="/static/icons/quadrant.svg" onclick="selectTemplate('quadrant')">
+                    <img src="/static/icons/venn4.svg" onclick="selectTemplate('venn4')">
+                    <img src="/static/icons/venn3.svg" onclick="selectTemplate('venn3')">
+                    <img src="/static/icons/venn2.svg" onclick="selectTemplate('venn2')">
                 </div>
             </div>
-            <div class="preview-page"></div>
-            <div class="preview-page"></div>
+
+            <div class="preview-page" id="page-category">
+                <div class="edit-chart">
+                    <input type="text" placeholder="Category 1" oninput="setCategory(1, this.value)" onfocus="focusCategory(this)">
+                    <input type="text" placeholder="Category 2" oninput="setCategory(2, this.value)" onfocus="focusCategory(this)">
+                    <input type="text" placeholder="Category 3" oninput="setCategory(3, this.value)" onfocus="focusCategory(this)">
+                    <input type="text" placeholder="Category 4" oninput="setCategory(4, this.value)" onfocus="focusCategory(this)">
+
+                    <div class="chart-settings" id="chart-settings">
+                        <div class="input-placeholder"></div>
+
+                        <div class="colors">
+                            <div class="color" style="background:#456dff;"></div>  <!-- blue -->
+                            <div class="color" style="background:#7A45FF;"></div>  <!-- violet -->
+                            <div class="color" style="background:#D745FF;"></div>  <!-- magenta -->
+                            <div class="color" style="background:#FF6A45;"></div>  <!-- orange-red -->
+                            <div class="color" style="background:#FFA645;"></div>  <!-- golden orange -->
+                            <div class="color" style="background:#f7ec1f;"></div>  <!-- coral pink -->
+                            <div class="color" style="background:#14aa5a;"></div>  <!-- hot pink -->
+
+                            <label for="color-picker" class="color" style="background:var(--primary-bg-acc);">
+                                <input type="color" name="color-picker" id="color-picker">
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="preview-page" id="page-sections">
+                <div class="edit-chart">
+                    <input type="text" placeholder="Category 4" oninput="setCategory(4, this.value)" onfocus="focusCategory(this)">
+                    <input type="text" placeholder="Category 1" oninput="setCategory(1, this.value)" onfocus="focusCategory(this)">
+                    <input type="text" placeholder="Category 2" oninput="setCategory(2, this.value)" onfocus="focusCategory(this)">
+                    <input type="text" placeholder="Category 3" oninput="setCategory(3, this.value)" onfocus="focusCategory(this)">
+                </div>
+            </div>
         </div>
-        <div class="options col-con">
-            <div class="pri-sec-con active">
+        <div class="options col-con step-3-active" id="steps">
+            <div class="pri-sec-con active" id="step-1">
                 <div class="pri">
                     <h2>1</h2>
                 </div>
@@ -34,7 +73,7 @@
                     <p class="secondary">Select what you would like to work with.</p>
                 </div>
             </div>
-            <div class="pri-sec-con">
+            <div class="pri-sec-con" id="step-2">
                 <div class="pri">
                     <h2>2</h2>
                 </div>
@@ -44,7 +83,7 @@
                     <p class="secondary">Choose the categories of your diagram.</p>
                 </div>
             </div>
-            <div class="pri-sec-con">
+            <div class="pri-sec-con step-3" id="step-3">
                 <div class="pri">
                     <h2>3</h2>
                 </div>
@@ -54,9 +93,10 @@
                     <p class="secondary">Name the different sections created by your diagram.</p>
                 </div>
             </div>
-            <div class="pri-sec-con">
+            <div class="pri-sec-con" id="step-4">
                 <div class="pri">
-                    <h2>4</h2>
+                    <h2 class="step-3">4</h2>
+                    <h2 class="not-step-3">3</h2>
                 </div>
                 <div class="divider"></div>
                 <div class="sec">
@@ -66,5 +106,9 @@
             </div>
         </div>
     </header>
+
+    <section class="content list-options" id="list-options">
+        OLA SENOR
+    </section>
 </body>
 </html>
