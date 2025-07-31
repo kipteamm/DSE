@@ -1,0 +1,66 @@
+.preview {
+    aspect-ratio: 1/1;
+    position: relative;
+    border: 2px solid var(--primary-bg-acc);
+    border-radius: 25px;
+}
+
+.preview-page {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transition: .2s;
+    opacity: 0;
+    pointer-events: none;
+    padding: 5vw;
+}
+
+.preview-page.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.chart-options {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.chart-options img {
+    width: 100%;
+    aspect-ratio: 1/1;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.chart-options img:hover {
+    filter: brightness(0.75);
+}
+
+.options .pri-sec-con {
+    color: var(--primary-font-clr-acc);
+    transition: .2s;
+}
+
+.options .pri-sec-con.active {
+    color: var(--primary-font-clr);
+}
+
+.options .pri-sec-con .pri {
+    width: 15px;
+    text-align: center;
+}
+
+.options .pri-sec-con .divider {
+    width: 2px;
+    height: 50px;
+    background: var(--primary-bg-acc);
+    border-radius: 50px;
+    margin: 0px 10px;
+    transition: .2s;
+}
+
+.options .pri-sec-con.active .divider {
+    background:  #000;
+}

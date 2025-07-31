@@ -1,0 +1,126 @@
+@font-face {
+    font-family: "Montserrat";
+    font-style: normal;
+    font-weight: 400;
+    src: local("Montserrat"), url("/static/font/Montserrat-Regular.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "Montserrat";
+    font-style: normal;
+    font-weight: 700;
+    src: local("Montserrat"), url("/static/font/Montserrat-Bold.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "CoFo Robert";
+    font-style: normal;
+    font-weight: 400;
+    src: local("CoFo Robert Regular"), url("/static/font/CoFo_Robert-Regular.woff") format("woff");
+}
+
+@font-face {
+    font-family: "CoFo Robert";
+    font-style: normal;
+    font-weight: 500;
+    src: local("CoFo Robert Medium"), url("/static/font/CoFo_Robert-Medium.woff") format("woff");
+}
+
+@font-face {
+    font-family: "CoFo Robert";
+    font-style: normal;
+    font-weight: 700;
+    src: local("CoFo Robert Bold"), url("/static/font/CoFo_Robert-Bold.woff") format("woff");
+}
+
+@font-face {
+    font-family: "CoFo Robert";
+    font-style: normal;
+    font-weight: 800;
+    src: local("CoFo Robert Heavy"), url("/static/font/CoFo_Robert-Heavy.woff") format("woff");
+}
+
+@font-face {
+    font-family: "CoFo Robert";
+    font-style: normal;
+    font-weight: 900;
+    src: local("CoFo Robert Black"), url("/static/font/CoFo_Robert-Black.woff") format("woff");
+}
+
+:root {
+    --primary-font: "CoFo Robert";
+    --secondary-font: "Montserrat";
+
+    --primary-font-clr: #000;
+    --primary-font-clr-acc: #666;
+
+    --primary-bg: #fff;
+    --primary-bg-acc: #e2e2e2;
+
+    --primary-clr: #456dff;
+    --primary-clr-80: #456dffcc;
+    --primary-clr-60: #456dff99;
+    --primary-clr-40: #456dff66;
+    --primary-clr-20: #456dff33;
+}
+
+* {
+    margin: 0px;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--secondary-font);
+}
+
+h1, h2, h3 {
+    font-family: var(--primary-font);
+}
+
+p.secondary {
+    color: var(--primary-font-clr-acc)
+}
+
+header {
+    width: 100vw;
+    height: 100vh;
+}
+
+.content {
+    max-width: 1200px;
+    margin: 0px auto;
+}
+
+.pri-sec-con,
+.even-con,
+.col-con,
+.cen-con {
+    display: flex;
+}
+
+.pri-sec-con,
+.even-con,
+.cen-con {
+    align-items: center;
+}
+
+.pri-sec-con {
+    gap: 10px;
+}
+
+.cen-con {
+    justify-content: center;
+}
+
+.even-con,
+.col-con {
+    gap: 20px;
+}
+
+.even-con > div {
+    flex: 1;
+}
+
+.col-con {
+    flex-direction: column;
+}
