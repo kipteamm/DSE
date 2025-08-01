@@ -17,7 +17,6 @@ class Project(Model):
     options = db.Column(db.Text(10000), nullable=False)
 
     last_edit_timestamp = db.Column(db.Float(), nullable=False)
-    creation_timestamp = db.Column(db.Float(), nullable=False)
 
     def __init__(self, name: str, user_id: str, template_id: str, categories: str, sections: str, options: str):
         self.name = name
@@ -27,4 +26,17 @@ class Project(Model):
         self.sections = sections
         self.options = options
         self.last_edit_timestamp = time.time()
-        self.creation_timestamp = time.time()
+
+
+class Submission(Model):
+    __tablename__ = "submissions"
+
+    user_id = db.Column(db.String(128), db.ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
+    project_id = db.Column(db.String(128), db.ForeignKey("projects.id", ondelete="CASCADE"), nullable=False)
+
+    submissions = db.Column(db.Text(10000), nullable=False)
+
+    def __init__(self, user_id: str, project_id: str, submissions: str) -> None:
+        self.user_id = user_id
+        self.project_id = project_id
+        self.submissions = submissions

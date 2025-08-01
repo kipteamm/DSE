@@ -1,6 +1,6 @@
 from project.auth.models import User
 from project.auth.views import auth_blueprint
-from project.extensions import db, mail, oauth
+from project.extensions import db, mail, oauth, cache
 from project.api.views import api_blueprint
 from project.app.views import app_blueprint
 from project.secrets import MAIL_PASSWORD, SECRET_KEY
@@ -33,6 +33,7 @@ def create_app():
 
     migrate.init_app(app, db)
     oauth.init_app(app)
+    cache.init_app(app)
     mail.init_app(app)
     db.init_app(app)
 

@@ -1,4 +1,4 @@
-from project.app.models import Project
+from project.app.models import Project, Submission
 
 from flask_login import login_required, current_user
 from flask import Blueprint, render_template, request, redirect, url_for
@@ -26,19 +26,11 @@ def create():
 
 @app_blueprint.get("/a/<string:id>")
 def diagram(id):
-    project = Project.query.with_entities(Project.template_id).filter_by(id=id).first()
+    project = Project.query.with_entities(Project.template_id).filter_by(id=id).first() # type: ignore
     
     if not project:
         return render_template("app/not_found.html")
 
-    return render_template("app/diagram.html", user=current_user, id=id, next="/a/" + id, template=project[0])
-    if project[0] == "quadrant":
-        return render_template("diagrams/quadrant.html", user=current_user, id=id, next="/a/" + id)
-    
-    if project[0] == "venn4":
-        return render_template("diagrams/venn4.html", user=current_user, id=id, next="/a/" + id)
-    
-    if project[0] == "venn3":
-        return render_template("diagrams/venn3.html", user=current_user, id=id, next="/a/" + id)
+    answered = Submission.query.with_entities(Submission.id).filter_by(project_id=id, user_id=current_user.id).first() # type: ignore
 
-    return render_template("diagrams/venn2.html", user=current_user, id=id, next="/a/" + id)
+    return render_template("app/diagram.html", user=current_user, id=id, next="/a/" + id, template=project[0], answered=answered != None)

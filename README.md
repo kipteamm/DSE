@@ -1,0 +1,1 @@
+celery -A project.extensions.celery worker --loglevel=info

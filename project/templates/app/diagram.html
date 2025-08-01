@@ -13,6 +13,7 @@
     
     <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
     <script>
+        const answered = {% if answered %}true{% else %}false{% endif %};
         const template = "{{ template }}";
         const userId = {% if user.is_authenticated %}"{{ user.id }}"{% else %}null{% endif %};
         const id = "{{ id }}";

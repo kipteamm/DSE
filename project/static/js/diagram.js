@@ -48,7 +48,11 @@ async function loadDiagram() {
 
         main.appendChild(elm);
     }
+}
 
+async function prepareSubmissions() {
+    await loadDiagram();
+    
     options = json.options;
     shuffle(options);
     
@@ -71,7 +75,10 @@ function diagramInit() {
     main = document.getElementById("main");
     item = document.getElementById("item");
 
-    if (userId) return loadDiagram();
+    if (userId) {
+        if (answered) return loadAnswers();
+        return prepareSubmissions();
+    }
     toggleModal("auth");
 }
 
@@ -169,9 +176,14 @@ function skip() {
 }
 
 async function submit() {
+    document.getElementById("loading").style.display = "flex";
+    document.getElementById("loading-text").innerText = "Parsing results";
+    main.classList.add("anwered")
+    main.classList.remove("active");
+    
     const response = await fetch(`/api/diagram/${id}/submit`, {
         method: "POST",
-        body: JSON.stringify(placements),
+        body: JSON.stringify({"submissions": placements}),
         headers: {
             "Content-Type": "application/json",
             "Authorization": `Bearer ${getCookie("i_t")}`
@@ -183,14 +195,64 @@ async function submit() {
     const trackId = json.track_id;
 
     const pollStatus = async () => {
-        const response = await fetch(`/api/diagram/${id}/answers`, {headers: {"Authorization": `Bearer ${getCookie("i_t")}`}});
-        if (!response.ok) return;
+        const response = await fetch(`/api/diagram/${id}/answers?tracking=true`, {headers: {"Authorization": `Bearer ${getCookie("i_t")}`}});
+        if (response.status === 403 || response.status === 204) return setTimeout(pollStatus, 1000);
+        else if (!response.ok) return;
         
         const json = await response.json();
-        if (json.status === trackId) return loadAnswers(json);
+        if (json.__track_id === trackId) return parseAnswers(json);
 
         setTimeout(pollStatus, 1000);
     };
 
     pollStatus();
+}
+
+async function loadAnswers() {
+    const response = await fetch(`/api/diagram/${id}/answers`, {headers: {"Authorization": `Bearer ${getCookie("i_t")}`}});
+    if (!response.ok) return;
+
+    const json = await response.json();
+    parseAnswers(json);
+
+    await loadDiagram();
+
+    document.getElementById("loading").style.display = "none";
+    main.classList.add("answered")
+    main.classList.add("active");
+}
+
+let orderedData = {};
+function parseAnswers(data) {
+    document.querySelectorAll("li").forEach(element => { element.remove() });
+
+    for (const [key, positions] of Object.entries(data)) {
+        if (key === "__track_id") continue;
+
+        const medianTop = calculateMedian(positions.top);
+        const medianLeft = calculateMedian(positions.left);
+
+        orderedData[key] = {
+            "top": positions.top,
+            "left": positions.left,
+            "median_top": medianTop,
+            "media_left": medianLeft
+        }
+
+        const elm = document.createElement("li");
+        elm.innerText = key;
+        elm.style.top = medianTop + "%";
+        elm.style.left = medianLeft + "%";
+
+        main.appendChild(elm);
+    }
+
+    document.getElementById("loading").style.display = "none";
+    main.classList.add("active");
+}
+
+function calculateMedian(array) {
+    if (array.length % 2 !== 0) return array[Math.floor(array.length / 2)];
+
+    return (array[array.length / 2 - 1] + array[array.length / 2]) / 2;
 }

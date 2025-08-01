@@ -1,11 +1,14 @@
 from project.auth.decorators import authorized
 from project.utils.responses import Errors
-from project.api.functions import parse_diagram
-from project.app.models import Project
-from project.extensions import db
-from project.api.body import NewProjectBody
+from project.api.functions import parse_diagram, proccess_placement, cache_submissions
+from project.app.models import Project, Submission
+from project.extensions import db, cache
+from project.utils.db import generate_uuid
+from project.api.body import NewProjectBody, SubmissionsBody
 
-from flask import Blueprint, g, request
+from flask import Blueprint, g, request, current_app
+
+import threading
 
 
 api_blueprint = Blueprint("api", __name__, url_prefix="/api")
@@ -48,3 +51,60 @@ def get_diagram(id):
         "sections": {i + 1: v for i, v in enumerate(project[1].split("||"))},
         "options": project[2].split("||")
     }
+
+
+@api_blueprint.post("/diagram/<string:id>/submit")
+@authorized()
+def submit(id):
+    body = SubmissionsBody(request.json)
+    if not body.is_valid():
+        return body.error, 400
+
+    if Submission.query.with_entities(Submission.id).filter_by(project_id=id, user_id=g.user.id).first(): # type: ignore
+        return Errors.ALREADY_ANSWERED.as_dict(), 403
+    
+    project = Project.query.with_entities(Project.options).filter_by(id=id).first() # type: ignore
+    
+    if not project:
+        return Errors.PROJECT_NOT_FOUND.as_dict(), 404
+    
+    options = project[0].split("||")
+    data = []
+
+    for key, value in body.submissions.items():
+        if not key in options:
+            return Errors.INVALID_OPTION.as_dict(), 400
+        
+        data.append(f"{key}``{value}")
+
+    track_id = generate_uuid()
+    threading.Thread(
+        target=proccess_placement,
+        args=(current_app._get_current_object(), g.user.id, id, track_id, data)
+    ).start()
+
+
+    return {"track_id": track_id}, 200
+
+
+@api_blueprint.get("/diagram/<string:id>/answers")
+@authorized()
+def answers(id):
+    if not Submission.query.with_entities(Submission.id).filter_by(project_id=id, user_id=g.user.id).first(): # type: ignore
+        return Errors.NOT_ANSWERED.as_dict(), 403
+
+    project = Project.query.with_entities(Project.options).filter_by(id=id).first() # type: ignore
+    
+    if not project:
+        return Errors.PROJECT_NOT_FOUND.as_dict(), 404
+    
+    tracking = request.args.get("tracking", "false") == "true"
+    data = cache.get(f"answers:{id}")
+
+    if not data:
+        if tracking:
+            return {"tracking": True}, 204
+
+        return cache_submissions(id), 200
+
+    return data, 200

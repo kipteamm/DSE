@@ -40,6 +40,9 @@ class Errors(Response):
     PROJECT_NOT_FOUND = (4018, "Project not foun.")
     NOT_ENOUGH_CATEGORIES = (4019, "Not enough categories.")
     NOT_ENOUGH_SECTIONS = (4020, "Not enough sections.")
+    INVALID_OPTION = (4021, "Invalid option.")
+    NOT_ANSWERED = (4022, "You hacce not yet answered this project yourself and therefore you have no access.")
+    ALREADY_ANSWERED = (4023, "You already answered to this project.")
 
 
 class Success(Response):

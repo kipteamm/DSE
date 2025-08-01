@@ -8,3 +8,7 @@ class NewProjectBody(BodySchema):
     categories: dict = BodyField("categories", dict, True)
     sections: dict = BodyField("sections", dict, True)
     options: list = BodyField("options", list, True, 1, 1000)
+
+
+class SubmissionsBody(BodySchema):
+    submissions: dict = BodyField("submissions", dict, True)

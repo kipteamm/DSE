@@ -1,5 +1,62 @@
 from project.utils.responses import Errors
+from project.extensions import db, cache
+from project.app.models import Submission
+from project.utils.db import generate_uuid
 from project.api.body import NewProjectBody
+
+from collections import defaultdict
+
+
+def proccess_placement(app, user_id: str, project_id: str, track_id: str, data: list[str]) -> None:
+    with app.app_context(): 
+        submission = Submission(user_id, project_id, "||".join(data))
+        db.session.add(submission)
+        db.session.commit()
+
+        cache_data: dict[str, dict[str, list[int]]] = {}
+        submissions = Submission.query.with_entities(Submission.submissions).filter_by(project_id=project_id).all() # type: ignore
+
+        for _submission in submissions:
+            _submission = _submission[0].split("||")
+            
+            for _entry in _submission:
+                entry = _entry.split("``")
+                pos = entry[1].split("%")
+
+                if not entry[0] in cache_data:
+                    cache_data[entry[0]]["top"] = pos[0]
+                    cache_data[entry[0]]["left"] = pos[1]
+                    continue
+
+                cache_data[entry[0]]["top"].append(pos[0])
+                cache_data[entry[0]]["left"].append(pos[1])
+
+        cache_data["__track_id"] = track_id # type: ignore
+        cache.set(f"answers:{project_id}", cache_data, timeout=3600)
+        print("???")
+
+
+def cache_submissions(project_id: str) -> dict:
+    submissions = Submission.query.with_entities(Submission.submissions).filter_by(project_id=project_id).all() # type: ignore
+    cache_data: dict[str, dict[str, list[int]]] = {}
+
+    for _submission in submissions:
+        _submission = _submission[0].split("||")
+        
+        for _entry in _submission:
+            entry = _entry.split("``")
+            pos = entry[1].split("%")
+
+            if not entry[0] in cache_data:
+                cache_data[entry[0]] = {"top": [], "left": []}
+
+            cache_data[entry[0]]["top"].append(pos[0])
+            cache_data[entry[0]]["left"].append(pos[1])
+
+    cache_data["__track_id"] = generate_uuid() # type: ignore
+    cache.set(f"answers:{project_id}", cache_data, timeout=3600)
+
+    return cache_data
 
 
 def _get_sections(body: NewProjectBody, categories: int, project: dict[str, list]) -> tuple[bool, dict | None]:
@@ -20,6 +77,9 @@ def _get_sections(body: NewProjectBody, categories: int, project: dict[str, list
 
         if "||" in section:
             return False, Errors.INTERNAL_CHARACTERS_USED.as_dict({"field": "section", "characters": "||"})
+        
+        if "``" in section:
+            return False, Errors.INTERNAL_CHARACTERS_USED.as_dict({"field": "section", "characters": "``"})
 
         project["sections"].append(section)
     
@@ -54,6 +114,9 @@ def parse_diagram(body: NewProjectBody) -> tuple[bool, dict]:
         
         if "||" in name:
             return False, Errors.INTERNAL_CHARACTERS_USED.as_dict({"field": "category", "characters": "||"})
+        
+        if "``" in name:
+            return False, Errors.INTERNAL_CHARACTERS_USED.as_dict({"field": "category", "characters": "``"})
 
         colour = value["colour"]
         if not colour:
@@ -80,6 +143,9 @@ def parse_diagram(body: NewProjectBody) -> tuple[bool, dict]:
         
         if "||" in option:
             return False, Errors.INTERNAL_CHARACTERS_USED.as_dict({"field": "option", "characters": "||"})
+
+        if "``" in option:
+            return False, Errors.INTERNAL_CHARACTERS_USED.as_dict({"field": "option", "characters": "``"})
 
         project["options"].append(option)
 

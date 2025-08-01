@@ -68,6 +68,9 @@ main p {
     font-size: 14px;
     color: var(--primary-font-clr-acc);
 }
+main.answered p {
+    display: none;
+}
 
 .actions {
     position: absolute;
@@ -75,6 +78,9 @@ main p {
     top: 3%;
     width: 100%;
     left: 0;
+}
+main.answered .actions {
+    display: none;
 }
 
 .actions .option {
