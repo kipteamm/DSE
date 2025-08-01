@@ -71,6 +71,7 @@ async function prepareSubmissions() {
 let item;
 let option;
 let counter;
+let searchOptions;
 function diagramInit() {
     main = document.getElementById("main");
     item = document.getElementById("item");
@@ -214,11 +215,18 @@ async function loadAnswers() {
 
     const json = await response.json();
     parseAnswers(json);
-
+    
+    main.classList.add("answered")
     await loadDiagram();
 
     document.getElementById("loading").style.display = "none";
-    main.classList.add("answered")
+    document.addEventListener("click", (event) => {
+        if (event.target.closest(".search")) return;
+        searchOptions.classList.remove("active");
+    });
+
+    searchOptions = document.getElementById("search-options");
+
     main.classList.add("active");
 }
 
@@ -235,11 +243,12 @@ function parseAnswers(data) {
         orderedData[key] = {
             "top": positions.top,
             "left": positions.left,
-            "median_top": medianTop,
-            "media_left": medianLeft
+            "medianTop": medianTop,
+            "medianLeft": medianLeft
         }
 
         const elm = document.createElement("li");
+        elm.setAttribute("onclick", `itemClick('${key}')`)
         elm.innerText = key;
         elm.style.top = medianTop + "%";
         elm.style.left = medianLeft + "%";
@@ -255,4 +264,56 @@ function calculateMedian(array) {
     if (array.length % 2 !== 0) return array[Math.floor(array.length / 2)];
 
     return (array[array.length / 2 - 1] + array[array.length / 2]) / 2;
+}
+
+function toggleVisible() {
+    main.classList.toggle("hide");
+}
+
+function searchItem(item) {
+    searchOptions.innerHTML = "";
+    
+    let content = false;
+    for (const key of Object.keys(orderedData)) {
+        if (!item) break;
+        if (!key.toLowerCase().includes(item.toLowerCase())) continue;
+        searchOptions.innerHTML += `<div onclick="itemClick('${key}')">${key.replaceAll("_", " ")}</div>`
+        content = true;
+    }
+
+    searchOptions.classList.toggle("active", content);
+}
+
+function itemClick(item) {
+    main.classList.toggle("hide");
+
+    if (!main.classList.contains("hide")) {
+        document.querySelectorAll(".temp").forEach(elm => {elm.remove()});
+        return;
+    };
+    const data = orderedData[item];
+
+    const elm = document.createElement("li");
+    elm.setAttribute("onclick", `itemClick('${item}')`)
+    elm.classList.add("specific");
+    elm.classList.add("median");
+    elm.classList.add("temp");
+    elm.innerText = item;
+    elm.style.top = data.medianTop + "%";
+    elm.style.left = data.medianLeft + "%";
+
+    main.appendChild(elm); 
+
+    if (data.top.length === 1) return;
+    for (let i = 0; i < data.top.length; i++) {
+        const elm = document.createElement("li");
+        elm.setAttribute("onclick", `itemClick('${item}')`)
+        elm.classList.add("specific"); 
+        elm.classList.add("temp"); 
+        elm.innerText = item;
+        elm.style.top = data.top[i] + "%";
+        elm.style.left = data.left[i] + "%";
+
+        main.appendChild(elm);   
+    }  
 }

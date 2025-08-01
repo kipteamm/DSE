@@ -38,12 +38,18 @@
     <span class="item" id="item"></span>
 
     <main id="main">
-        <div class="even-con actions">
+        <div class="even-con actions submit-actions">
             <button class="secondary" id="counter" disabled>0</button>
             <button class="secondary option" id="option" onclick="togglePlacing(event, this)"></button>
             <button class="secondary" onclick="skip()">Skip</button>
             <button class="primary" onclick="submit()">Finish</button>
         </div>
+        <div class="even-con actions answer-actions search">
+            <input type="text" placeholder="Search name..." oninput="searchItem(this.value)">
+            <button class="secondary" onclick="toggleVisible()"><iconify-icon icon="fa6-solid:eye"></iconify-icon></button>
+        </div>
+
+        <div class="search-options search" id="search-options"></div>
 
         <p>
             Click the name up top and place them on the diagram.<br>

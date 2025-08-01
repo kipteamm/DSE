@@ -79,12 +79,18 @@ main.answered p {
     width: 100%;
     left: 0;
 }
-main.answered .actions {
+main.answered .submit-actions {
+    display: none;
+}
+main:not(.answered) .answer-actions {
     display: none;
 }
 
 .actions .option {
     flex: 1;
+}
+.actions input {
+    padding: 10px 20px;
 }
 
 .item {
@@ -99,6 +105,7 @@ li,
     border-radius: 50px;
     font-weight: 500;
     background: #e2e2e299;
+    user-select: none;
 }
 .item.active {
     display: inline-block;
@@ -108,8 +115,40 @@ li {
     position: absolute;
     margin: -5px -15px;
 }
+main.hide li:not(.specific) {
+    display: none;
+}
+li.median {
+    background: var(--primary-clr);
+}
 
 button:disabled {
     color: #000;
+    background: var(--primary-bg-80);
+}
+
+.search-options {
+    position: absolute;
+    display: none;
+    top: calc(3% + 50px);
+    max-height: 50vh;
+    background: var(--primary-bg);
+    border: 2px solid var(--primary-bg-80);
+    width: 50%;
+    z-index: 1000;
+    border-radius: 15px;
+    overflow: hidden;
+}
+.search-options.active {
+    display: block;
+}
+
+.search-options > div {
+    font-weight: 500;
+    cursor: pointer;
+    padding: 20px;
+    transition: .2s;
+}
+.search-options > div:hover {
     background: var(--primary-bg-80);
 }
