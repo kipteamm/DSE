@@ -23,3 +23,4 @@ class Model(db.Model):
     @property
     def created_at(self) -> datetime:
         return self._created_at.replace(tzinfo=timezone.utc)
+    

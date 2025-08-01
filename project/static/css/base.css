@@ -72,6 +72,7 @@
     --primary-clr-20: #456dff33;
 
     --danger-clr: #FF5D5D;
+    --danger-clr-80: #cf3838;
 }
 
 * {
@@ -167,6 +168,16 @@ button.tertiary:hover {
     color: var(--primary-font-clr);
 }
 
+button.danger {
+    background: var(--danger-clr);
+    border-color: var(--danger-clr);
+    color: #fff;
+}
+button.danger:hover {
+    background: var(--danger-clr-80);
+    border-color: var(--danger-clr-80);
+}
+
 .dark-overlay {
     position: fixed;
     width: 100vw;
@@ -213,7 +224,8 @@ button.tertiary:hover {
     gap: 20px;
 }
 
-.even-con > div {
+.even-con > div,
+.even-con > button {
     flex: 1;
 }
 
@@ -240,4 +252,13 @@ button.tertiary:hover {
 
 .modal h2{
     text-align: center;
+}
+
+.modal span.close {
+    position: absolute;
+    right: 2vw;
+    top: 1vw;
+    font-size: 30px;
+    font-weight: bold;
+    cursor: pointer;
 }

@@ -1,6 +1,7 @@
 from project.auth.decorators import authorized
 from project.utils.responses import Errors
 from project.api.functions import parse_diagram, proccess_placement, cache_submissions
+from project.auth.models import User
 from project.app.models import Project, Submission
 from project.extensions import db, cache
 from project.utils.db import generate_uuid
@@ -80,7 +81,7 @@ def submit(id):
     track_id = generate_uuid()
     threading.Thread(
         target=proccess_placement,
-        args=(current_app._get_current_object(), g.user.id, id, track_id, data)
+        args=(current_app._get_current_object(), g.user.id, id, track_id, data) # type: ignore
     ).start()
 
 
@@ -108,3 +109,30 @@ def answers(id):
         return cache_submissions(id), 200
 
     return data, 200
+
+
+@api_blueprint.get("/diagram/<string:id>/submissions")
+@authorized()
+def submissions(id):
+    project = Project.query.with_entities(Project.options).filter_by(id=id, user_id=g.user.id).first() # type: ignore
+    
+    if not project:
+        return Errors.PROJECT_NOT_FOUND.as_dict(), 404
+    
+    data = cache.get(f"submissions:{id}")
+    if data:
+        return data, 200
+
+    results = (
+        db.session.query(Submission.id, Submission._created_at, User.email) # type: ignore
+        .join(User, Submission.user_id == User.id)
+        .filter(Submission.project_id == id)
+        .all()
+    )
+    data = []
+
+    for result in results:
+        data.append({"id": result[0], "created_at": result[1], "email": result[2]})
+
+    cache.set(f"submissions:{id}", data, timeout=600)
+    return {"submissions": data}, 200

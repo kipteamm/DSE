@@ -16,7 +16,24 @@
 <body>
     <div class="dark-overlay" id="dark-overlay"></div>
 
+    <div class="modal col-con" id="profile-modal">
+        <span class="close" onclick="toggleModal('profile')">&times;</span>
+        <h2>{{ current_user.email }}</h2>
+        <div class="divider"></div>
+
+        <p>
+            Request your data. You will recieve an email with all data associated to your account. 
+        </p>
+        <button class="secondary">Request data</button>
+        <p>
+            This is a permanent action. You're data will be kept for 15 days for legal compliance reasons. <a href="/privacy-policy">Read more</a>
+        </p>
+        <button class="danger">Delete account</button>
+        <button class="primary" onclick="window.location.href='/logout'">Log out</button>
+    </div>
+
     <div class="modal col-con create" id="create-modal">
+        <span class="close" onclick="toggleModal('create')">&times;</span>
         <h2>Create new project</h2>
         <p>
             Name your project and pick a template of your choosing, or continue without one.
@@ -34,6 +51,13 @@
                 <h3>Nerdyness</h3>
                 <button class="primary" onclick="createProject(false, 'Nerdyness')">Continue</button>
             </div>
+        </div>
+    </div>
+
+    <div class="modal col-con" id="project-modal">
+        <h2>Loading submissions</h2>
+        <div class="cen-con">
+            <div class="loader"></div>
         </div>
     </div>
 

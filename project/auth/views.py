@@ -36,7 +36,7 @@ oauth.register(
 
 @auth_blueprint.get("/login")
 def login():
-    return render_template("auth/login.html")
+    return render_template("auth/login.html", next="/app")
 
 
 @auth_blueprint.get("/logout")

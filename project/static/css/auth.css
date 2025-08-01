@@ -12,6 +12,7 @@ main {
 .pri-sec-con p {
     text-align: center;
     flex: 1;
+    margin-left: -22px;
 }
 
 .pri-sec-con.email {
