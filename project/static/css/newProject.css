@@ -357,7 +357,7 @@ header {
 
 .option-input iconify-icon {
     font-size: 25px;
-    color: var(--primary-bg-80);
+    color: var(--primary-font-clr-acc);
     transition: .2s;
     cursor: pointer;
 }
@@ -386,7 +386,7 @@ header {
 }
 .option-element iconify-icon {
     font-size: 20px;
-    color: var(--primary-bg-80);
+    color: var(--primary-font-clr-acc);
     transition: .2s;
 }
 .option-element iconify-icon:hover {

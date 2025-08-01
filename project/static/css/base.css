@@ -211,7 +211,7 @@ button.secondary:hover {
     left: 50%;
     transform: translateX(-50%);
     max-width: 450px;
-    padding: 5vw;
+    padding: 4vw;
     width: 90vw;
     background: var(--primary-bg);
     z-index: 101;

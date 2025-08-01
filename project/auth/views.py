@@ -1,9 +1,11 @@
-from flask_login import login_user, logout_user
+from flask_login import login_user, logout_user, current_user
 from flask import Blueprint, render_template, request, redirect, url_for, make_response
 
 from project.auth.models import User
 from project.extensions import oauth
 from project.secrets import GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, FACEBOOK_CLIENT_ID, FACEBOOK_CLIENT_SECRET
+
+import json
 
 
 auth_blueprint = Blueprint("auth", __name__)
@@ -37,17 +39,26 @@ def login():
     return render_template("auth/login.html")
 
 
+@auth_blueprint.get("/logout")
+def logout():
+    logout_user()
+    return redirect("/")
+
+
 @auth_blueprint.get("/login/<string:provider>")
 def login_provider(provider: str):
-    if not provider == "google" and not provider == "facebook":
-        return redirect("/login")  
+    if provider not in ("google", "facebook"):
+        return redirect("/login")
+
+    next_url = request.args.get("next", "/")
+
+    state = json.dumps({"next": next_url})
 
     redirect_uri = url_for("auth.auth_provider", provider=provider, _external=True)
     client = oauth.create_client(provider)
-    
     assert client is not None
-    
-    return client.authorize_redirect(redirect_uri)
+
+    return client.authorize_redirect(redirect_uri, state=state)
 
 
 @auth_blueprint.route("/auth/<string:provider>")
@@ -73,10 +84,19 @@ def auth_provider(provider: str):
     if not email:
         return redirect("/login")
     
+    state = request.args.get("state", "")
+    next_url = "/app"
+
+    try:
+        data = json.loads(state)
+        next_url = data.get("next", "/app")
+    except json.JSONDecodeError:
+        pass
+    
     user = User.get_or_create(email)
     login_user(user)
 
-    response = make_response(redirect("/app"))
+    response = make_response(redirect(next_url))
     response.set_cookie("i_t", user.token, max_age=2592000) # 30 * 60 * 60 * 24
 
     return response

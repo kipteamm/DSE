@@ -1,0 +1,16 @@
+<button class="secondary pri-sec-con" onclick="window.location.href='/login/google{% if next %}?next={{ next }}{% endif %}'">
+    <iconify-icon icon="logos:google-icon"></iconify-icon>
+    <p>Continue with Google</p>
+</button>
+<button class="secondary pri-sec-con" onclick="window.location.href='/login/facebook{% if next %}?next={{ next }}{% endif %}'">
+    <iconify-icon icon="logos:facebook"></iconify-icon>
+    <p>Continue with Facebook</p>
+</button> 
+<div class="divider"><span>or</span></div>
+<div class="email pri-sec-con">
+    <iconify-icon icon="heroicons-solid:mail-open"></iconify-icon>
+    <input placeholder="Login with email">
+</div>
+<p class="disclaimer">
+    By logging in into our services you agree to our <a href="/terms-of-service">Terms</a> and <a href="/privacy-policy">Privacy</a> statemets.
+</p>
