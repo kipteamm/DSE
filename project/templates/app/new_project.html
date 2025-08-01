@@ -30,25 +30,25 @@
 
             <div class="preview-page" id="page-category">
                 <div class="edit-chart">
-                    <input class="secondary" type="text" placeholder="Category 1" oninput="setCategory(1, this.value)" onfocus="focusCategory(this)">
-                    <input class="secondary" type="text" placeholder="Category 2" oninput="setCategory(2, this.value)" onfocus="focusCategory(this)">
-                    <input class="secondary" type="text" placeholder="Category 3" oninput="setCategory(3, this.value)" onfocus="focusCategory(this)">
-                    <input class="secondary" type="text" placeholder="Category 4" oninput="setCategory(4, this.value)" onfocus="focusCategory(this)">
+                    <input class="secondary" type="text" placeholder="Category 1" id="category_1" oninput="setCategory(1, this.value)" onfocus="focusCategory(this)">
+                    <input class="secondary" type="text" placeholder="Category 2" id="category_2" oninput="setCategory(2, this.value)" onfocus="focusCategory(this)">
+                    <input class="secondary" type="text" placeholder="Category 3" id="category_3" oninput="setCategory(3, this.value)" onfocus="focusCategory(this)">
+                    <input class="secondary" type="text" placeholder="Category 4" id="category_4" oninput="setCategory(4, this.value)" onfocus="focusCategory(this)">
 
                     <div class="chart-settings" id="chart-settings">
                         <div class="input-placeholder"></div>
 
                         <div class="colors">
-                            <div class="color" style="background:#456dff;"></div>  <!-- blue -->
-                            <div class="color" style="background:#7A45FF;"></div>  <!-- violet -->
-                            <div class="color" style="background:#D745FF;"></div>  <!-- magenta -->
-                            <div class="color" style="background:#FF6A45;"></div>  <!-- orange-red -->
-                            <div class="color" style="background:#FFA645;"></div>  <!-- golden orange -->
-                            <div class="color" style="background:#f7ec1f;"></div>  <!-- coral pink -->
-                            <div class="color" style="background:#14aa5a;"></div>  <!-- hot pink -->
+                            <div class="color" style="background:#456dff;" onclick="setColour('#456dff')"></div>  <!-- blue -->
+                            <div class="color" style="background:#7A45FF;" onclick="setColour('#7A45FF')"></div>  <!-- violet -->
+                            <div class="color" style="background:#D745FF;" onclick="setColour('#D745FF')"></div>  <!-- magenta -->
+                            <div class="color" style="background:#FF6A45;" onclick="setColour('#FF6A45')"></div>  <!-- orange-red -->
+                            <div class="color" style="background:#FFA645;" onclick="setColour('#FFA645')"></div>  <!-- golden orange -->
+                            <div class="color" style="background:#f7ec1f;" onclick="setColour('#f7ec1f')"></div>  <!-- coral pink -->
+                            <div class="color" style="background:#14aa5a;" onclick="setColour('#14aa5a')"></div>  <!-- hot pink -->
 
                             <label for="color-picker" class="color" style="background:var(--primary-bg-acc);">
-                                <input type="color" name="color-picker" id="color-picker">
+                                <input type="color" name="color-picker" id="color-picker" oninput="setColour(this.value)">
                             </label>
                         </div>
                     </div>

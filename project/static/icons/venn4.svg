@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="-7.8499 62.2501 515.7316 375.4826" width="515.732px" height="375.483px">
-    <ellipse style="fill: rgba(69, 109, 255, 0.4); transform-origin: 139.771px 224.022px;" cx="139.771" cy="224.022" rx="80.686" ry="143.266" transform="matrix(0.70710701, -0.70710701, 0.70710701, 0.70710701, 97.93570208, 0.39702225)"/>
-    <ellipse style="fill: rgba(69, 109, 255, 0.4); transform-origin: 139.771px 224.022px;" cx="139.771" cy="224.022" rx="80.686" ry="143.266" transform="matrix(0.70710701, 0.70710701, -0.70710701, 0.70710701, 127.16081935, -3.4138704)"/>
-    <ellipse style="fill: rgba(69, 109, 255, 0.4); transform-origin: 139.771px 224.022px;" cx="139.771" cy="224.022" rx="80.686" ry="165.953" transform="matrix(0.70710701, 0.70710701, -0.70710701, 0.70710701, 193.71052617, 39.31054299)"/>
-    <ellipse style="fill: rgba(69, 109, 255, 0.4); transform-origin: 139.771px 224.022px;" cx="139.771" cy="224.022" rx="80.686" ry="165.953" transform="matrix(0.70710701, -0.70710701, 0.70710701, 0.70710701, 26.77929508, 39.15164566)"/>
+    <ellipse style="fill: rgba(69, 109, 255, 0.4); transform-origin: 139.771px 224.022px;" cx="139.771" cy="224.022" rx="80.686" ry="143.266" transform="matrix(0.70710701, -0.70710701, 0.70710701, 0.70710701, 97.93570208, 0.39702225)" elm="category-1"/>
+    <ellipse style="fill: rgba(69, 109, 255, 0.4); transform-origin: 139.771px 224.022px;" cx="139.771" cy="224.022" rx="80.686" ry="143.266" transform="matrix(0.70710701, 0.70710701, -0.70710701, 0.70710701, 127.16081935, -3.4138704)" elm="category-2"/>
+    <ellipse style="fill: rgba(69, 109, 255, 0.4); transform-origin: 139.771px 224.022px;" cx="139.771" cy="224.022" rx="80.686" ry="165.953" transform="matrix(0.70710701, 0.70710701, -0.70710701, 0.70710701, 193.71052617, 39.31054299)" elm="category-3"/>
+    <ellipse style="fill: rgba(69, 109, 255, 0.4); transform-origin: 139.771px 224.022px;" cx="139.771" cy="224.022" rx="80.686" ry="165.953" transform="matrix(0.70710701, -0.70710701, 0.70710701, 0.70710701, 26.77929508, 39.15164566)" elm="category-4"/>
 </svg>

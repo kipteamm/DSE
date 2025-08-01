@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="500px" height="500px" xmlns:bx="https://boxy-svg.com">
-    <path style="fill: rgba(69, 109, 255, 0.4);" d="M 90 75 H 250 V 250 H 75 V 90 A 15 15 0 0 1 90 75 Z" bx:shape="rect 75 75 175 175 15 0 0 0 1@2b8f1cb1"/>
-    <path style="fill: rgba(69, 109, 255, 0.6);" d="M 250 75 H 410 A 15 15 0 0 1 425 90 V 250 H 250 V 75 Z" bx:shape="rect 250 75 175 175 0 15 0 0 1@55c95d4b"/>
-    <path style="fill: rgba(69, 109, 255, 0.4);" d="M 250 250 H 425 V 410 A 15 15 0 0 1 410 425 H 250 V 250 Z" bx:shape="rect 250 250 175 175 0 0 15 0 1@111d9734"/>
-    <path style="fill: rgba(69, 109, 255, 0.2);" d="M 75 250 H 250 V 425 H 90 A 15 15 0 0 1 75 410 V 250 Z" bx:shape="rect 75 250 175 175 0 0 0 15 1@aa4c8317"/>
+    <path style="fill: rgba(69, 109, 255, 0.4);" d="M 90 75 H 250 V 250 H 75 V 90 A 15 15 0 0 1 90 75 Z" bx:shape="rect 75 75 175 175 15 0 0 0 1@2b8f1cb1" elm="category-1"/>
+    <path style="fill: rgba(69, 109, 255, 0.6);" d="M 250 75 H 410 A 15 15 0 0 1 425 90 V 250 H 250 V 75 Z" bx:shape="rect 250 75 175 175 0 15 0 0 1@55c95d4b" elm="category-2"/>
+    <path style="fill: rgba(69, 109, 255, 0.4);" d="M 250 250 H 425 V 410 A 15 15 0 0 1 410 425 H 250 V 250 Z" bx:shape="rect 250 250 175 175 0 0 15 0 1@111d9734" elm="category-3"/>
+    <path style="fill: rgba(69, 109, 255, 0.2);" d="M 75 250 H 250 V 425 H 90 A 15 15 0 0 1 75 410 V 250 Z" bx:shape="rect 75 250 175 175 0 0 0 15 1@aa4c8317" elm="category-4"/>
 </svg>

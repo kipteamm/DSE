@@ -220,12 +220,12 @@ header {
     transform: translateX(-50%);
 }
 #page-sections.venn3 input:nth-child(2) {
-    top: 50%;
-    left: 25%;
+    top: 48%;
+    left: 30%;
 }
 #page-sections.venn3 input:nth-child(3) {
-    top: 50%;
-    right: 25%;
+    top: 48%;
+    right: 30%;
 }
 #page-sections.venn3 input:nth-child(4) {
     top: 42%;

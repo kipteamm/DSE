@@ -19,15 +19,14 @@ function selectTemplate(_templateId) {
     if (templateId === "venn2") categories[3] = "%$%EMPTY%$%";
 }
 
-function loadTemplate(elm) {
-    fetch(`/static/icons/${templateId}.svg`)
-        .then(res => res.text())
-        .then(svg => {
-            elm.children[0].innerHTML += svg;
-        });
+async function loadTemplate(elm) {
+    const res = await fetch(`/static/icons/${templateId}.svg`);
+    const svg = await res.text();
+    elm.children[0].innerHTML += svg;
 }
 
 let categorySettings = false;
+let focussedCategory = null;
 function focusCategory(input) {
     const settings = document.getElementById("chart-settings");
     settings.classList.add("active");
@@ -42,6 +41,7 @@ function focusCategory(input) {
     settings.style.left = `${offsetLeft}px`;
     
     categorySettings = true;
+    focussedCategory = parseInt(input.id.replace("category_", ""));
 }
 
 categories = {1: null, 2: null, 3: null, 4: null};
@@ -59,7 +59,7 @@ function setCategory(id, value) {
 
     const continueBtn = document.getElementById("continue-btn");
     continueBtn.classList.add("active");
-    continueBtn.onclick = function () {
+    continueBtn.onclick = async function () {
         // update categories
         document.getElementById("step-2").classList.remove("active");
         document.getElementById(templateId === "quadrant"? "step-4": "step-3").classList.add("active");
@@ -79,9 +79,17 @@ function setCategory(id, value) {
         page.classList.add("active");
         page.classList.add(templateId);
 
-        loadTemplate(page);
+        await loadTemplate(page);
         loadSections(page);
     };
+}
+
+let colours = {1: "#456dff", 2: "#456dff", 3: "#456dff", 4: "#456dff"};
+function setColour(colour) {
+    colours[focussedCategory] = colour;
+
+    const svg = document.getElementById("page-category").querySelector(`[elm="category-${focussedCategory}"]`);
+    svg.style.fill = `${colour}66`;
 }
 
 function loadSections(page) {
@@ -92,6 +100,11 @@ function loadSections(page) {
         if (categories[3] !== "%$%EMPTY%$%") input.placeholder = input.placeholder.replace("CATEGORY_3", categories[3]);
         if (categories[3] !== "%$%EMPTY%$%") input.placeholder = input.placeholder.replace("CATEGORY_4", categories[4]);
     });
+
+    page.querySelector('[elm="category-1"]').style.fill = `${colours[1]}66`;
+    page.querySelector('[elm="category-2"]').style.fill = `${colours[2]}66`;
+    if (templateId !== "venn2") page.querySelector('[elm="category-3"]').style.fill = `${colours[3]}66`;
+    if (templateId !== "venn2" && templateId !== "venn3") page.querySelector('[elm="category-4"]').style.fill = `${colours[4]}66`;
 
     if (templateId === "venn2") sections[1] = null;
     else if (templateId === "venn3") sections = {1: null, 2: null, 3: null, 4: null};
@@ -149,9 +162,17 @@ function removeOption(elm) {
 }
 
 async function create() {
+    _categories = {};
+    for (let i = 1; i < 5; i++) {
+        const name = categories[i];
+        if (name == "%$%EMPTY%$%") break;
+        
+        _categories[i] = {"name": name, "colour": colours[i]};
+    }
+    
     data = {
         "template": templateId,
-        "categories": categories,
+        "categories": _categories,
         "sections": sections,
         "options": options.map((option) => option.innerText.trim())
     }
