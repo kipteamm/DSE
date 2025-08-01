@@ -1,3 +1,13 @@
+.loading {
+    flex-direction: column;
+    gap: 10px;
+}
+.loading p {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--primary-font-clr-acc);
+}
+
 .loader {
     width: 40px;
     aspect-ratio: 1;
@@ -13,4 +23,87 @@
     50%  {background-position:100% 100%}
     75%  {background-position:0    100%}
     100% {background-position:0     0}
+}
+
+main {
+    position: relative;
+    display: none;
+    width: 100vh;
+    height: 100vh;
+    margin: 0px auto;
+    overflow: hidden;
+}
+main.active {
+    display: flex;
+}
+
+main svg {
+    height: 100vh;
+    width: 100vh;
+}
+
+main b,
+main span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    text-align: center;
+    user-select: none;
+    pointer-events: none;
+}
+main b {
+    font-size: 18px;
+}
+main span {
+    font-size: 12px;
+}
+
+main p {
+    position: absolute;
+    bottom: 3%;
+    left: 0;
+    text-align: center;
+    width: 100%;
+    font-size: 14px;
+    color: var(--primary-font-clr-acc);
+}
+
+.actions {
+    position: absolute;
+    z-index: 100;
+    top: 3%;
+    width: 100%;
+    left: 0;
+}
+
+.actions .option {
+    flex: 1;
+}
+
+.item {
+    position: fixed;
+    display: none;
+}
+
+li,
+.item {
+    z-index: 10;
+    padding: 5px 15px;
+    border-radius: 50px;
+    font-weight: 500;
+    background: #e2e2e299;
+}
+.item.active {
+    display: inline-block;
+}
+
+li {
+    position: absolute;
+    margin: -5px -15px;
+}
+
+button:disabled {
+    color: #000;
+    background: var(--primary-bg-80);
 }

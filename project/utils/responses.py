@@ -37,6 +37,9 @@ class Errors(Response):
     INVALID_VALUE = (4015, "Invalid value, must be one of {values}.")
     INVALID_CATEGORIES = (4016, "One or more category is not valid.")
     INTERNAL_CHARACTERS_USED = (4017, "{characters} are present in {field} which is not allowed.")
+    PROJECT_NOT_FOUND = (4018, "Project not foun.")
+    NOT_ENOUGH_CATEGORIES = (4019, "Not enough categories.")
+    NOT_ENOUGH_SECTIONS = (4020, "Not enough sections.")
 
 
 class Success(Response):

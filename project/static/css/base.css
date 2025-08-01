@@ -134,6 +134,10 @@ button {
     padding: 10px 20px;
     border-radius: 50px;
     cursor: pointer;
+    border: 2px solid transparent;
+}
+button:disabled {
+    pointer-events: none;
 }
 
 button.primary {
@@ -146,9 +150,21 @@ button.primary:hover {
 
 button.secondary {
     background: var(--primary-bg-80);
+    border-color: var(--primary-bg-80);
 }
 button.secondary:hover {
     background: var(--primary-bg-60);
+    border-color: var(--primary-bg-60);
+}
+
+button.tertiary {
+    background: var(--primary-bg);
+    border-color: var(--primary-bg-80);
+    color: var(--primary-font-clr-acc);
+}
+button.tertiary:hover {
+    border-color: #000;
+    color: var(--primary-font-clr);
 }
 
 .dark-overlay {

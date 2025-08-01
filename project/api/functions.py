@@ -5,6 +5,9 @@ from project.api.body import NewProjectBody
 def _get_sections(body: NewProjectBody, categories: int, project: dict[str, list]) -> tuple[bool, dict | None]:
     intersections = 1 if categories == 2 else 4 if categories == 3 else 11
 
+    if len(body.sections) != intersections:
+        return False, Errors.NOT_ENOUGH_SECTIONS.as_dict()
+
     for i in range(1, intersections + 1):
         section = body.sections[str(i)]
 
@@ -33,7 +36,7 @@ def parse_diagram(body: NewProjectBody) -> tuple[bool, dict]:
     categories = 4 if body.template == "quadrant" else int(body.template.replace("venn", ""))
 
     if len(body.categories) != categories:
-        return False, Errors.INVALID_CATEGORIES.as_dict()   
+        return False, Errors.NOT_ENOUGH_CATEGORIES.as_dict()   
      
     for i in range(1, categories + 1):
         value = body.categories[str(i)]

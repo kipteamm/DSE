@@ -31,6 +31,7 @@ def diagram(id):
     if not project:
         return render_template("app/not_found.html")
 
+    return render_template("app/diagram.html", user=current_user, id=id, next="/a/" + id, template=project[0])
     if project[0] == "quadrant":
         return render_template("diagrams/quadrant.html", user=current_user, id=id, next="/a/" + id)
     
