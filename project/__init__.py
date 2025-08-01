@@ -44,6 +44,6 @@ def create_app():
     def unauthorized():
         path = request.full_path
 
-        return redirect(f'/auth/login?next={path if "=" in path else request.path}')
+        return redirect(f"/login?next={path if "=" in path else request.path}")
 
     return app

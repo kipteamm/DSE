@@ -1,5 +1,7 @@
-from flask import Blueprint, render_template, request, redirect, url_for
+from flask_login import login_user, logout_user
+from flask import Blueprint, render_template, request, redirect, url_for, make_response
 
+from project.auth.models import User
 from project.extensions import oauth
 from project.secrets import GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, FACEBOOK_CLIENT_ID, FACEBOOK_CLIENT_SECRET
 
@@ -56,7 +58,7 @@ def auth_provider(provider: str):
     client = oauth.create_client(provider)
     assert client is not None
 
-    # token = client.authorize_access_token()
+    client.authorize_access_token()
 
     if provider == "google":
         user_info = client.get("userinfo").json()
@@ -68,5 +70,13 @@ def auth_provider(provider: str):
         print(user_info)
         email = user_info.get("email")
 
-    print(email)
-    return "success"
+    if not email:
+        return redirect("/login")
+    
+    user = User.get_or_create(email)
+    login_user(user)
+
+    response = make_response(redirect("/app"))
+    response.set_cookie("i_t", user.token, max_age=2592000) # 30 * 60 * 60 * 24
+
+    return response
