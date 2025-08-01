@@ -24,16 +24,13 @@ def proccess_placement(app, user_id: str, project_id: str, track_id: str, data: 
                 pos = entry[1].split("%")
 
                 if not entry[0] in cache_data:
-                    cache_data[entry[0]]["top"] = pos[0]
-                    cache_data[entry[0]]["left"] = pos[1]
-                    continue
+                    cache_data[entry[0]] = {"top": [], "left": []}
 
                 cache_data[entry[0]]["top"].append(pos[0])
                 cache_data[entry[0]]["left"].append(pos[1])
 
         cache_data["__track_id"] = track_id # type: ignore
         cache.set(f"answers:{project_id}", cache_data, timeout=3600)
-        print("???")
 
 
 def cache_submissions(project_id: str) -> dict:

@@ -48,13 +48,14 @@ async function loadDiagram() {
 
         main.appendChild(elm);
     }
+
+    if (answered) return;
+    options = json.options;
+    shuffle(options);
 }
 
 async function prepareSubmissions() {
     await loadDiagram();
-    
-    options = json.options;
-    shuffle(options);
     
     counter = document.getElementById("counter");
     option = document.getElementById("option");
@@ -179,7 +180,7 @@ function skip() {
 async function submit() {
     document.getElementById("loading").style.display = "flex";
     document.getElementById("loading-text").innerText = "Parsing results";
-    main.classList.add("anwered")
+    main.classList.add("answered")
     main.classList.remove("active");
     
     const response = await fetch(`/api/diagram/${id}/submit`, {
