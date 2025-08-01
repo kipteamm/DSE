@@ -19,15 +19,16 @@ def create_project():
         return body.error, 400
 
     valid, project = parse_diagram(body)
+    print(project)
 
     if not valid:
         return project, 400
-    
+
     project = Project("Unnamed", g.user.id, body.template, 
-                      project["categories"].join("||"), 
-                      project["sections"].join("||"), 
-                      project["options"].join("||"))
+                      "||".join(project["categories"]), 
+                      "||".join(project["sections"]), 
+                      "||".join(project["options"]))
     db.session.add(project)
-    db.commit()
+    db.session.commit()
 
     return {"id": project.id}, 200

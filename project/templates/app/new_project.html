@@ -9,11 +9,41 @@
     <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
 
     <script src="/static/js/newProject.js"></script>
+    <script src="/static/js/utils.js"></script>
 
     <link rel="stylesheet" href="/static/css/newProject.css">
     <link rel="stylesheet" href="/static/css/base.css">
 </head>
 <body>
+    <div class="dark-overlay" id="dark-overlay"></div>
+    <div class="modal col-con" id="share-modal">
+        <h2>Start Sharing!</h2>
+        <p>
+            Now that you finished your diagram, you can share it with your friends/community and get started!
+        </p>
+
+        <div class="even-con share-buttons">
+            <a onclick="copyUrl()">
+                <iconify-icon icon="fa6-solid:copy" style="color:var(--primary-clr);"></iconify-icon>
+            </a>
+            <a href="https://api.whatsapp.com/send?text=Check%20out%20my%20diagram!%20https://example.com" target="_blank" rel="noopener">
+                <iconify-icon icon="logos:whatsapp-icon"></iconify-icon>
+            </a>
+            <a href="https://twitter.com/intent/tweet?url=https://example.com&text=Check%20out%20my%20diagram!" target="_blank" rel="noopener">
+                <iconify-icon icon="logos:twitter"></iconify-icon>
+            </a>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=https://example.com" target="_blank" rel="noopener">
+                <iconify-icon icon="logos:facebook"></iconify-icon>
+            </a>
+            <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://example.com" target="_blank" rel="noopener">
+                <iconify-icon icon="logos:linkedin-icon"></iconify-icon>
+            </a>
+        </div>
+
+        <button class="secondary" onclick="makeChanges()">Make changes</button>
+        <button class="primary" onclick="vote()">Vote yourself</button>
+    </div>
+
     <header class="content even-con">
         <div class="preview cen-con">
             <button class="primary" id="continue-btn">Continue</button>
@@ -47,7 +77,7 @@
                             <div class="color" style="background:#f7ec1f;" onclick="setColour('#f7ec1f')"></div>  <!-- coral pink -->
                             <div class="color" style="background:#14aa5a;" onclick="setColour('#14aa5a')"></div>  <!-- hot pink -->
 
-                            <label for="color-picker" class="color" style="background:var(--primary-bg-acc);">
+                            <label for="color-picker" class="color" style="background:var(--primary-bg-80);">
                                 <input type="color" name="color-picker" id="color-picker" oninput="setColour(this.value)">
                             </label>
                         </div>

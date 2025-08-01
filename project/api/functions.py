@@ -6,7 +6,7 @@ def _get_sections(body: NewProjectBody, categories: int, project: dict[str, list
     intersections = 1 if categories == 2 else 4 if categories == 3 else 11
 
     for i in range(1, intersections + 1):
-        section = body.sections[i]
+        section = body.sections[str(i)]
 
         section_length = len(section)
         if section_length < 1:
@@ -36,7 +36,7 @@ def parse_diagram(body: NewProjectBody) -> tuple[bool, dict]:
         return False, Errors.INVALID_CATEGORIES.as_dict()   
      
     for i in range(1, categories + 1):
-        value = body.categories[i]
+        value = body.categories[str(i)]
         
         name = value["name"]
         if not name:
@@ -56,7 +56,7 @@ def parse_diagram(body: NewProjectBody) -> tuple[bool, dict]:
         if not colour:
             colour = "#456dff"
 
-        elif len(colour) > 6 or not "#" in colour:
+        elif len(colour) > 7 or not "#" in colour:
             return False, Errors.INVALID_CATEGORIES.as_dict()
 
         project["categories"].append(name + colour)

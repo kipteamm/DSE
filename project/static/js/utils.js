@@ -9,3 +9,8 @@ function getCookie(name) {
 
     return null;
 }
+
+function toggleModal(id) {
+    document.getElementById("dark-overlay").classList.toggle("active");
+    document.getElementById(id + "-modal").classList.toggle("active");
+}

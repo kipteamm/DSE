@@ -38,9 +38,6 @@ def authorized():
             if not user:
                 return Errors.INVALID_AUTHORIZATION_TOKEN.as_dict(), 401
             
-            if not user.active:
-                return Errors.USER_NOT_ACTIVE.as_dict(), 401
-            
             # if not user.permissions & permission:
             #     return Errors.INVALID_PERMISSIONS.as_dict(), 401
             

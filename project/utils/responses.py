@@ -28,7 +28,6 @@ class Errors(Response):
     INVALID_AUTHORIZATION_TYPE = (4001, "Invalid authorization type, expected Bearer.")
     INVALID_AUTHORIZATION_TOKEN = (4002, "Token is invalid.")
     INVALID_PERMISSIONS = (4003, "You do not have the required permissions.")
-    USER_NOT_ACTIVE = (4004, "This user not is activated.")
     BODY_NOT_PRESENT = (4004, "No body was provided.")
     FIELD_NOT_PRESENT = (4005, "Field {field} is not present.")
     MIN_LENGTH_NOT_REACHED = (4006, "Minimum length of field {field} not reached by {not_reached_by}.")

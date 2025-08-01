@@ -62,7 +62,8 @@
     --primary-font-clr-acc: #666;
 
     --primary-bg: #fff;
-    --primary-bg-acc: #e2e2e2;
+    --primary-bg-80: #e2e2e2;
+    --primary-bg-60: #bbbbbb;
 
     --primary-clr: #456dff;
     --primary-clr-80: #456dffcc;
@@ -84,6 +85,7 @@ html {
 
 body {
     font-family: var(--secondary-font);
+    overflow-x: hidden;
 }
 
 h1, h2, h3 {
@@ -106,7 +108,7 @@ input, textarea, button {
     transition: .2s;
 }
 
-input, button {
+input {
     padding: 5px 15px;
     border-radius: 10px;
 }
@@ -116,7 +118,7 @@ input, textarea {
 }
 
 input {
-    border: 2px solid var(--primary-bg-acc);
+    border: 2px solid var(--primary-bg-80);
 }
 input.secondary {
     border-color: transparent;
@@ -127,16 +129,41 @@ input:focus {
     border: 2px solid #000;
 }
 
-button.primary {
-    background: var(--primary-clr);
-    color: #fff;
+button {
     font-weight: 500;
     padding: 10px 20px;
     border-radius: 50px;
     cursor: pointer;
 }
+
+button.primary {
+    background: var(--primary-clr);
+    color: #fff;
+}
 button.primary:hover {
     background: var(--primary-clr-80);
+}
+
+button.secondary {
+    background: var(--primary-bg-80);
+}
+button.secondary:hover {
+    background: var(--primary-bg-60);
+}
+
+.dark-overlay {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background: rgb(0, 0, 0, 0.7);
+    z-index: 100;
+    opacity: 0;
+    transition: .2s;
+    pointer-events: none;
+}
+.dark-overlay.active {
+    pointer-events: all;
+    opacity: 1;
 }
 
 .content {
@@ -176,4 +203,25 @@ button.primary:hover {
 
 .col-con {
     flex-direction: column;
+}
+
+.modal {
+    position: fixed;
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: 450px;
+    padding: 5vw;
+    width: 90vw;
+    background: var(--primary-bg);
+    z-index: 101;
+    border-radius: 15px;
+    display: none;
+}
+.modal.active {
+    display: flex;
+}
+
+.modal h2{
+    text-align: center;
 }

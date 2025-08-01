@@ -161,6 +161,7 @@ function removeOption(elm) {
     elm.remove();
 }
 
+let shareId;
 async function create() {
     _categories = {};
     for (let i = 1; i < 5; i++) {
@@ -189,8 +190,21 @@ async function create() {
     if (!response.ok) return;
     const json = await response.json();
 
-    document.getElementById("share_url") = `${window.location.protocol}//${window.location.host}/d/${json.id}`;
+    shareId = json.id;
+    document.querySelectorAll(".share-buttons a").forEach(a => {
+        a.href = a.href.replace("https://example.com", `${window.location.protocol}//${window.location.host}/a/${shareId}`);
+    });
+
+    toggleModal("share");
 }
+
+function copyUrl() {
+    navigator.clipboard.writeText(`${window.location.protocol}//${window.location.host}/a/${shareId}`);
+    alert("copied");
+}
+
+function makeChanges() { return window.location.href = "/edit/" + shareId; }
+function makeChanges() { return window.location.href = "/a/" + shareId; }
 
 window.onclick = (event) => {
     if (!categorySettings) return;

@@ -5,7 +5,7 @@ header {
 .preview {
     aspect-ratio: 1/1;
     position: relative;
-    border: 2px solid var(--primary-bg-acc);
+    border: 2px solid var(--primary-bg-80);
     border-radius: 25px;
     /* overflow: hidden; */
 }
@@ -300,7 +300,7 @@ header {
 .pri-sec-con .divider {
     width: 2px;
     height: 50px;
-    background: var(--primary-bg-acc);
+    background: var(--primary-bg-80);
     border-radius: 50px;
     margin: 0px 10px;
     transition: .2s;
@@ -344,7 +344,7 @@ header {
 
 .final {
     justify-content: center;
-    border-bottom: 2px solid var(--primary-bg-acc);
+    border-bottom: 2px solid var(--primary-bg-80);
     padding: 20px;
     margin-bottom: 10vh;
 }
@@ -357,7 +357,7 @@ header {
 
 .option-input iconify-icon {
     font-size: 25px;
-    color: var(--primary-bg-acc);
+    color: var(--primary-bg-80);
     transition: .2s;
     cursor: pointer;
 }
@@ -376,7 +376,7 @@ header {
 }
 
 .option-element p {
-    background-color: var(--primary-bg-acc);
+    background-color: var(--primary-bg-80);
     padding: 3px 15px;
     border-radius: 50px;
     white-space: nowrap;
@@ -386,9 +386,23 @@ header {
 }
 .option-element iconify-icon {
     font-size: 20px;
-    color: var(--primary-bg-acc);
+    color: var(--primary-bg-80);
     transition: .2s;
 }
 .option-element iconify-icon:hover {
     color: #000;
+}
+
+.share-buttons {
+    margin: 5vh 0;
+    font-size: 40px;
+    justify-content: center;
+}
+
+.share-buttons iconify-icon {
+    transition: .2s;
+    cursor: pointer;
+}
+.share-buttons iconify-icon:hover {
+    transform: scale(1.1);
 }
