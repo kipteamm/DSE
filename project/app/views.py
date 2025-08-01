@@ -15,7 +15,8 @@ def index():
 @app_blueprint.get("/app")
 @login_required
 def app():
-    return render_template("app/app.html")
+    projects = Project.query.with_entities(Project.id, Project.name, Project.template_id).filter_by(user_id=current_user.id).all()
+    return render_template("app/app.html", projects=projects)
 
 
 @app_blueprint.get("/app/create")

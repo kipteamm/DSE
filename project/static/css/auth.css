@@ -14,10 +14,6 @@
     color: var(--primary-font-clr-acc);
 }
 
-.pri-sec-con input {
-    padding: 10px 20px;
-}
-
 .divider {
     position: relative;
     text-align: center;

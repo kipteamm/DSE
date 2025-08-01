@@ -89,9 +89,6 @@ main:not(.answered) .answer-actions {
 .actions .option {
     flex: 1;
 }
-.actions input {
-    padding: 10px 20px;
-}
 
 .item {
     position: fixed;

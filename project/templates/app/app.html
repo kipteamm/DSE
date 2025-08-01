@@ -5,8 +5,50 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <title>Document</title>
+
+    <link rel="stylesheet" href="/static/css/projects.css">
+    <link rel="stylesheet" href="/static/css/base.css">
+
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+    <script src="/static/js/projects.js"></script>
+    <script src="/static/js/utils.js"></script>
 </head>
 <body>
-    <a href="/app/create">Create</a>
+    <div class="dark-overlay" id="dark-overlay"></div>
+
+    <div class="modal col-con create" id="create-modal">
+        <h2>Create new project</h2>
+        <p>
+            Name your project and pick a template of your choosing, or continue without one.
+        </p>
+        <input type="text" placeholder="Name" id="name">
+
+        <div class="templates">
+            <div class="template col-con">
+                <img src="/static/images/blank.png">
+                <h3>Blank</h3>
+                <button class="primary" onclick="createProject(true, null)">Continue</button>
+            </div>
+            <div class="template col-con">
+                <img src="/static/images/nerdyness.webp">
+                <h3>Nerdyness</h3>
+                <button class="primary" onclick="createProject(false, 'Nerdyness')">Continue</button>
+            </div>
+        </div>
+    </div>
+
+    <nav class="content pri-sec-con">
+        <button class="primary pri-sec-con" onclick="toggleModal('create')"><iconify-icon icon="fa-solid:plus"></iconify-icon> Create</button>
+        <button class="secondary" onclick="toggleModal('profile')">Profile</button>
+    </nav>
+
+    <main class="content">
+        <h2>Your projects</h2>
+        <div class="projects">
+            {% for project in projects %}
+                {% include "components/project.html" %}
+            {% endfor %}
+        </div>
+    </main>
 </body>
 </html>
