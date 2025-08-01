@@ -177,13 +177,11 @@ async function create() {
         "options": options.map((option) => option.innerText.trim())
     }
 
-    console.log(data);
-
     const response = await fetch("/api/create", {
         method: "POST",
         body: JSON.stringify(data),
         headers: {
-            "Authorization": `Bearer AAAAAa`,
+            "Authorization": `Bearer ${getCookie("i_t")}`,
             "Content-Type": "application/json"
         }
     });

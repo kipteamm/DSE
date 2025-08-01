@@ -5,7 +5,7 @@ import time
 
 
 class Project(Model):
-    __tablename__ = 'users'
+    __tablename__ = "projects"
 
     name = db.Column(db.String(50), nullable=False)
     user_id = db.Column(db.String(128), db.ForeignKey("users.id", ondelete="CASCADE"), nullable=False)

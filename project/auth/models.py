@@ -11,7 +11,7 @@ def generate_token():
 
 
 class User(UserMixin, Model):
-    __tablename__ = 'users'
+    __tablename__ = "users"
 
     email = db.Column(db.String(120), unique=True, nullable=False)
     token = db.Column(db.String(128), nullable=False, default=generate_token)

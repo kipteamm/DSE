@@ -1,6 +1,7 @@
 from project.auth.models import User
 from project.auth.views import auth_blueprint
 from project.extensions import db, mail, oauth
+from project.api.views import api_blueprint
 from project.app.views import app_blueprint
 from project.secrets import MAIL_PASSWORD, SECRET_KEY
 
@@ -17,6 +18,7 @@ def create_app():
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///./db.sqlite3'
 
     app.register_blueprint(auth_blueprint)
+    app.register_blueprint(api_blueprint)
     app.register_blueprint(app_blueprint)
 
     login_manager = LoginManager(app)
