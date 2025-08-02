@@ -25,16 +25,16 @@
 
     <nav id="nav">
         <div class="content even-con">
-            <b>SOME NAME</b>
-            <a><button class="primary" onclick="toggleModal('auth')">Get started</button></a>
+            <b>letsm.app</b>
+            <a><button class="primary" onclick="{% if current_user.is_authenticated %}window.location.href='/app'{% else %}toggleModal('auth'){% endif %}">Get started</button></a>
         </div>
     </nav>
 
     <header class="cen-con col-con">
         <div class="top">
             <div class="content even-con">
-                <b>SOME NAME</b>
-                <a><button class="tertiary" onclick="toggleModal('auth')">Log in</button></a>
+                <b>letsm.app</b>
+                <a><button class="tertiary" onclick="{% if current_user.is_authenticated %}window.location.href='/app'{% else %}toggleModal('auth'){% endif %}">Log in</button></a>
             </div>
         </div>
 
@@ -53,22 +53,69 @@
         <p>
             Create custom tailored graphs to explore the dynamics of your group.
         </p>
-        <button class="primary cta" onclick="toggleModal('auth')"><b>Get started</b></button>
+        <button class="primary cta" onclick="{% if current_user.is_authenticated %}window.location.href='/app'{% else %}toggleModal('auth'){% endif %}"><b>Get started</b></button>
     </header>
 
-    <div class="plots content cen-con">
-        <img src="/static/icons/quadrant.svg">
-        <img src="/static/icons/venn4.svg">
-        <img src="/static/icons/venn3.svg">
-        <img src="/static/icons/venn2.svg">
+    <div class="numbers">
+        <div class="content">
+            <h2>You’re in good company</h2>
+            <div class="cen-con even-con">
+                <div><h3>{{ statistics.users }}</h3> users</div>
+                <div><h3>{{ statistics.projects }}</h3> diagrams</div>
+                <div><h3>{{ statistics.submissions }}</h3> answers</div>
+            </div>
+        </div>
     </div>
 
+    <section class="first">
+        <img src="/static/icons/quadrant.svg">
 
-    <ul>
-        <li>overm.app</li>
-        <li>setly</li>
-        <li>grapph (grap.ph)</li>
-        <li>mapkin</li>
-    </ul>
+        <div class="cen-con col-con">
+            <h2>Endlessly Customizable</h2>
+            <p>
+                Start with a blank canvas or a template. Rename, relabel or recolor — it's your diagram, your way.
+            </p>
+        </div>
+    </section>
+
+    <section class="left">
+        <div class="cen-con col-con">
+            <h2>Instantly Shareable</h2>
+            <p>
+                Get a unique link with one click. Post it in your group chat, drop it in Discord, or send it straight to friends. No downloads needed.
+            </p>
+        </div>
+
+        <img src="/static/icons/quadrant.svg">
+    </section>
+
+    <section class="last">
+        <img src="/static/icons/quadrant.svg">
+
+        <div class="cen-con col-con">
+            <h2>See What They Think</h2>
+            <p>
+                Everyone places the names anonymously — then the real fun begins. View the collective results, explore individual placements, and uncover the group’s unspoken truths.
+            </p>
+        </div>
+    </section>
+
+    <div class="final cen-con">
+        <button class="primary cta" onclick="{% if current_user.is_authenticated %}window.location.href='/app'{% else %}toggleModal('auth'){% endif %}"><b>Get started</b></button>
+    </div>
+
+    <footer>
+        <div class="content">
+            <div class="note">
+                <div>
+                    <a href="/terms-of-service">Terms of Service</a>
+                    <a href="/privacy-polciy">Privacy Policy</a>
+                </div>
+                <p>
+                    © 2025 letsm.app
+                </p>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>

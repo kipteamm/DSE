@@ -1,4 +1,6 @@
+from project.auth.models import User
 from project.app.models import Project, Submission
+from project.extensions import cache
 
 from flask_login import login_required, current_user
 from flask import Blueprint, render_template, request, redirect, url_for
@@ -9,7 +11,17 @@ app_blueprint = Blueprint("app", __name__)
 
 @app_blueprint.get("/")
 def index():
-    return render_template("app/index.html")
+    data = cache.get("statistics")
+    if not data:
+        data = {
+            "users": User.query.count(),
+            "projects": Project.query.count(),
+            "submissions": Submission.query.count(),
+        }
+
+        cache.set("statistics", data, timeout=3600)
+
+    return render_template("app/index.html", statistics=data)
 
 
 @app_blueprint.get("/app")

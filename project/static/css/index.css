@@ -1,7 +1,6 @@
 nav {
     position: fixed;
     top: -100%;
-    /* border-bottom: 2px solid var(--primary-bg-80); */
     background: var(--primary-bg);
     transition: .4s;
     padding: 15px;
@@ -29,7 +28,7 @@ header {
     background-image: radial-gradient(
           circle at bottom left,
           rgba(70, 130, 180, 0.5),
-          transparent 70%);
+          transparent 60%);
     background-repeat: no-repeat;
     z-index: 1;
 }
@@ -106,14 +105,14 @@ header p {
     font-weight: 500;
 }
 
-header .cta {
+.cta {
     font-size: 20px;
     padding: 15px 60px;
     position: relative;
     overflow: hidden;
 }
 
-header .cta::after {
+.cta::after {
     content: "";
     position: absolute;
     top: 0%;
@@ -128,7 +127,7 @@ header .cta::after {
     pointer-events: none;
 }
 
-header .cta:hover::after {
+.cta:hover::after {
     animation: shine 0.5s ease-in-out forwards;
 }
 
@@ -142,8 +141,91 @@ header .cta:hover::after {
     }
 }
 
-.plots img {
-    width: 25%;
-    max-width: 150px;
-    padding: 25px;
+footer,
+.numbers {
+    background: #0f172a;
+    background-image:
+        linear-gradient(to right, rgba(148,163,184,0.2) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(148,163,184,0.2) 1px, transparent 1px);
+    background-size: 40px 40px;
+    /* background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(120, 180, 255, 0.25), transparent 70%), #000000; */
+    color: #fff;
+    padding-top: 10vh;
+    text-align: center;
+}
+
+.numbers h2 {
+    font-size: 7vh;
+}
+
+.numbers div {
+    padding: 5vh 0;
+    font-size: 30px;
+}
+.numbers h3 {
+    font-size: 12vh;
+    display: block;
+}
+
+section {
+    height: 100vh;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    background-repeat: no-repeat;
+}
+section.first {
+    background-image: radial-gradient(
+        circle at bottom left,
+        rgba(20, 170, 90, 0.5),
+        transparent 70%
+    );
+}
+section.left {
+    background-image: radial-gradient(
+        circle at bottom right,
+        rgba(122, 69, 255, 0.5),
+        transparent 70%
+    );
+}
+section.last {
+    background-image: radial-gradient(
+        circle at bottom left,
+        rgba(255, 106, 69, 0.5),
+        transparent 70%
+    );
+}
+
+section div {
+    width: 70%;
+}
+
+section.left div {
+    margin: 30%;
+}
+
+section h2 {
+    font-size: 10vh;
+    width: 100%;
+}
+
+section p {
+    font-size: 20px;
+}
+
+.final {
+    margin: 15vh 0;
+}
+
+footer {
+    padding-bottom: 10vh;
+}
+
+footer a {
+    color: #fff;
+    margin-right: 15px;
+}
+
+footer .note {
+    display: flex;
+    justify-content: space-between;
 }

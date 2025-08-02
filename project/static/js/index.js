@@ -15,7 +15,7 @@ function indexInit() {
     nav = document.getElementById("nav");
     max = document.querySelectorAll("h1 span").length;
 
-    setInterval(() => toggleText(), 2000);
+    setInterval(() => toggleText(), 1800);
 
     document.addEventListener("scroll", scrollEvent);
 }

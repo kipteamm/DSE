@@ -87,6 +87,7 @@ html {
 body {
     font-family: var(--secondary-font);
     overflow-x: hidden;
+    width: 100vw;
 }
 
 h1, h2, h3 {
