@@ -6,13 +6,69 @@
     
     <title>Document</title>
 
+    <link rel="stylesheet" href="/static/css/index.css">
+    <link rel="stylesheet" href="/static/css/auth.css">
     <link rel="stylesheet" href="/static/css/base.css">
 
-    <!--
-        <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
-    -->
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+    <script src="/static/js/utils.js"></script>
+    <script src="/static/js/index.js"></script>
 </head>
 <body>
-    <a href="/app">Log in</a>
+    <div class="dark-overlay" id="dark-overlay"></div>
+
+    <div class="modal col-con" id="auth-modal">
+        <span class="close" onclick="toggleModal('auth')">&times;</span>
+        <h2>Log in</h2>
+        {% include "components/login.html" %}
+    </div>
+
+    <nav id="nav">
+        <div class="content even-con">
+            <b>SOME NAME</b>
+            <a><button class="primary" onclick="toggleModal('auth')">Get started</button></a>
+        </div>
+    </nav>
+
+    <header class="cen-con col-con">
+        <div class="top">
+            <div class="content even-con">
+                <b>SOME NAME</b>
+                <a><button class="tertiary" onclick="toggleModal('auth')">Log in</button></a>
+            </div>
+        </div>
+
+        <h1>
+            Anonymously Plot 
+           <!-- <div class="title-text-wrapper"> -->
+                <div class="title-text">
+                    your
+                    <span class="remove" id="3">Family</span>
+                    <span id="2">Peers</span>
+                    <span id="1">Friends</span>
+                    <span class="active" id="0">Colleagues</span>
+                </div>
+            <!-- </div> -->
+        </h1>
+        <p>
+            Create custom tailored graphs to explore the dynamics of your group.
+        </p>
+        <button class="primary cta" onclick="toggleModal('auth')"><b>Get started</b></button>
+    </header>
+
+    <div class="plots content cen-con">
+        <img src="/static/icons/quadrant.svg">
+        <img src="/static/icons/venn4.svg">
+        <img src="/static/icons/venn3.svg">
+        <img src="/static/icons/venn2.svg">
+    </div>
+
+
+    <ul>
+        <li>overm.app</li>
+        <li>setly</li>
+        <li>grapph (grap.ph)</li>
+        <li>mapkin</li>
+    </ul>
 </body>
 </html>
