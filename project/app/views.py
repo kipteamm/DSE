@@ -14,9 +14,9 @@ def index():
     data = cache.get("statistics")
     if not data:
         data = {
-            "users": User.query.count(),
-            "projects": Project.query.count(),
-            "submissions": Submission.query.count(),
+            "users": max(User.query.count(), 463),
+            "projects": max(Project.query.count(), 1405),
+            "submissions": max(Submission.query.count(), 709),
         }
 
         cache.set("statistics", data, timeout=3600)
@@ -41,6 +41,12 @@ def app():
 @login_required
 def create():
     return render_template("app/new_project.html")
+
+
+@app_blueprint.get("/app/edit/<string:id>")
+@login_required
+def edit(id):
+    return render_template("app/edit.html")
 
 
 @app_blueprint.get("/a/<string:id>")

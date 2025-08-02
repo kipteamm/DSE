@@ -9,7 +9,7 @@
 <div class="divider"><span>or</span></div>
 <div class="email pri-sec-con">
     <iconify-icon icon="heroicons-solid:mail-open"></iconify-icon>
-    <input placeholder="Login with email" id="auth-email-input">
+    <input placeholder="Login with email" id="auth-email-input" onkeydown="if(event.key === 'Enter')continueEmail()">
 </div>
 <button class="secondary" onclick="continueEmail()">Continue with email</button>
 <p class="disclaimer">

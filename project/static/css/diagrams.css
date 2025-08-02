@@ -111,6 +111,7 @@ li,
 li {
     position: absolute;
     margin: -5px -15px;
+    cursor: pointer;
 }
 main.hide li:not(.specific) {
     display: none;
