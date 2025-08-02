@@ -24,6 +24,12 @@ def index():
     return render_template("app/index.html", statistics=data)
 
 
+@app_blueprint.get("/test")
+def test():
+    return render_template("email/verification.html", user="toro.een", code="123456", app_domain=request.host_url, email="toro.een@gmail.com")
+    # return render_template("auth/awaiting_verification.html", sender="AAA@gmail.com", email="toro.een@gmail.com", next="/app")
+
+
 @app_blueprint.get("/app")
 @login_required
 def app():

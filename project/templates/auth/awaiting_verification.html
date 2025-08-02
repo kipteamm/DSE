@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Document</title>
+
+    <link rel="stylesheet" href="/static/css/auth.css">
+    <link rel="stylesheet" href="/static/css/base.css">
+
+    <script src="/static/js/auth.js" defer></script>
+    <script>
+        const email = "{{ email }}";
+        const next = "{{ next }}";
+    </script>
+</head>
+<body>
+    <main class="col-con">
+        <h1>Verification code</h1>
+        <p>
+            An email from {{ sender }} is on it's way over to you. If you can't find it, make sure to check your spam folder. Copy the code and paste it below.
+        </p>
+
+        <div class="even-con code">
+            <input type="number" oninput="checkInput(this)" onkeydown="keyDown(event, this)" id="0">
+            <input type="number" oninput="checkInput(this)" onkeydown="keyDown(event, this)" id="1">
+            <input type="number" oninput="checkInput(this)" onkeydown="keyDown(event, this)" id="2">
+            <input type="number" oninput="checkInput(this)" onkeydown="keyDown(event, this)" id="3">
+            <input type="number" oninput="checkInput(this)" onkeydown="keyDown(event, this)" id="4">
+            <input type="number" oninput="checkInput(this)" onkeydown="keyDown(event, this)" id="5">
+        </div>
+
+        <button class="primary" onclick="submit()">Submit</button>
+    </main>
+</body>
+</html>

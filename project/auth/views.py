@@ -1,11 +1,19 @@
-from flask_login import login_user, logout_user, current_user
+from werkzeug.wrappers import Response
+from urllib.parse import quote_plus
+from sqlalchemy.sql import exists
+
+from flask_login import login_user, logout_user
+from flask_mail import Message
 from flask import Blueprint, render_template, request, redirect, url_for, make_response
 
-from project.auth.models import User
-from project.extensions import oauth
-from project.secrets import GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, FACEBOOK_CLIENT_ID, FACEBOOK_CLIENT_SECRET
+from project.auth.models import User, EmailAuthentication
+from project.extensions import oauth, db, mail
+from project.secrets import GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, FACEBOOK_CLIENT_ID, FACEBOOK_CLIENT_SECRET, MAIL_ADDRESS
 
+import secrets
+import time
 import json
+import re
 
 
 auth_blueprint = Blueprint("auth", __name__)
@@ -34,6 +42,59 @@ oauth.register(
 )
 
 
+EMAIL_REGEX = re.compile(r"^[\w\.-]+@([\w\-]+\.)+[a-zA-Z]{2,}$")
+
+
+def _handle_email(email: str | None, next_url: str) -> Response | str:
+    if not email:
+        return redirect("/login?next=" + next_url)
+
+    if not EMAIL_REGEX.match(email):
+        return redirect(f"/login?error={quote_plus('Invalid email address.')}&next={next_url}")
+    
+    authentication = EmailAuthentication.get_or_create(email)
+    if authentication.attempts > 3:
+        return redirect(f"/login?error={quote_plus('Max email attempts exceeded.')}&next={next_url}")
+    
+    now = time.time()
+    if authentication.attempts > 0 and authentication.last_attempt + 60 > now:
+        return redirect(f"/login?error={quote_plus('You need to wait in between attempts.')}&next={next_url}")
+    
+    authentication.code = str(secrets.randbelow(1000000)).zfill(6)
+    authentication.attempts += 1
+    authentication.last_attempt = now
+    db.session.commit()
+
+    message = Message(
+        subject="Verifying it's you",
+        sender=MAIL_ADDRESS,
+        recipients=[email],
+        html=render_template("email/verification.html", user=email.split("@")[0], code=authentication.code, app_domain=request.host_url, email=email)
+    )
+
+    mail.send(message)
+    return render_template("auth/awaiting_verification.html", sender=MAIL_ADDRESS, email=email, next=next_url)
+
+
+def _handle_verification(email: str | None, code: str | None, next_url: str) -> Response | str:
+    if not email:
+        return redirect(f"/login?error={quote_plus('No email present in verification request.')}")
+
+    deleted = EmailAuthentication.query.filter(db.func.lower(EmailAuthentication.email) == email.lower(), EmailAuthentication.code == code).delete()
+    if not deleted:
+        return render_template("auth/awaiting_verification.html", sender=MAIL_ADDRESS, email=email, next=next_url)
+    
+    db.session.commit()
+
+    user = User.get_or_create(email)
+    login_user(user)
+
+    response = make_response(redirect(next_url))
+    response.set_cookie("i_t", user.token, max_age=2592000) # 30 * 60 * 60 * 24
+
+    return response
+
+
 @auth_blueprint.get("/login")
 def login():
     return render_template("auth/login.html", next="/app")
@@ -47,10 +108,13 @@ def logout():
 
 @auth_blueprint.get("/login/<string:provider>")
 def login_provider(provider: str):
-    if provider not in ("google", "facebook"):
-        return redirect("/login")
+    next_url = request.args.get("next", "/app")
 
-    next_url = request.args.get("next", "/")
+    if provider == "email":
+        return _handle_email(request.args.get("email"), next_url)
+
+    if provider not in ("google", "facebook"):
+        return redirect(f"/login?next={next_url}")
 
     state = json.dumps({"next": next_url})
 
@@ -63,8 +127,11 @@ def login_provider(provider: str):
 
 @auth_blueprint.route("/auth/<string:provider>")
 def auth_provider(provider: str):
+    if provider == "email":
+        return _handle_verification(request.args.get("email"), request.args.get("code"), request.args.get("next", "/app"))
+
     if not provider == "google" and not provider == "facebook":
-        return redirect("/login")  
+        return redirect(f"/login?error={quote_plus('Invalid provider ' + provider)}")  
 
     client = oauth.create_client(provider)
     assert client is not None
@@ -82,7 +149,7 @@ def auth_provider(provider: str):
         email = user_info.get("email")
 
     if not email:
-        return redirect("/login")
+        return redirect(f"/login?error={quote_plus('Something went wrong during authentication.')}")
     
     state = request.args.get("state", "")
     next_url = "/app"

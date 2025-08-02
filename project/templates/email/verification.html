@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Verifying it's you</title>
+</head>
+<body>
+    <div style="max-width:500px;margin:0 auto;font-size:16px;">
+        <h2>Hi there {{ user }},</h2>
+
+        <p>
+            A login request was made for this email address. If this was you, copy the code below and go back to the webpage. Or click <a href="{{ app_domain }}auth/email?email={{ email }}" target="_blank">this</a> link if you closed it.
+        </p>
+
+        <div style="margin:15% 0;text-align:center;">
+            <b style="display:inline-block;margin:0 5px;background:#456dff;color:#fff;width:50px;padding:10px 0;font-size:40px;border-radius:15px;">{{ code.0 }}</b>
+            <b style="display:inline-block;margin:0 5px;background:#456dff;color:#fff;width:50px;padding:10px 0;font-size:40px;border-radius:15px;">{{ code.1 }}</b>
+            <b style="display:inline-block;margin:0 5px;background:#456dff;color:#fff;width:50px;padding:10px 0;font-size:40px;border-radius:15px;">{{ code.2 }}</b>
+            <b style="display:inline-block;margin:0 5px;background:#456dff;color:#fff;width:50px;padding:10px 0;font-size:40px;border-radius:15px;">{{ code.3 }}</b>
+            <b style="display:inline-block;margin:0 5px;background:#456dff;color:#fff;width:50px;padding:10px 0;font-size:40px;border-radius:15px;">{{ code.4 }}</b>
+            <b style="display:inline-block;margin:0 5px;background:#456dff;color:#fff;width:50px;padding:10px 0;font-size:40px;border-radius:15px;">{{ code.5 }}</b>
+        </div>
+
+        <p style="font-size:12px;text-align:center;">
+            This is a mandatory account-related email however you can <a href="{{ app_domain }}notifications">unsubscribe</a> from any future emails.
+        </p>
+    </div>
+</body>
+</html>

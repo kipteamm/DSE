@@ -131,6 +131,12 @@ input:focus {
     border: 2px solid #000;
 }
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
 button {
     font-weight: 500;
     padding: 10px 20px;
