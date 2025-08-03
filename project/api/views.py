@@ -61,6 +61,7 @@ def delete_diagram(id):
     if not deleted:
         return Errors.PROJECT_NOT_FOUND.as_dict(), 404
     
+    db.session.commit()
     return {"success": True}, 200
 
 

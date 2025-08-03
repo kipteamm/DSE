@@ -92,23 +92,56 @@ if (document.readyState !== 'loading') {
     });
 }
 
+document.addEventListener("mousemove", handleMove);
+document.addEventListener("touchmove", handleMove, { passive: false });
+
+document.addEventListener("click", handleClick);
+document.addEventListener("touchend", handleClick);
+
 let placements = {};
-document.addEventListener("mousemove", (event) => {
+function handleMove(event) {
     if (!isPlacing) return;
-    const y = event.clientY;
-    const x = event.clientX;
+
+    let x, y;
+    if (event.touches) {
+        x = event.touches[0].clientX;
+        y = event.touches[0].clientY;
+    } else {
+        x = event.clientX;
+        y = event.clientY;
+    }
 
     item.style.top = `${y}px`;
     item.style.left = `${x}px`;
-});
+}
 
-document.addEventListener("click", (event) => {
+function handleClick(event) {
     if (!isPlacing) return;
-    if (!event.target.closest("ellipse") && !event.target.closest("path")) return;
+    if (isReplacing && new Date().getTime() - replaceFired < 500) return;
 
-    const offset = (window.innerWidth - dimension) / 2;
-    const top = Math.round((event.clientY / dimension) * 100);
-    const left = Math.round(((event.clientX - offset) / dimension) * 100);
+    let x, y;
+    if (event.touches) {
+        x = event.changedTouches[0].clientX;
+        y = event.changedTouches[0].clientY;
+    } else {
+        x = event.clientX;
+        y = event.clientY;
+    }
+
+    const realTarget = document.elementFromPoint(x, y);
+    if (!realTarget.closest("ellipse") && !realTarget.closest("path"))  return;
+
+    const isLandscape = (window.innerWidth / window.innerHeight) > 1;
+    let offsetX = 0, offsetY = 0;
+
+    if (isLandscape) {
+        offsetX = (window.innerWidth - dimension) / 2;
+    } else {
+        offsetY = (window.innerHeight - dimension) / 2;
+    }
+
+    const top = Math.round(((y - offsetY) / dimension) * 100);
+    const left = Math.round(((x - offsetX) / dimension) * 100);
 
     const elm = document.createElement("li");
     elm.innerText = currentOption;
@@ -134,7 +167,7 @@ document.addEventListener("click", (event) => {
     currentOption = options[0];
     option.innerText = currentOption;
     isReplacing = false;
-});
+}
 
 let isPlacing = false;
 function togglePlacing(event, btn) {
@@ -144,19 +177,26 @@ function togglePlacing(event, btn) {
     btn.classList.toggle("tertiary", !isPlacing);
     item.classList.toggle("active", !isPlacing);
 
-    isPlacing = !isPlacing
+    isPlacing = !isPlacing;
     if (!isPlacing) return;
 
-    const y = event.clientY;
-    const x = event.clientX;
+    let x = 0;
+    if (event) {
+        if (event.touches) {
+            x = event.touches[0].clientX;
+        } else {
+            x = event.clientX;
+        }
+    }
 
-    item.style.top = `${y}px`;
+    // item.style.top = `${y}px`;
     item.style.left = `${x}px`;
     item.innerText = currentOption || btn.innerText;
 }
 
 let isReplacing = false;
 let currentOption = null;
+let replaceFired = 0;
 function replace(event, elm) {
     if (isPlacing) togglePlacing(null, option);
 
@@ -166,6 +206,7 @@ function replace(event, elm) {
     elm.remove();
 
     isReplacing = true;
+    replaceFired = new Date().getTime();
     togglePlacing(event, option);
 }
 
@@ -178,6 +219,8 @@ function skip() {
 }
 
 async function submit() {
+    searchOptions = document.getElementById("search-options");
+    
     document.getElementById("loading").style.display = "flex";
     document.getElementById("loading-text").innerText = "Parsing results";
     main.classList.add("answered")
@@ -227,7 +270,6 @@ async function loadAnswers() {
     });
 
     searchOptions = document.getElementById("search-options");
-
     main.classList.add("active");
 }
 

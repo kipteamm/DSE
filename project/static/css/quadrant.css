@@ -1,0 +1,27 @@
+#category-2,
+#category-4 {
+    width: 50%;
+    height: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+#category-1,
+#category-3 {
+    width: 20%;
+    height: 50%;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+#category-1 {
+    left: 5%;
+}
+#category-2 {
+    top: 7.5%;
+}
+#category-3 {
+    right: 5%;
+}
+#category-4 {
+    bottom: 7.5%;
+}

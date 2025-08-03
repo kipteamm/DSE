@@ -41,8 +41,11 @@
         <div class="even-con actions submit-actions">
             <button class="secondary" id="counter" disabled>0</button>
             <button class="secondary option" id="option" onclick="togglePlacing(event, this)"></button>
-            <button class="secondary" onclick="skip()">Skip</button>
-            <button class="primary" onclick="submit()">Finish</button>
+
+            <div class="even-con">
+                <button class="secondary" onclick="skip()">Skip</button>
+                <button class="primary" onclick="submit()">Finish</button>
+            </div>
         </div>
         <div class="even-con actions answer-actions search">
             <input type="text" placeholder="Search name..." oninput="searchItem(this.value)">
@@ -53,7 +56,7 @@
 
         <p>
             Click the name up top and place them on the diagram.<br>
-            Only the creator of the diagram will be able to view your answers.
+            Your submission remains completely anonymous.
         </p>
     </main>
 </body>
