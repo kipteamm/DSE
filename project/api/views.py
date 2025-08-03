@@ -54,6 +54,16 @@ def get_diagram(id):
     }
 
 
+@api_blueprint.delete("/diagram/<string:id>/delete")
+@authorized()
+def delete_diagram(id):
+    deleted = Project.query.filter_by(id=id, user_id=g.user.id).delete()
+    if not deleted:
+        return Errors.PROJECT_NOT_FOUND.as_dict(), 404
+    
+    return {"success": True}, 200
+
+
 @api_blueprint.post("/diagram/<string:id>/submit")
 @authorized()
 def submit(id):

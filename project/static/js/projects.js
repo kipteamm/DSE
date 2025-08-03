@@ -28,3 +28,10 @@ async function loadSubmissions(id) {
 
     document.getElementById("project-modal").innerHTML = HTML;
 }
+
+async function deleteProject(id) {
+    const response = await fetch(`/api/diagram/${id}/delete`, {method: "DELETE", headers: {"Authorization": `Bearer ${getCookie("i_t")}`}});
+    if (!response.ok) return;
+
+    document.getElementById("project-" + id).remove();
+}
