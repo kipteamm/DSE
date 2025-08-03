@@ -1,0 +1,110 @@
+@font-face {
+    font-family: "Montserrat";
+    font-style: normal;
+    font-weight: 400;
+    src: local("Montserrat"), url("/static/font/Montserrat-Regular.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "Montserrat";
+    font-style: normal;
+    font-weight: 500;
+    src: local("Montserrat"), url("/static/font/Montserrat-Medium.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "Montserrat";
+    font-style: normal;
+    font-weight: 700;
+    src: local("Montserrat"), url("/static/font/Montserrat-Bold.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "CoFo Robert";
+    font-style: normal;
+    font-weight: 400;
+    src: local("CoFo Robert Regular"), url("/static/font/CoFo_Robert-Regular.woff") format("woff");
+}
+
+@font-face {
+    font-family: "CoFo Robert";
+    font-style: normal;
+    font-weight: 500;
+    src: local("CoFo Robert Medium"), url("/static/font/CoFo_Robert-Medium.woff") format("woff");
+}
+
+@font-face {
+    font-family: "CoFo Robert";
+    font-style: normal;
+    font-weight: 700;
+    src: local("CoFo Robert Bold"), url("/static/font/CoFo_Robert-Bold.woff") format("woff");
+}
+
+@font-face {
+    font-family: "CoFo Robert";
+    font-style: normal;
+    font-weight: 800;
+    src: local("CoFo Robert Heavy"), url("/static/font/CoFo_Robert-Heavy.woff") format("woff");
+}
+
+@font-face {
+    font-family: "CoFo Robert";
+    font-style: normal;
+    font-weight: 900;
+    src: local("CoFo Robert Black"), url("/static/font/CoFo_Robert-Black.woff") format("woff");
+}
+
+:root {
+    --primary-font: "CoFo Robert";
+    --secondary-font: "Montserrat";
+
+    --primary-font-clr: #000;
+    --primary-font-clr-acc: #666;
+
+    --primary-bg: #fff;
+    --primary-clr: #456dff;
+    --primary-clr-80: #567bff;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--secondary-font);
+    overflow-x: hidden;
+    width: 100vw;
+    margin: 0px;
+}
+
+h1, h2, h3 {
+    font-family: var(--primary-font);
+}
+
+main {
+    max-width: 800px;
+    width: 90vw;
+    margin: 20vh auto;
+}
+
+button {
+    position: absolute;
+    top: 25px;
+    left: 25px;
+    font-family: var(--secondary-font);
+    font-size: 16px;
+    border: none;
+    transition: .2s;
+    background: var(--primary-clr);
+    color: #fff;
+    font-weight: 500;
+    padding: 10px 20px;
+    border-radius: 50px;
+    cursor: pointer;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+button:hover {
+    background: var(--primary-clr-80);
+}

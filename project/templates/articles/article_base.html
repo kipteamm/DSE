@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Document</title>
+
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+    <link rel="stylesheet" href="/static/css/articles.css">
+</head>
+<body>
+    <button onclick="window.history.back()">
+        <iconify-icon icon="fa6-solid:arrow-left"></iconify-icon>Back
+    </button>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>

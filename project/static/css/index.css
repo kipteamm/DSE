@@ -151,7 +151,7 @@ footer,
     background-size: 40px 40px;
     /* background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(120, 180, 255, 0.25), transparent 70%), #000000; */
     color: #fff;
-    padding-top: 10vh;
+    padding: 10vh 0;
     text-align: center;
 }
 
@@ -159,7 +159,7 @@ footer,
     font-size: 6vh;
 }
 
-.numbers div {
+.numbers div:not(.content) {
     padding: 5vh 5vw;
     font-size: 30px;
     flex-wrap: wrap;

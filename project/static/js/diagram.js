@@ -245,7 +245,15 @@ async function submit() {
         else if (!response.ok) return;
         
         const json = await response.json();
-        if (json.__track_id === trackId) return parseAnswers(json);
+        if (json.__track_id === trackId) {
+            parseAnswers(json);
+            
+            setTimeout(() => {
+                document.getElementById("loading").style.display = "none";
+                main.classList.add("active")
+            }, 500);
+            return;
+        }
 
         setTimeout(pollStatus, 1000);
     };
@@ -254,23 +262,26 @@ async function submit() {
 }
 
 async function loadAnswers() {
+    main.classList.add("answered")
+
     const response = await fetch(`/api/diagram/${id}/answers`, {headers: {"Authorization": `Bearer ${getCookie("i_t")}`}});
     if (!response.ok) return;
 
     const json = await response.json();
     parseAnswers(json);
     
-    main.classList.add("answered")
     await loadDiagram();
 
-    document.getElementById("loading").style.display = "none";
     document.addEventListener("click", (event) => {
         if (event.target.closest(".search")) return;
         searchOptions.classList.remove("active");
     });
 
     searchOptions = document.getElementById("search-options");
-    main.classList.add("active");
+    setTimeout(() => {
+        document.getElementById("loading").style.display = "none";
+        main.classList.add("active")
+    }, 500);
 }
 
 let orderedData = {};
@@ -298,9 +309,6 @@ function parseAnswers(data) {
 
         main.appendChild(elm);
     }
-
-    document.getElementById("loading").style.display = "none";
-    main.classList.add("active");
 }
 
 function calculateMedian(array) {

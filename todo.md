@@ -1,7 +1,8 @@
 ## REQUIRED
 - [x] Add project deleting
+- [x] Mobile
+- [x] Add articles
 
-- [ ] Mobile
 - [ ] Host
 
 - [ ] Add templates & template support
@@ -13,8 +14,8 @@
 - [ ] Fix facebook
 
 ## DOWN THE LINE
+- [ ] Write articles
 - [ ] Add editing
-- [ ] Add articles
 - [ ] Dashboard??
 - [ ] Add account deleting
 - [ ] Add account data request
