@@ -3,7 +3,7 @@ nav {
     top: -100%;
     background: var(--primary-bg);
     transition: .4s;
-    padding: 15px;
+    padding: 15px 0;
 }
 nav.active {
     top: 0;
@@ -70,7 +70,8 @@ nav b,
 
 h1 {    
     position: relative;
-    font-size: 15vh;
+    font-size: 4.9vh;
+    padding: 0 5vw;
 }
 
 .title-text {
@@ -155,12 +156,14 @@ footer,
 }
 
 .numbers h2 {
-    font-size: 7vh;
+    font-size: 6vh;
 }
 
 .numbers div {
-    padding: 5vh 0;
+    padding: 5vh 5vw;
     font-size: 30px;
+    flex-wrap: wrap;
+    gap: 0;
 }
 .numbers h3 {
     font-size: 12vh;
@@ -168,10 +171,9 @@ footer,
 }
 
 section {
-    height: 100vh;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    display: flex;
     background-repeat: no-repeat;
+    flex-direction: column;
 }
 section.first {
     background-image: radial-gradient(
@@ -196,15 +198,14 @@ section.last {
 }
 
 section div {
-    width: 70%;
+    padding: 20vh 5vw 10vh 5vw;
 }
-
-section.left div {
-    margin: 30%;
+section img {
+    order: 2;
 }
 
 section h2 {
-    font-size: 10vh;
+    font-size: 6vh;
     width: 100%;
 }
 
@@ -228,4 +229,39 @@ footer a {
 footer .note {
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+@media (min-width: 640px) {
+    h1 {
+        font-size: 9vh;
+    }
+}
+
+@media (min-width: 1024px) {
+    h1 {
+        font-size: 15vh;
+        padding: 0;
+    }
+
+    section {
+        height: 100vh;
+        flex-direction: row;
+    }
+    section div,
+    section img {
+        width: 50%;
+        order: unset;
+    }
+
+    section div {
+        padding: 0 5vw;
+    }
+    section.left img {
+        order: 2;
+    }
+
+    section h2 {
+        font-size: 10vh;
+    }
 }

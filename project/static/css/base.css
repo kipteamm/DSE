@@ -203,6 +203,7 @@ button.danger:hover {
 .content {
     max-width: 1200px;
     margin: 0px auto;
+    padding: 0 5vw;
 }
 
 .pri-sec-con,
@@ -242,16 +243,18 @@ button.danger:hover {
 
 .modal {
     position: fixed;
-    top: 10%;
+    top: 5vw;
     left: 50%;
     transform: translateX(-50%);
     max-width: 450px;
-    padding: 4vw;
+    padding: clamp(25px, 4vw, 100px);
     width: 90vw;
     background: var(--primary-bg);
     z-index: 101;
     border-radius: 15px;
     display: none;
+    max-height: calc(100vh - 10vw);
+    overflow-y: auto;
 }
 .modal.active {
     display: flex;
@@ -263,8 +266,8 @@ button.danger:hover {
 
 .modal span.close {
     position: absolute;
-    right: 2vw;
-    top: 1vw;
+    right: 20px;
+    top: 10px;
     font-size: 30px;
     font-weight: bold;
     cursor: pointer;
