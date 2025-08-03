@@ -1,7 +1,7 @@
 let templateId;
 function selectTemplate(_templateId) {
     document.getElementById("step-1").classList.remove("active");
-    document.getElementById("step-2").classList.add("active");
+    moveStep(2);
     
     templateId = _templateId;
 
@@ -62,7 +62,7 @@ function setCategory(id, value) {
     continueBtn.onclick = async function () {
         // update categories
         document.getElementById("step-2").classList.remove("active");
-        document.getElementById(templateId === "quadrant"? "step-4": "step-3").classList.add("active");
+        moveStep(templateId === "quadrant"? 4: 3);
 
         if (templateId === "quadrant") {
             const listOptions = document.getElementById("list-options");
@@ -131,7 +131,7 @@ function setSection(elm ,id, value) {
         };
 
         document.getElementById("step-3").classList.remove("active");
-        document.getElementById("step-4").classList.add("active");
+        moveStep(4);
 
         const listOptions = document.getElementById("list-options");
         listOptions.classList.add("active");
@@ -178,6 +178,8 @@ async function create() {
         "options": options.map((option) => option.innerText.trim())
     }
 
+    console.log(data);
+
     const response = await fetch("/api/create", {
         method: "POST",
         body: JSON.stringify(data),
@@ -187,8 +189,9 @@ async function create() {
         }
     });
 
-    if (!response.ok) return;
     const json = await response.json();
+    console.log(json);
+    if (!response.ok) return;
 
     shareId = json.id;
     document.querySelectorAll(".share-buttons a").forEach(a => {
@@ -203,8 +206,36 @@ function copyUrl() {
     alert("copied");
 }
 
-function makeChanges() { return window.location.href = "/edit/" + shareId; }
-function makeChanges() { return window.location.href = "/a/" + shareId; }
+function makeChanges() { return window.location.href = "/app/edit/" + shareId; }
+function vote() { return window.location.href = "/a/" + shareId; }
+
+function moveStep(stepId) {
+    document.getElementById("step-" + stepId).classList.add("active");
+
+    if (!isMobile) return;
+    document.getElementById("step-" + stepId).scrollIntoView({
+        behavior: "smooth",
+        block: "nearest",
+        inline: "start"
+    });
+}
+
+let isMobile = window.innerWidth < 1024;
+function newProjectInit() {
+    if (isMobile) document.getElementById("step-1").scrollIntoView({
+        behavior: "smooth",
+        block: "nearest",
+        inline: "start"
+    });
+}
+
+if (document.readyState !== 'loading') {
+    newProjectInit();
+} else {
+    document.addEventListener('DOMContentLoaded', function () {
+        newProjectInit();
+    });
+}
 
 window.onclick = (event) => {
     if (!categorySettings) return;

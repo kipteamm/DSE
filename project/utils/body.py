@@ -30,6 +30,7 @@ class BodySchema:
             return True
         
         if not value:
+            self._error = Errors.EMPTY_VALUE.as_dict({"field": field.name, "expected": field.type.__name__})
             return False
         
         # check type

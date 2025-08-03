@@ -7,6 +7,7 @@ header {
     position: relative;
     border: 2px solid var(--primary-bg-80);
     border-radius: 25px;
+    max-width: 90vw;
     /* overflow: hidden; */
 }
 
@@ -166,7 +167,7 @@ header {
     width: 150px;
     border-radius: 15px;
     background: var(--primary-bg);
-    margin-top: -42.4px;
+    margin-top: -52.4px;
     z-index: 1;
 }
 .chart-settings.active {
@@ -174,7 +175,7 @@ header {
 }
 
 .chart-settings .input-placeholder {
-    height: 32.4px;
+    height: 42.4px;
 }
 
 .chart-settings .colors {
@@ -282,6 +283,10 @@ header {
 }
 
 /* STEPS */
+.options.even-con::-webkit-scrollbar {
+    width: 0;
+}
+
 .options .pri-sec-con {
     color: var(--primary-font-clr-acc);
     transition: .2s;
@@ -405,4 +410,50 @@ header {
 }
 .share-buttons iconify-icon:hover {
     transform: scale(1.1);
+}
+
+@media (min-width: 1024px) {
+    .options.even-con {
+        flex-direction: column;
+        align-items: start
+    }
+}
+
+@media (max-width: 1024px) {
+    header.content {
+        flex-direction: column;
+        padding: 5vh 0;
+    }
+    header.even-con > div {
+        flex: unset;
+    }
+    header.even-con .preview {
+        order: 2;
+        min-height: 60vw;
+    }
+
+    .options.even-con {
+        scroll-snap-type: x mandatory;
+        overflow-x: scroll;
+        scroll-behavior: smooth;
+        width: 100vw;
+        height: 20%;
+    }
+    .options > div.pri-sec-con {
+        flex: 0 0 100vw;
+        width: 100vw;
+        scroll-snap-align: start;
+        display: flex;
+        justify-content: center;
+    }
+
+    p.secondary {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 700px) {
+    header.even-con .preview {
+        min-height: 90vw;
+    }
 }

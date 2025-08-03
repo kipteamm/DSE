@@ -43,6 +43,7 @@ class Errors(Response):
     INVALID_OPTION = (4021, "Invalid option.")
     NOT_ANSWERED = (4022, "You hacce not yet answered this project yourself and therefore you have no access.")
     ALREADY_ANSWERED = (4023, "You already answered to this project.")
+    EMPTY_VALUE = (4024, "No value present for required {field}. Expected {expected}")
 
 
 class Success(Response):
