@@ -172,6 +172,7 @@ async function create() {
     }
     
     data = {
+        "name": get("name"),
         "template": templateId,
         "categories": _categories,
         "sections": sections,

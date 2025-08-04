@@ -85,7 +85,7 @@ h1 span {
     display: inline-block;
     transform: translateY(-120%);
     transition: .4s;
-    margin-left: 2vh;
+    margin-left: 1vh;
     opacity: 0;
 }
 
@@ -236,12 +236,18 @@ footer .note {
     h1 {
         font-size: 9vh;
     }
+    h1 span {
+        margin-left: 1.5vh;
+    }
 }
 
 @media (min-width: 1024px) {
     h1 {
         font-size: 15vh;
         padding: 0;
+    }
+    h1 span {
+        margin-left: 2vh;
     }
 
     section {

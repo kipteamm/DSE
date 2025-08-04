@@ -10,6 +10,10 @@ function getCookie(name) {
     return null;
 }
 
+function get(name){
+    if(name=(new RegExp('[?&]'+encodeURIComponent(name)+'=([^&]*)')).exec(location.search)) return decodeURIComponent(name[1]);
+}
+
 function toggleModal(id) {
     document.body.classList.toggle("no-scroll");
     document.getElementById("dark-overlay").classList.toggle("active");

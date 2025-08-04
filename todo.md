@@ -2,9 +2,9 @@
 - [x] Add project deleting
 - [x] Mobile
 - [x] Add articles
+- [x] Host
 
-- [ ] Host
-
+- [ ] Add editing
 - [ ] Add templates & template support
 - [ ] Add all diagram submission shapes
 - [ ] Add home page images
@@ -15,7 +15,6 @@
 
 ## DOWN THE LINE
 - [ ] Write articles
-- [ ] Add editing
 - [ ] Dashboard??
 - [ ] Add account deleting
 - [ ] Add account data request

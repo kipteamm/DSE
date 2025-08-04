@@ -29,7 +29,7 @@ def create_project():
     if not valid:
         return project, 400
 
-    project = Project("Unnamed", g.user.id, body.template, 
+    project = Project(body.name if body.name else "Unnamed", g.user.id, body.template, 
                       "||".join(project["categories"]), 
                       "||".join(project["sections"]), 
                       "||".join(project["options"]))

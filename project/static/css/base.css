@@ -253,7 +253,7 @@ button.danger:hover {
     z-index: 101;
     border-radius: 15px;
     display: none;
-    max-height: calc(100vh - 10vw);
+    max-height: calc(100vh - 8vw);
     overflow-y: auto;
 }
 .modal.active {
