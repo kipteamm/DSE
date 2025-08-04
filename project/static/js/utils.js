@@ -11,6 +11,7 @@ function getCookie(name) {
 }
 
 function toggleModal(id) {
+    document.body.classList.toggle("no-scroll");
     document.getElementById("dark-overlay").classList.toggle("active");
     document.getElementById(id + "-modal").classList.toggle("active");
 }

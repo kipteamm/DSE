@@ -2,6 +2,10 @@
     <iconify-icon icon="logos:google-icon"></iconify-icon>
     <p>Continue with Google</p>
 </button>
+<button class="secondary pri-sec-con" onclick="window.location.href='/login/discord{% if next %}?next={{ next }}{% endif %}'">
+    <iconify-icon icon="logos:discord-icon"></iconify-icon>
+    <p>Continue with Discord</p>
+</button> 
 <button class="secondary pri-sec-con" onclick="window.location.href='/login/facebook{% if next %}?next={{ next }}{% endif %}'">
     <iconify-icon icon="logos:facebook"></iconify-icon>
     <p>Continue with Facebook</p>

@@ -8,7 +8,7 @@ from flask import Blueprint, render_template, request, redirect, url_for, make_r
 
 from project.auth.models import User, EmailAuthentication
 from project.extensions import oauth, db, mail
-from project.secrets import GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, FACEBOOK_CLIENT_ID, FACEBOOK_CLIENT_SECRET, MAIL_ADDRESS
+from project.secrets import GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, DISCORD_CLIENT_ID, DISCORD_CLIENT_SECRET, FACEBOOK_CLIENT_ID, FACEBOOK_CLIENT_SECRET, MAIL_ADDRESS
 
 import secrets
 import time
@@ -29,6 +29,16 @@ oauth.register(
     authorize_params=None,
     api_base_url='https://www.googleapis.com/oauth2/v2/',
     client_kwargs={'scope': 'email profile'}
+)
+
+oauth.register(
+    name='discord',
+    client_id=DISCORD_CLIENT_ID,
+    client_secret=DISCORD_CLIENT_SECRET,
+    access_token_url='https://discord.com/api/oauth2/token',
+    authorize_url='https://discord.com/api/oauth2/authorize',
+    api_base_url='https://discord.com/api/',
+    client_kwargs={'scope': 'identify email'}
 )
 
 oauth.register(
@@ -113,7 +123,7 @@ def login_provider(provider: str):
     if provider == "email":
         return _handle_email(request.args.get("email"), next_url)
 
-    if provider not in ("google", "facebook"):
+    if provider not in ("google", "discord", "facebook"):
         return redirect(f"/login?next={next_url}")
 
     state = json.dumps({"next": next_url})
@@ -130,22 +140,25 @@ def auth_provider(provider: str):
     if provider == "email":
         return _handle_verification(request.args.get("email"), request.args.get("code"), request.args.get("next", "/app"))
 
-    if not provider == "google" and not provider == "facebook":
+    if provider not in ("google", "discord", "facebook"):
         return redirect(f"/login?error={quote_plus('Invalid provider ' + provider)}")  
 
     client = oauth.create_client(provider)
     assert client is not None
 
-    client.authorize_access_token()
+    token = client.authorize_access_token()
+    client.token = token
 
     if provider == "google":
         user_info = client.get("userinfo").json()
-        print(user_info)
         email = user_info["email"]
 
     elif provider == "facebook":
         user_info = client.get("me?fields=name,email").json()
-        print(user_info)
+        email = user_info.get("email")
+
+    elif provider == "discord":
+        user_info = client.get("users/@me").json()
         email = user_info.get("email")
 
     if not email:

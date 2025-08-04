@@ -75,6 +75,12 @@
 
     <main class="content">
         <h2>Your projects</h2>
+        {% if projects|length == 0 %}
+            <div class="col-con cen-con nothing">
+                <b>No projects found :(</b>
+                <button class="secondary" onclick="toggleModal('create')">Create first project</button>
+            </div>
+        {% endif %}
         <div class="projects">
             {% for project in projects %}
                 {% include "components/project.html" %}
