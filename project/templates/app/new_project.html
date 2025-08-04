@@ -4,15 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <title>new</title>
+    <title>LetsM.app New Project</title>
+
+    {% assets "new_project_css" %}
+        <link rel="stylesheet" href="{{ ASSET_URL }}">
+    {% endassets %}
+
+    {% assets "new_project_js" %}
+        <script src="{{ ASSET_URL }}"></script>
+    {% endassets %}
 
     <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
-
-    <script src="/static/js/newProject.js"></script>
-    <script src="/static/js/utils.js"></script>
-
-    <link rel="stylesheet" href="/static/css/newProject.css">
-    <link rel="stylesheet" href="/static/css/base.css">
 </head>
 <body>
     <div class="dark-overlay" id="dark-overlay"></div>

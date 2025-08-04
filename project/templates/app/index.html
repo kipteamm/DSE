@@ -4,15 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <title>Document</title>
+    <title>LetsM.app the Ultimate Social Graphing Experience</title>
 
-    <link rel="stylesheet" href="/static/css/index.css">
-    <link rel="stylesheet" href="/static/css/auth.css">
-    <link rel="stylesheet" href="/static/css/base.css">
+    {% assets "index_css" %}
+        <link rel="stylesheet" href="{{ ASSET_URL }}">
+    {% endassets %}
 
+    {% assets "index_js" %}
+        <script src="{{ ASSET_URL }}"></script>
+    {% endassets %}
+    
     <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
-    <script src="/static/js/utils.js"></script>
-    <script src="/static/js/index.js"></script>
 </head>
 <body>
     <div class="dark-overlay" id="dark-overlay"></div>

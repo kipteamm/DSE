@@ -122,9 +122,6 @@ input, textarea {
 input {
     border: 2px solid var(--primary-bg-80);
 }
-input.secondary {
-    border-color: transparent;
-}
 
 input:focus {
     outline: none;

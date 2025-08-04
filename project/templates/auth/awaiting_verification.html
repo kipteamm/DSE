@@ -6,9 +6,15 @@
     
     <title>Document</title>
 
+    {% assets "auth_css" %}
+        <link rel="stylesheet" href="{{ ASSET_URL }}">
+    {% endassets %}
     <link rel="stylesheet" href="/static/css/auth.css">
     <link rel="stylesheet" href="/static/css/base.css">
 
+    {% assets "auth_js" %}
+        <script src="{{ ASSET_URL }}"></script>
+    {% endassets %}
     <script src="/static/js/auth.js" defer></script>
     <script>
         const email = "{{ email }}";

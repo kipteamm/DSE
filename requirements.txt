@@ -1,6 +1,9 @@
-flask==2.2.5
+flask==3.0.3
 authlib==1.6.1
 Flask-Login==0.6.3
 Flask-Mail==0.10.0
 Flask-Caching==2.3.0
 Flask-SQLAlchemy==3.1.1
+flask_assets==2.1.0
+cssmin==0.2.0
+jsmin==3.0.1

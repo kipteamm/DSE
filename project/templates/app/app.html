@@ -6,12 +6,14 @@
     
     <title>Document</title>
 
-    <link rel="stylesheet" href="/static/css/projects.css">
-    <link rel="stylesheet" href="/static/css/base.css">
-
     <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
-    <script src="/static/js/projects.js"></script>
-    <script src="/static/js/utils.js"></script>
+    {% assets "app_css" %}
+        <link rel="stylesheet" href="{{ ASSET_URL }}">
+    {% endassets %}
+
+    {% assets "app_js" %}
+        <script src="{{ ASSET_URL }}"></script>
+    {% endassets %}
 </head>
 <body>
     <div class="dark-overlay" id="dark-overlay"></div>

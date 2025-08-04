@@ -11,14 +11,18 @@ main.content {
 }
 
 .modal.create {
-    max-width: 600px;
+    max-width: 650px;
 }
 
 .templates {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(30%, 1fr));
     gap: 15px;
     text-align: center;
+    overflow-y: auto;
+    padding: clamp(25px, 4vw, 100px);
+    margin: calc(clamp(25px, 4vw, 100px) * -1);
+    z-index: -1;
 }
 
 .template img {

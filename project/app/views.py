@@ -34,11 +34,11 @@ def edit(id):
 
 @app_blueprint.get("/a/<string:id>")
 def diagram(id):
-    project = Project.query.with_entities(Project.template_id).filter_by(id=id).first() # type: ignore
+    project = Project.query.with_entities(Project.template_id, Project.name).filter_by(id=id).first() # type: ignore
     
     if not project:
         return render_template("app/not_found.html")
 
     answered = Submission.query.with_entities(Submission.id).filter_by(project_id=id, user_id=current_user.id).first() # type: ignore
 
-    return render_template("app/diagram.html", user=current_user, id=id, next="/a/" + id, template=project[0], answered=answered != None)
+    return render_template("app/diagram.html", user=current_user, id=id, next="/a/" + id, template=project[0], answered=answered != None, name=project[1])

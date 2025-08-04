@@ -6,9 +6,15 @@
     
     <title>Document</title>
 
+    {% assets "auth_css" %}
+        <link rel="stylesheet" href="{{ ASSET_URL }}">
+    {% endassets %}
     <link rel="stylesheet" href="/static/css/auth.css">
     <link rel="stylesheet" href="/static/css/base.css">
 
+    {% assets "utils_js" %}
+        <script src="{{ ASSET_URL }}"></script>
+    {% endassets %}
     <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
     <script src="/static/js/utils.js"></script>
 </head>

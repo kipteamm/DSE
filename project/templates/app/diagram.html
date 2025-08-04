@@ -4,13 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>SOME NAME</title>
+    <title>{{ name }}</title>
 
-    <!-- Combine -->    
-    <link rel="stylesheet" href="/static/css/diagrams.css">
-    <link rel="stylesheet" href="/static/css/auth.css">
-    <link rel="stylesheet" href="/static/css/base.css">
-    
+    {% assets "diagram_css" %}
+        <link rel="stylesheet" href="{{ ASSET_URL }}">
+    {% endassets %}
+
+    {% assets "diagram_js" %}
+            <script src="{{ ASSET_URL }}"></script>
+    {% endassets %}
+
     <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
     <script>
         const answered = {% if answered %}true{% else %}false{% endif %};
@@ -18,9 +21,6 @@
         const userId = {% if user.is_authenticated %}"{{ user.id }}"{% else %}null{% endif %};
         const id = "{{ id }}";
     </script>
-    <!-- COmbine -->
-    <script src="/static/js/diagram.js"></script>
-    <script src="/static/js/utils.js"></script>
 </head>
 <body>
     <div class="dark-overlay" id="dark-overlay"></div>

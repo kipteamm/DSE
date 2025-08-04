@@ -7,7 +7,10 @@
     <title>Document</title>
 
     <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
-    <link rel="stylesheet" href="/static/css/articles.css">
+
+    {% assets "articles_css" %}
+        <link rel="stylesheet" href="{{ ASSET_URL }}">
+    {% endassets %}
 </head>
 <body>
     <button onclick="window.history.back()">
