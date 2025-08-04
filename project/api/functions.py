@@ -4,8 +4,6 @@ from project.app.models import Submission
 from project.utils.db import generate_uuid
 from project.api.body import NewProjectBody
 
-from collections import defaultdict
-
 
 def proccess_placement(app, user_id: str, project_id: str, track_id: str, data: list[str]) -> None:
     with app.app_context(): 
