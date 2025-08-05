@@ -6,6 +6,7 @@ __ignore/
 
 # Caches
 .webassets-cache
+gen/
 
 # Ignore db.sqlite3
 db.sqlite3

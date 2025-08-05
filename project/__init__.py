@@ -13,34 +13,39 @@ from flask import Flask, redirect, request
 
 
 app_css = Bundle("css/base.css", "css/app.css", filters="cssmin", output="gen/packed.%(version)s.css")
-app_js = Bundle("js/utils.js", "js/app.js", filters="jsmin", output="gen/packed.%(version)s.js")
+app_js = Bundle("js/utils.js", "js/app.js", filters="rjsmin", output="gen/packed.%(version)s.js")
 assets.register("app_css", app_css)
 assets.register("app_js", app_js)
 
 diagram_css = Bundle("css/diagrams.css", "css/auth.css", "css/base.css", filters="cssmin", output="gen/packed.%(version)s.css")
-diagram_js = Bundle("js/diagram.js", "js/utils.js", filters="jsmin", output="gen/packed.%(version)s.js")
+diagram_js = Bundle("js/diagram.js", "js/utils.js", filters="rjsmin", output="gen/packed.%(version)s.js")
 assets.register("diagram_css", diagram_css)
 assets.register("diagram_js", diagram_js)
 
 index_css = Bundle("css/index.css", "css/auth.css", "css/base.css", filters="cssmin", output="gen/packed.%(version)s.css")
-index_js = Bundle("js/index.js", "js/utils.js", filters="jsmin", output="gen/packed.%(version)s.js")
+index_js = Bundle("js/index.js", "js/utils.js", filters="rjsmin", output="gen/packed.%(version)s.js")
 assets.register("index_css", index_css)
 assets.register("index_js", index_js)
 
 new_project_css = Bundle("css/newProject.css", "css/base.css", filters="cssmin", output="gen/packed.%(version)s.css")
-new_project_js = Bundle("js/newProject.js", "js/utils.js", filters="jsmin", output="gen/packed.%(version)s.js")
+new_project_js = Bundle("js/newProject.js", "js/utils.js", filters="rjsmin", output="gen/packed.%(version)s.js")
 assets.register("new_project_css", new_project_css)
 assets.register("new_project_js", new_project_js)
+
+edit_project_css = Bundle("css/editProject.css", "css/base.css", filters="cssmin", output="gen/packed.%(version)s.css")
+edit_project_js = Bundle("js/editProject.js", "js/utils.js", filters="rjsmin", output="gen/packed.%(version)s.js")
+assets.register("edit_project_css", edit_project_css)
+assets.register("edit_project_js", edit_project_js)
 
 articles_css = Bundle("css/articles.css", filters="cssmin", output="gen/packed.%(version)s.css")
 assets.register("articles_css", articles_css)
 
 auth_css = Bundle("css/auth.css", "css/base.css", filters="cssmin", output="gen/packed.%(version)s.css")
-auth_js = Bundle("js/auth.js", filters="jsmin", output="gen/packed.%(version)s.js")
+auth_js = Bundle("js/auth.js", filters="rjsmin", output="gen/packed.%(version)s.js")
 assets.register("auth_css", auth_css)
 assets.register("auth_js", auth_js)
 
-utils_js = Bundle("js/utils.js", filters="jsmin", output="gen/packed.%(version)s.js")
+utils_js = Bundle("js/utils.js", filters="rjsmin", output="gen/packed.%(version)s.js")
 assets.register("utils_js", utils_js)
 
 

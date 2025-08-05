@@ -6,20 +6,20 @@
     
     <title>Document</title>
 
-    <link rel="stylesheet" href="/static/css/projects.css">
-    <link rel="stylesheet" href="/static/css/base.css">
+    {% assets "edit_project_css" %}
+        <link rel="stylesheet" href="{{ ASSET_URL }}">
+    {% endassets %}
+
+    {% assets "edit_project_js" %}
+        <script src="{{ ASSET_URL }}"></script>
+    {% endassets %}
 
     <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
-    <script src="/static/js/projects.js"></script>
-    <script src="/static/js/utils.js"></script>
 </head>
 <body>
-    <main class="cen-con col-con">
-        <h1>Coming soon!</h1>
-        <p>
-            We are working hard to get this to you as soon as possible.
-        </p>
-        <button class="primary" onclick="window.history.back()">Back</button>
-    </main>
+    <header>
+        <div class="preview"></div>
+        <div class="content"></div>
+    </header>
 </body>
 </html>

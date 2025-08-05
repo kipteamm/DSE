@@ -6,4 +6,4 @@ Flask-Caching==2.3.0
 Flask-SQLAlchemy==3.1.1
 flask_assets==2.1.0
 cssmin==0.2.0
-jsmin==3.0.1
+rjsmin==1.2.2

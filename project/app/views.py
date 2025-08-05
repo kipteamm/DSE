@@ -1,7 +1,7 @@
 from project.app.models import Project, Submission
 
 from flask_login import login_required, current_user
-from flask import Blueprint, render_template, request
+from flask import Blueprint, render_template, redirect
 
 
 app_blueprint = Blueprint("app", __name__)
@@ -16,7 +16,7 @@ def test():
 @app_blueprint.get("/app")
 @login_required
 def app():
-    projects = Project.query.with_entities(Project.id, Project.name, Project.template_id).filter_by(user_id=current_user.id).all()
+    projects = Project.query.with_entities(Project.id, Project.name, Project.template_id).filter_by(user_id=current_user.id).all() # type: ignore
     return render_template("app/app.html", projects=projects)
 
 
@@ -29,7 +29,11 @@ def create():
 @app_blueprint.get("/app/edit/<string:id>")
 @login_required
 def edit(id):
-    return render_template("app/edit.html")
+    project = Project.query.with_entities(Project.template_id, Project.categories, Project.sections, Project.options).filter_by(id=id, user_id=current_user.id).first() # type: ignore
+    if not project:
+        return redirect("/app")
+
+    return render_template("app/edit.html", template_id=project[0], categories=project[1], sections=project[2], options=project[3])
 
 
 @app_blueprint.get("/a/<string:id>")
