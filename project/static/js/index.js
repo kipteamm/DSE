@@ -20,10 +20,10 @@ function indexInit() {
     document.addEventListener("scroll", scrollEvent);
 }
 
-if (document.readyState !== 'loading') {
+if (document.readyState !== "loading") {
     indexInit();
 } else {
-    document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener("DOMContentLoaded", function () {
         indexInit();
     });
 }

@@ -14,12 +14,51 @@
         <script src="{{ ASSET_URL }}"></script>
     {% endassets %}
 
+    <script>
+        const id = "{{ id }}";
+        const template = "{{ template }}";
+    </script>
     <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
 </head>
 <body>
-    <header>
-        <div class="preview"></div>
-        <div class="content"></div>
+    <button class="secondary back even-con" onclick="window.history.back()">
+        <iconify-icon icon="fa6-solid:arrow-left"></iconify-icon>Back
+    </button>
+
+    <div class="changes" id="changes">
+        <div class="content pri-sec-con">
+            <p>You have unsaved changes</p>
+            <button class="secondary" onclick="window.location.reload();">Discard</button>
+            <button class="primary">Save</button>
+        </div>
+    </div>
+
+
+    <div class="color-picker" id="color-picker">
+        <div class="color" style="background:#456dff;" onclick="setColour('#456dff')"></div>  <!-- blue -->
+        <div class="color" style="background:#7A45FF;" onclick="setColour('#7A45FF')"></div>  <!-- violet -->
+        <div class="color" style="background:#D745FF;" onclick="setColour('#D745FF')"></div>  <!-- magenta -->
+        <div class="color" style="background:#FF6A45;" onclick="setColour('#FF6A45')"></div>  <!-- orange-red -->
+        <div class="color" style="background:#FFA645;" onclick="setColour('#FFA645')"></div>  <!-- golden orange -->
+        <div class="color" style="background:#f7ec1f;" onclick="setColour('#f7ec1f')"></div>  <!-- coral pink -->
+        <div class="color" style="background:#14aa5a;" onclick="setColour('#14aa5a')"></div>  <!-- hot pink -->
+
+        <label for="color-picker-input" class="color" style="background:var(--primary-bg-80);">
+            <input type="color" id="color-picker-input" oninput="setColour(this.value)">
+        </label>
+    </div>
+
+    <header class="content even-con">
+        <div class="preview" id="preview"></div>
+        <div class="settings">
+            <div class="nav even-con">
+                <a class="active" onclick="toggleSetting('categories')">Categories</a>
+                {% if template != "quadrant"%}<a onclick="toggleSetting('sections')">Sections</a>{% endif %}
+                <a onclick="toggleSetting('Options')">Options</a>
+            </div>
+
+            <div class="setting col-con active" id="categories-setting"></div>
+        </div>
     </header>
 </body>
 </html>

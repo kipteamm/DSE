@@ -29,11 +29,11 @@ def create():
 @app_blueprint.get("/app/edit/<string:id>")
 @login_required
 def edit(id):
-    project = Project.query.with_entities(Project.template_id, Project.categories, Project.sections, Project.options).filter_by(id=id, user_id=current_user.id).first() # type: ignore
+    project = Project.query.with_entities(Project.template_id).filter_by(id=id, user_id=current_user.id).first() # type: ignore
     if not project:
         return redirect("/app")
 
-    return render_template("app/edit.html", template_id=project[0], categories=project[1], sections=project[2], options=project[3])
+    return render_template("app/edit.html", id=id, template=project[0])
 
 
 @app_blueprint.get("/a/<string:id>")

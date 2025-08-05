@@ -230,10 +230,10 @@ function newProjectInit() {
     });
 }
 
-if (document.readyState !== 'loading') {
+if (document.readyState !== "loading") {
     newProjectInit();
 } else {
-    document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener("DOMContentLoaded", function () {
         newProjectInit();
     });
 }

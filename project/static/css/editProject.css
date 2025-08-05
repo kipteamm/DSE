@@ -1,0 +1,94 @@
+path,
+ellipse {
+    transition-delay: .2s;
+}
+
+button.back.even-con {
+    position: fixed;
+    left: 25px;
+    top: 25px;
+    gap: 10px;
+}
+
+.color-picker {
+    position: fixed;
+    grid-template-columns: repeat(4, 25px);
+    gap: 5px;
+    padding: 10px;
+    border-radius: 15px;
+    background: var(--primary-bg);
+    display: none;
+}
+.color-picker.active {
+    display: grid;
+}
+
+.color-picker input {
+    display: none;
+}
+
+.nav {
+    border-bottom: 2px solid var(--primary-bg-80);
+}
+
+.nav a {
+    padding-bottom: 10px;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: .3s;
+    margin-bottom: -2px;
+    color: var(--primary-font-clr-acc);
+    font-weight: bold;
+}
+.nav a:hover,
+.nav a.active {
+    border-color: var(--primary-font-clr);
+    color: var(--primary-font-clr);
+}
+
+.setting {
+    display: none;
+    margin-top: 25px;
+}
+.setting.active {
+    display: flex;
+}
+
+.input span {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+.input input {
+    width: unset;
+    flex: 1;
+}
+.color {
+    display: block;
+    height: 25px;
+    width: 25px;
+    border-radius: 100%;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: .2s;
+}
+.color:hover {
+    border-color: #000 !important;
+}
+
+.changes {
+    position: fixed;
+    bottom: -110%;
+    width: 100%;
+    transition: .2s;
+    padding: 15px 0;
+    background: var(--primary-bg);
+}
+.changes.active {
+    bottom: 0;
+}
+
+.changes p {
+    flex: 1;
+}

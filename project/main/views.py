@@ -14,7 +14,7 @@ def index():
     if not data:
         data = {
             "users": max(User.query.count(), 463),
-            "projects": max(Project.query.count(), 1405),
+            "projects": max(Project.query.count(), 905),
             "submissions": max(Submission.query.count(), 709),
         }
 
