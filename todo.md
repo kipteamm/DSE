@@ -5,8 +5,8 @@
 - [x] Host
 - [x] Add editing
 - [x] Template support
+- [x] Add all diagram submission shapes
 
-- [ ] Add all diagram submission shapes
 - [ ] Add home page images
 
 - [ ] Add terms of service

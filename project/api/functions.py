@@ -79,6 +79,9 @@ def _check_categories(body: NewProjectBody | EditProjectBody, categories: int, p
         
         if "``" in name:
             return False, Errors.INTERNAL_CHARACTERS_USED.as_dict({"field": "category", "characters": "``"})
+        
+        if "#" in name:
+            return False, Errors.INTERNAL_CHARACTERS_USED.as_dict({"field": "category", "characters": "#"})
 
         color = value["color"]
         if not color:
@@ -105,8 +108,8 @@ def _check_sections(body: NewProjectBody | EditProjectBody, categories: int, pro
         if section_length < 1:
             return False, Errors.MIN_LENGTH_NOT_REACHED.as_dict({"field": "section", "not_reached_by": 1})
 
-        if section_length > 32:
-            return False, Errors.MAX_LENGTH_EXCEEDED.as_dict({"field": "section", "exceeded_by": section_length - 32})
+        if section_length > 35:
+            return False, Errors.MAX_LENGTH_EXCEEDED.as_dict({"field": "section", "exceeded_by": section_length - 35})
 
         if "||" in section:
             return False, Errors.INTERNAL_CHARACTERS_USED.as_dict({"field": "section", "characters": "||"})

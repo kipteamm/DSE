@@ -93,6 +93,8 @@ function setColour(colour) {
 }
 
 function loadSections(page) {
+    document.getElementById("current-section").innerText = categories[1] + " & " + categories[2];
+    
     page.querySelectorAll("input").forEach(input => {
         input.placeholder = input.placeholder.replace("CATEGORY_1", categories[1]);
         input.placeholder = input.placeholder.replace("CATEGORY_2", categories[2]);
@@ -126,7 +128,9 @@ function setSection(elm ,id, value) {
         
         elm.classList.remove("active");
         if (Object.values(sections).includes(null)) {
-            elm.parentNode.children[id].classList.add("active");
+            const nextSection = elm.parentNode.children[id];
+            nextSection.classList.add("active");
+            document.getElementById("current-section").innerText = nextSection.placeholder;
             return;
         };
 

@@ -84,6 +84,15 @@ header {
     position: relative;
 }
 
+.edit-chart h3 {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    padding: 20px;
+    text-align: center;
+}
+
 .edit-chart input {
     position: absolute;
     z-index: 2;

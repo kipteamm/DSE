@@ -91,23 +91,25 @@
             <div class="preview-page" id="page-sections">
                 <div class="edit-chart">
                     <!-- 2 Set Venn Diagram -->
-                    <input class="secondary active" class="venn2 active" type="text" placeholder="CATEGORY_1 & CATEGORY_2" oninput="setSection(this, 1, this.value)">
+                    <input class="secondary active" class="venn2 active" type="text" maxlength="35" placeholder="CATEGORY_1 & CATEGORY_2" oninput="setSection(this, 1, this.value)">
                     
                     <!-- 3 Set Venn Diagram -->
-                    <input class="secondary" class="venn3" type="text" placeholder="CATEGORY_1 & CATEGORY_3" oninput="setSection(this, 2, this.value)">
-                    <input class="secondary" class="venn3" type="text" placeholder="CATEGORY_2 & CATEGORY_3" oninput="setSection(this, 3, this.value)">
-                    <input class="secondary" class="venn3" type="text" placeholder="CATEGORY_1 & CATEGORY_2 & CATEGORY_3" oninput="setSection(this, 4, this.value)">
+                    <input class="secondary" class="venn3" type="text" maxlength="35" placeholder="CATEGORY_1 & CATEGORY_3" oninput="setSection(this, 2, this.value)">
+                    <input class="secondary" class="venn3" type="text" maxlength="35" placeholder="CATEGORY_2 & CATEGORY_3" oninput="setSection(this, 3, this.value)">
+                    <input class="secondary" class="venn3" type="text" maxlength="35" placeholder="CATEGORY_1 & CATEGORY_2 & CATEGORY_3" oninput="setSection(this, 4, this.value)">
                     
                     <!-- 4 Set Venn Diagram -->
-                    <input class="secondary" class="venn4" type="text" placeholder="CATEGORY_1 & CATEGORY_4" oninput="setSection(this, 5, this.value)">
-                    <input class="secondary" class="venn4" type="text" placeholder="CATEGORY_2 & CATEGORY_4" oninput="setSection(this, 6, this.value)">
-                    <input class="secondary" class="venn4" type="text" placeholder="CATEGORY_3 & CATEGORY_4" oninput="setSection(this, 7, this.value)">
+                    <input class="secondary" class="venn4" type="text" maxlength="35" placeholder="CATEGORY_1 & CATEGORY_4" oninput="setSection(this, 5, this.value)">
+                    <input class="secondary" class="venn4" type="text" maxlength="35" placeholder="CATEGORY_2 & CATEGORY_4" oninput="setSection(this, 6, this.value)">
+                    <input class="secondary" class="venn4" type="text" maxlength="35" placeholder="CATEGORY_3 & CATEGORY_4" oninput="setSection(this, 7, this.value)">
                     
-                    <input class="secondary" class="venn4" type="text" placeholder="CATEGORY_1 & CATEGORY_2 & CATEGORY_4" oninput="setSection(this, 8, this.value)">
-                    <input class="secondary" class="venn4" type="text" placeholder="CATEGORY_1 & CATEGORY_3 & CATEGORY_4" oninput="setSection(this, 9, this.value)">
-                    <input class="secondary" class="venn4" type="text" placeholder="CATEGORY_2 & CATEGORY_3 & CATEGORY_4" oninput="setSection(this, 10, this.value)">
+                    <input class="secondary" class="venn4" type="text" maxlength="35" placeholder="CATEGORY_1 & CATEGORY_2 & CATEGORY_4" oninput="setSection(this, 8, this.value)">
+                    <input class="secondary" class="venn4" type="text" maxlength="35" placeholder="CATEGORY_1 & CATEGORY_3 & CATEGORY_4" oninput="setSection(this, 9, this.value)">
+                    <input class="secondary" class="venn4" type="text" maxlength="35" placeholder="CATEGORY_2 & CATEGORY_3 & CATEGORY_4" oninput="setSection(this, 10, this.value)">
                     
-                    <input class="secondary" class="venn4" type="text" placeholder="CATEGORY_1 & CATEGORY_2 & CATEGORY_3 & CATEGORY_4" oninput="setSection(this, 11, this.value)">
+                    <input class="secondary" class="venn4" type="text" maxlength="35" placeholder="CATEGORY_1 & CATEGORY_2 & CATEGORY_3 & CATEGORY_4" oninput="setSection(this, 11, this.value)">
+
+                    <h3 id="current-section"></h3>
                 </div>
             </div>
         </div>

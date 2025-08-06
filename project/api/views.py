@@ -38,7 +38,7 @@ def create_project():
     return {"id": project.id}, 200
 
 
-@api_blueprint.post("/<string:id>/edit")
+@api_blueprint.patch("/<string:id>/edit")
 @authorized()
 def edit_project(id):
     body = EditProjectBody(request.json)

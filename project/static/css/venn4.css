@@ -1,0 +1,101 @@
+#category-1,
+#category-4 {
+    top: 18%;
+    width: 25%;
+    height: 10%;
+}
+#category-1 {
+    left: 4%;
+}
+#category-4 {
+    right: 4%;
+}
+
+#category-2,
+#category-3 {
+    top: 13%;
+    width: 25%;
+    height: 10%;
+}
+#category-2 {
+    left: 24.5%;
+}
+#category-3 {
+    right: 24.5%;
+}
+
+#section-1,
+#section-7 {
+    top: 29%;
+    width: 13%;
+    height: 17%;
+}
+#section-1 {
+    left: 25%;
+}
+#section-7 {
+    right: 25%;
+}
+
+#section-2,
+#section-6 {
+    bottom: 34%;
+    width: 13%;
+    height: 10%;
+}
+#section-2 {
+    left: 30%;
+}
+#section-6 {
+    right: 30%;
+}
+
+#section-3,
+#section-5 {
+    transform: translateX(-50%);
+    left: 50%;
+    width: 15%;
+}
+#section-3 {
+    height: 15%;
+    top: 28%;
+}
+#section-5 {
+    height: 12%;
+    bottom: 22%;
+}
+
+#section-4,
+#section-10 {
+    top: 43%;
+    width: 13%;
+    height: 13%;
+}
+#section-4 {
+    left: 34%;
+}
+#section-10 {
+    right: 34%;
+}
+
+#section-8,
+#section-9 {
+    bottom: 12%;
+    width: 20%;
+    height: 8%;
+}
+
+#section-8 {
+    left: 24%;
+}
+#section-9 {
+    right: 24%;
+}
+
+#section-11 {
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 15%;
+    width: 12%;
+}

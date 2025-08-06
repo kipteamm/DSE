@@ -16,6 +16,13 @@ async function loadTemplate() {
     const svg = await res.text();
     main.innerHTML += svg;
 
+    if (template === "venn4") {        
+        main.querySelector("svg").innerHTML += `
+            <rect style="transform-origin: 129.649px 369.944px;" transform="matrix(0.85716712, 0.51503789, -0.51503789, 0.85716712, 61.10104768, -0.43561814)" x="128.149" y="322.444" width="3" height="85" rx="1.5" ry="1.5"/>
+            <rect style="stroke-width: 1; transform-origin: 129.649px 369.944px;" transform="matrix(0.85716712, -0.51503789, 0.51503789, 0.85716712, 178.10102737, -0.45602916)" x="128.149" y="322.444" width="3" height="85" rx="1.5" ry="1.5"/>
+        `
+    }
+
     const cssLink = document.createElement("link");
     cssLink.rel = "stylesheet";
     cssLink.href = `/static/css/${template}.css`;
