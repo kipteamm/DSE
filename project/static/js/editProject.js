@@ -99,6 +99,11 @@ async function loadDiagram() {
 }
 
 async function editInit() {
+    activeSettingBtn = document.getElementById("categories-btn");
+
+    const setting = get("setting") || "categories";
+    toggleSetting(document.getElementById(setting + "-btn"), setting);
+
     main = document.getElementById("preview");
     changes = document.getElementById("changes");
     colorPicker = document.getElementById("color-picker");

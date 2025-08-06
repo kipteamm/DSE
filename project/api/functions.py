@@ -4,6 +4,8 @@ from project.app.models import Submission
 from project.utils.db import generate_uuid
 from project.api.body import NewProjectBody, EditProjectBody
 
+import time
+
 
 def proccess_placement(app, user_id: str, project_id: str, track_id: str, data: list[str]) -> None:
     with app.app_context(): 
@@ -165,7 +167,9 @@ def parse_diagram(body: NewProjectBody) -> tuple[bool, dict]:
     
 def parse_edit_diagram(body: EditProjectBody, template: str) -> tuple[bool, dict]:
     categories = 4 if template == "quadrant" else int(template.replace("venn", ""))
-    updates = {}
+    updates = {
+        "last_edit_timestamp": time.time()
+    }
 
     if body.categories:
         updates["categories"] = []

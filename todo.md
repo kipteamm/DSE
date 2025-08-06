@@ -4,8 +4,8 @@
 - [x] Add articles
 - [x] Host
 - [x] Add editing
+- [x] Template support
 
-- [ ] Add templates & template support
 - [ ] Add all diagram submission shapes
 - [ ] Add home page images
 
@@ -14,6 +14,7 @@
 - [ ] Fix facebook
 
 ## DOWN THE LINE
+- [ ] Add templates
 - [ ] Google ads
 - [ ] Add account deleting
 - [ ] Add account data request

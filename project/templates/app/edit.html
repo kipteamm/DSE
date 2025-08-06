@@ -52,9 +52,9 @@
         <div class="preview" id="preview"></div>
         <div class="settings">
             <div class="nav even-con">
-                <a class="active" onclick="toggleSetting(this, 'categories')">Categories</a>
-                {% if template != "quadrant"%}<a onclick="toggleSetting(this, 'sections')">Sections</a>{% endif %}
-                <a onclick="toggleSetting(this, 'options')">Options</a>
+                <a class="active" onclick="toggleSetting(this, 'categories')" id="categories-btn">Categories</a>
+                {% if template != "quadrant"%}<a onclick="toggleSetting(this, 'sections')" id="sections-btn">Sections</a>{% endif %}
+                <a onclick="toggleSetting(this, 'options')" id="options-btn">Options</a>
             </div>
 
             <div class="setting col-con active" id="categories-setting"></div>
