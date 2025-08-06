@@ -1,0 +1,21 @@
+#category-1,
+#category-2 {
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20%;
+    height: 20%;
+}
+#category-1 {
+    left: 20%;
+}
+#category-2 {
+    right: 20%;
+}
+
+#section-1 {
+    width: 15%;
+    height: 20%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}

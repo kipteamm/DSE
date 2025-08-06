@@ -78,15 +78,19 @@ main.answered .submit-actions {
 main:not(.answered) .answer-actions {
     display: none;
 }
+
+.search-wrapper,
 .actions {
     position: fixed;
     z-index: 100;
-    top: 5vh;
     width: 100%;
     max-width: 800px;
     left: 50%;
     transform: translateX(-50%);
     padding: 0 5vw;
+}
+.actions {
+    top: 5vh;
     flex-wrap: wrap;
 }
 .answer-actions {
@@ -137,16 +141,15 @@ button:disabled {
     background: var(--primary-bg-80);
 }
 
-.search-options {
-    position: fixed;
-    display: none;
+.search-wrapper {
     top: 12vh;
-    left: 5vw;
-    max-height: 50vh;
+}
+
+.search-options {
+    display: none;
+    max-width: 400px;
     background: var(--primary-bg);
     border: 2px solid var(--primary-bg-80);
-    width: 50%;
-    z-index: 1000;
     border-radius: 15px;
     overflow: hidden;
 }
