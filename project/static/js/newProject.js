@@ -168,7 +168,7 @@ async function create() {
         const name = categories[i];
         if (name == "%$%EMPTY%$%") break;
         
-        _categories[i] = {"name": name, "colour": colours[i]};
+        _categories[i] = {"name": name, "color": colours[i]};
     }
     
     data = {
@@ -178,8 +178,6 @@ async function create() {
         "sections": sections,
         "options": options.map((option) => option.innerText.trim())
     }
-
-    console.log(data);
 
     const response = await fetch("/api/create", {
         method: "POST",
@@ -191,7 +189,6 @@ async function create() {
     });
 
     const json = await response.json();
-    console.log(json);
     if (!response.ok) return;
 
     shareId = json.id;

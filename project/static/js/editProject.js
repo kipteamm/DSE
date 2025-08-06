@@ -10,6 +10,21 @@ let originalOptions = [];
 let originalSections = {};
 let originalCategories = {};
 
+let activeSetting = "categories";
+let activeSettingBtn;
+
+function toggleSetting(btn, setting) {
+    if (setting === activeSetting) return;
+    document.getElementById(activeSetting + "-setting").classList.remove("active");
+    activeSettingBtn.classList.remove("active");
+    
+    activeSetting = setting;
+    activeSettingBtn = btn;
+    
+    document.getElementById(activeSetting + "-setting").classList.add("active");
+    activeSettingBtn.classList.add("active");
+}
+
 async function loadTemplate() {
     const res = await fetch(`/static/icons/${template}.svg`);
     const svg = await res.text();
@@ -35,19 +50,29 @@ async function loadDiagram() {
     originalSections = structuredClone(sections);
 
     const categoriesSetting = document.getElementById("categories-setting");
+    const sectionsSetting = document.getElementById("sections-setting");
+    const optionsSetting = document.getElementById("option-elements");
+
+    options.forEach(option => {
+        const elm = document.createElement("div");
+        elm.classList.add("pri-sec-con");
+        elm.classList.add("option-element");
+        elm.innerHTML = `
+            <p>${option}</p>
+            <iconify-icon icon="fa7-solid:circle-xmark" onclick="removeOption(this.parentNode)"></iconify-icon>
+        `;
+        optionsSetting.appendChild(elm);
+    });
 
     for (const [id, _category] of Object.entries(json.categories)) {
         const category = _category.split("#");
         const elm = document.createElement("div");
 
-        elm.addEventListener("mouseenter", () => toggleCategoryVisibility(true, id));
-        elm.addEventListener("mouseleave", () => toggleCategoryVisibility(false, id));
-
         elm.classList.add("input")
         elm.innerHTML = `
             <span>Category ${id}</span>
             <div class="pri-sec-con">
-                <input type="text" value="${category[0]}" placeholder="Category ${id}" id="category-${id}-input" onfocus="toggleCategory(true, '${id}')" onblur="toggleCategory(false, null)" oninput="updateCategoryName(this, ${id})">
+                <input type="text" value="${category[0]}" placeholder="Category ${id}" id="category-${id}-input" onfocus="toggleCategory(true, ['${id}'])" onblur="toggleCategory(false, null)" oninput="updateCategoryName(this, ${id})">
                 <div class="color" style="background:#${category[1]};border-color:#${category[1]};" onclick="toggleColorPicker(this, ${id})"></div>
             </div>
         `
@@ -60,11 +85,16 @@ async function loadDiagram() {
 
     if (template === "quadrant") return;
     for (const [id, section] of Object.entries(sections)) {
-        const elm = document.createElement("span");
-        elm.id = "section-" + id;
-        elm.innerText = section;
+        const sectionCategories = getCategories(id);
+        const sectionName = sectionCategories.map((index) => categories[index].name).join(" & ");
+        const elm = document.createElement("div");
 
-        main.appendChild(elm);
+        elm.classList.add("input")
+        elm.innerHTML = `
+            <span>${sectionName}</span>
+            <input type="text" value="${section}" placeholder="${sectionName}" id="section-${id}-input" onfocus="toggleCategory(true, ${JSON.stringify(sectionCategories).replaceAll("\"", "'")})" onblur="toggleCategory(false, null)" oninput="updateSection(this, ${id})">
+        `
+        sectionsSetting.appendChild(elm);
     }
 }
 
@@ -72,6 +102,7 @@ async function editInit() {
     main = document.getElementById("preview");
     changes = document.getElementById("changes");
     colorPicker = document.getElementById("color-picker");
+    activeSettingBtn = document.querySelector("a.active");
 
     loadDiagram();
 }
@@ -84,22 +115,26 @@ if (document.readyState !== "loading") {
     });
 }
 
-let visibleCategory = null;
-
-function toggleCategory(visible, categoryId) {
-    visibleCategory = visible ? categoryId : null;
-    updateSvgs();
+function getCategories(id) {
+    if (id === "1") return ["1", "2"];
+    if (id === "2") return ["1", "3"];
+    if (id === "3") return ["2", "3"];
+    if (id === "4") return ["1", "2", "3"];
+    if (id === "5") return ["1", "4"];
+    if (id === "6") return ["2", "4"];
+    if (id === "7") return ["3", "4"];
+    if (id === "8") return ["1", "2", "4"];
+    if (id === "9") return ["1", "3", "4"];
+    if (id === "10") return ["2", "3", "4"];
+    if (id === "11") return ["1", "2", "3", "4"];
 }
 
-function toggleCategoryVisibility(visible, categoryId) {
-    if (visibleCategory || !visible) return updateSvgs();
+let visibleCategories = null;
 
-    document.querySelectorAll('[elm]').forEach(svgElm => {
-        const elmAttr = svgElm.getAttribute('elm');
-        if (elmAttr !== `category-${categoryId}`) {
-            svgElm.style.fill = '#66666666';
-        }
-    });
+function toggleCategory(visible, categoryIds) {
+    visibleCategories = visible ? categoryIds : null;
+    console.log(visibleCategories, categoryIds);
+    updateSvgs();
 }
 
 function updateSvgs() {
@@ -107,12 +142,12 @@ function updateSvgs() {
         const elmAttr = svgElm.getAttribute('elm');
         const catId = elmAttr.replace('category-', '');
 
-        if (visibleCategory === null) {
+        if (visibleCategories === null) {
             const category = categories[catId];
             if (category?.color) {
                 svgElm.style.fill = `#${category.color}66`;
             }
-        } else if (elmAttr !== `category-${visibleCategory}`) {
+        } else if (!visibleCategories.includes(elmAttr.replace("category-", ""))) {
             svgElm.style.fill = '#66666666';
         }
     });
@@ -122,6 +157,38 @@ function updateCategoryName(input, id) {
     if (!input.value) return input.value = categories[id].name;
 
     categories[id].name = input.value;
+    changes.classList.toggle("active", hasChanges());
+}
+
+function updateSection(input, id) {
+    if (!input.value) return input.value = sections[id];
+    
+    sections[id] = input.value;
+    changes.classList.toggle("active", hasChanges());
+}
+
+function addOption(input) {
+    if (!input.value) return;
+
+    const elm = document.createElement("div");
+    elm.classList.add("pri-sec-con");
+    elm.classList.add("option-element");
+    elm.innerHTML = `
+        <p>${input.value}</p>
+        <iconify-icon icon="fa7-solid:circle-xmark" onclick="removeOption(this.parentNode)"></iconify-icon>
+    `;
+
+    document.getElementById("option-elements").appendChild(elm);
+    options.push(input.value);
+    input.value = "";
+
+    changes.classList.toggle("active", hasChanges());
+}
+
+function removeOption(elm) {
+    options.splice(options.indexOf(elm), 1);
+    elm.remove();
+
     changes.classList.toggle("active", hasChanges());
 }
 
@@ -137,6 +204,27 @@ function hasChanges() {
     }
 
     return false;
+}
+
+function getChanges() {
+    let changes = []
+    if (JSON.stringify(options) !== JSON.stringify(originalOptions)) changes.push("options");
+    if (JSON.stringify(sections) !== JSON.stringify(originalSections)) changes.push("sections");
+
+    for (const id in categories) {
+        const current = categories[id];
+        const original = originalCategories[id];
+
+        if (original && current.name === origin.name && current.color === original.color) continue;
+        changes.push("categories");
+        break
+    }
+
+    return changes;
+}
+
+function hasChanges() {
+    return getChanges().length > 0;
 }
 
 let activePicker = null;
@@ -176,6 +264,46 @@ function setColour(color) {
     updateSvgs();
 
     changes.classList.toggle("active", hasChanges());
+}
+
+function discard() {
+    if (isSaving) return;
+    window.location.reload();
+}
+
+let isSaving = false;
+async function submit(btn) {
+    btn.disabled = true;
+    btn.innerText = "Saving..."
+    isSaving = true;
+
+    const changes = getChanges();
+    let data = {};
+
+    if (changes.includes("categories")) {
+        data["categories"] = categories
+    }
+    if (changes.includes("sections")) {
+        data["sections"] = sections
+    }
+    if (changes.includes("options")) {
+        data["options"] = options.map((option) => option.innerText.trim())
+    }
+
+    const response = await fetch(`/api/${id}/edit`, {
+        method: "PATCH",
+        body: JSON.stringify(data),
+        headers: {
+            "Authorization": `Bearer ${getCookie("i_t")}`,
+            "Content-Type": "application/json"
+        }
+    });
+
+    if (!response.ok) return;
+    changes.classList.remove("active");
+    btn.disabled = false;
+    btn.innerText = "save";
+    isSaving = false;
 }
 
 window.onclick = (event) => {

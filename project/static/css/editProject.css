@@ -46,9 +46,10 @@ button.back.even-con {
     color: var(--primary-font-clr);
 }
 
-.setting {
+.setting.col-con {
     display: none;
     margin-top: 25px;
+    height: 60vh;
 }
 .setting.active {
     display: flex;
@@ -60,7 +61,7 @@ button.back.even-con {
     font-weight: 600;
     margin-bottom: 5px;
 }
-.input input {
+.pri-sec-con .input input {
     width: unset;
     flex: 1;
 }
@@ -91,4 +92,43 @@ button.back.even-con {
 
 .changes p {
     flex: 1;
+}
+
+.option-input iconify-icon {
+    font-size: 25px;
+    color: var(--primary-font-clr-acc);
+    transition: .2s;
+    cursor: pointer;
+}
+.option-input iconify-icon:hover {
+    color: #000;
+}
+
+.option-elements {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    column-gap: 2vw;
+    row-gap: 1vw;
+}
+.option-element {
+    width: 100%;
+}
+
+.option-element p {
+    background-color: var(--primary-bg-80);
+    padding: 3px 15px;
+    border-radius: 50px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+}
+.option-element iconify-icon {
+    font-size: 20px;
+    color: var(--primary-font-clr-acc);
+    transition: .2s;
+    cursor: pointer;
+}
+.option-element iconify-icon:hover {
+    color: #000;
 }

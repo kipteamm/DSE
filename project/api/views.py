@@ -1,11 +1,11 @@
 from project.auth.decorators import authorized
 from project.utils.responses import Errors
-from project.api.functions import parse_diagram, proccess_placement, cache_submissions
+from project.api.functions import parse_diagram, parse_edit_diagram, proccess_placement, cache_submissions
 from project.auth.models import User
 from project.app.models import Project, Submission
 from project.extensions import db, cache
 from project.utils.db import generate_uuid
-from project.api.body import NewProjectBody, SubmissionsBody
+from project.api.body import NewProjectBody, EditProjectBody, SubmissionsBody
 
 from flask import Blueprint, g, request, current_app
 
@@ -24,7 +24,6 @@ def create_project():
         return body.error, 400
 
     valid, project = parse_diagram(body)
-    print(project)
 
     if not valid:
         return project, 400
@@ -37,6 +36,29 @@ def create_project():
     db.session.commit()
 
     return {"id": project.id}, 200
+
+
+@api_blueprint.post("/<string:id>/edit")
+@authorized()
+def edit_project(id):
+    body = EditProjectBody(request.json)
+    
+    if not body.is_valid():
+        return body.error, 400
+    
+    template = Project.query.with_entities(Project.template_id).filter_by(id=id, user_id=g.user.id).first() # type: ignore
+    if not template:
+        return Errors.PROJECT_NOT_FOUND.as_dict(), 400
+
+    valid, changes = parse_edit_diagram(body, template)
+
+    if not valid:
+        return changes, 400
+    
+    Project.query.filter_by(id=id).update(changes)
+    db.session.commit()
+
+    return {"success": True}, 200
 
 
 @api_blueprint.get("/diagram/<string:id>")

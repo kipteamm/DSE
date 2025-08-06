@@ -28,8 +28,8 @@
     <div class="changes" id="changes">
         <div class="content pri-sec-con">
             <p>You have unsaved changes</p>
-            <button class="secondary" onclick="window.location.reload();">Discard</button>
-            <button class="primary">Save</button>
+            <button class="secondary" onclick="discard()">Discard</button>
+            <button class="primary" onclick="submit(this)">Save</button>
         </div>
     </div>
 
@@ -52,12 +52,21 @@
         <div class="preview" id="preview"></div>
         <div class="settings">
             <div class="nav even-con">
-                <a class="active" onclick="toggleSetting('categories')">Categories</a>
-                {% if template != "quadrant"%}<a onclick="toggleSetting('sections')">Sections</a>{% endif %}
-                <a onclick="toggleSetting('Options')">Options</a>
+                <a class="active" onclick="toggleSetting(this, 'categories')">Categories</a>
+                {% if template != "quadrant"%}<a onclick="toggleSetting(this, 'sections')">Sections</a>{% endif %}
+                <a onclick="toggleSetting(this, 'options')">Options</a>
             </div>
 
             <div class="setting col-con active" id="categories-setting"></div>
+            <div class="setting col-con" id="sections-setting"></div>
+            <div class="setting col-con" id="options-setting">
+                <div class="pri-sec-con option-input">
+                    <input type="text" placeholder="Option" id="option-input" onkeydown="if(event.key === 'Enter')addOption(this);">
+                    <iconify-icon icon="fa7-solid:circle-plus" onclick="addOption(document.getElementById('option-input'))"></iconify-icon>
+                </div>
+
+                <div class="option-elements" id="option-elements"></div>
+            </div>
         </div>
     </header>
 </body>

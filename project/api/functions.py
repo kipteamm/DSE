@@ -2,7 +2,7 @@ from project.utils.responses import Errors
 from project.extensions import db, cache
 from project.app.models import Submission
 from project.utils.db import generate_uuid
-from project.api.body import NewProjectBody
+from project.api.body import NewProjectBody, EditProjectBody
 
 
 def proccess_placement(app, user_id: str, project_id: str, track_id: str, data: list[str]) -> None:
@@ -54,7 +54,43 @@ def cache_submissions(project_id: str) -> dict:
     return cache_data
 
 
-def _get_sections(body: NewProjectBody, categories: int, project: dict[str, list]) -> tuple[bool, dict | None]:
+def _check_categories(body: NewProjectBody | EditProjectBody, categories: int, project: dict[str, list]) -> tuple[bool, dict | None]:
+    if len(body.categories) != categories:
+        return False, Errors.NOT_ENOUGH_CATEGORIES.as_dict()
+     
+    for i in range(1, categories + 1):
+        value = body.categories[str(i)]
+        
+        name = value["name"]
+        if not name:
+            return False, Errors.INVALID_CATEGORIES.as_dict() 
+
+        name_length = len(name)
+        if name_length < 1:
+            return False, Errors.MIN_LENGTH_NOT_REACHED.as_dict({"field": "category", "not_reached_by": 1})
+
+        if name_length > 32:
+            return False, Errors.MAX_LENGTH_EXCEEDED.as_dict({"field": "category", "exceeded_by": name_length - 32})
+        
+        if "||" in name:
+            return False, Errors.INTERNAL_CHARACTERS_USED.as_dict({"field": "category", "characters": "||"})
+        
+        if "``" in name:
+            return False, Errors.INTERNAL_CHARACTERS_USED.as_dict({"field": "category", "characters": "``"})
+
+        color = value["color"]
+        if not color:
+            color = "#456dff"
+
+        elif len(color) > 7 or not "#" in color:
+            return False, Errors.INVALID_CATEGORIES.as_dict()
+
+        project["categories"].append(name + color)
+
+    return True, None
+
+
+def _check_sections(body: NewProjectBody | EditProjectBody, categories: int, project: dict[str, list]) -> tuple[bool, dict | None]:
     intersections = 1 if categories == 2 else 4 if categories == 3 else 11
 
     if len(body.sections) != intersections:
@@ -81,53 +117,7 @@ def _get_sections(body: NewProjectBody, categories: int, project: dict[str, list
     return True, None
 
 
-def parse_diagram(body: NewProjectBody) -> tuple[bool, dict]:
-    project = {
-        "categories": [],
-        "sections": [],
-        "options": []
-    }
-
-    categories = 4 if body.template == "quadrant" else int(body.template.replace("venn", ""))
-
-    if len(body.categories) != categories:
-        return False, Errors.NOT_ENOUGH_CATEGORIES.as_dict()   
-     
-    for i in range(1, categories + 1):
-        value = body.categories[str(i)]
-        
-        name = value["name"]
-        if not name:
-            return False, Errors.INVALID_CATEGORIES.as_dict() 
-
-        name_length = len(name)
-        if name_length < 1:
-            return False, Errors.MIN_LENGTH_NOT_REACHED.as_dict({"field": "category", "not_reached_by": 1})
-
-        if name_length > 32:
-            return False, Errors.MAX_LENGTH_EXCEEDED.as_dict({"field": "category", "exceeded_by": name_length - 32})
-        
-        if "||" in name:
-            return False, Errors.INTERNAL_CHARACTERS_USED.as_dict({"field": "category", "characters": "||"})
-        
-        if "``" in name:
-            return False, Errors.INTERNAL_CHARACTERS_USED.as_dict({"field": "category", "characters": "``"})
-
-        colour = value["colour"]
-        if not colour:
-            colour = "#456dff"
-
-        elif len(colour) > 7 or not "#" in colour:
-            return False, Errors.INVALID_CATEGORIES.as_dict()
-
-        project["categories"].append(name + colour)
-
-    if body.template != "quadrant":
-        success, errors = _get_sections(body, categories, project)
-        
-        if not success:
-            return False, errors # type: ignore
-
+def _check_options(body: NewProjectBody | EditProjectBody, project: dict[str, list]) -> tuple[bool, dict | None]:
     for option in body.options:
         option_length = len(option)
         if option_length < 1:
@@ -143,7 +133,59 @@ def parse_diagram(body: NewProjectBody) -> tuple[bool, dict]:
             return False, Errors.INTERNAL_CHARACTERS_USED.as_dict({"field": "option", "characters": "``"})
 
         project["options"].append(option)
+    
+    return True, None
+
+
+def parse_diagram(body: NewProjectBody) -> tuple[bool, dict]:
+    project = {
+        "categories": [],
+        "sections": [],
+        "options": []
+    }
+
+    categories = 4 if body.template == "quadrant" else int(body.template.replace("venn", ""))
+    
+    success, errors = _check_categories(body, categories, project)
+    if not success:
+        return False, errors # type: ignore
+
+    if body.template != "quadrant":
+        success, errors = _check_sections(body, categories, project)
+        
+        if not success:
+            return False, errors # type: ignore
+
+    success, errors = _check_options(body, project)
+    if not success:
+        return False, errors # type: ignore
 
     return True, project
 
     
+def parse_edit_diagram(body: EditProjectBody, template: str) -> tuple[bool, dict]:
+    categories = 4 if template == "quadrant" else int(template.replace("venn", ""))
+    updates = {}
+
+    if body.categories:
+        updates["categories"] = []
+        success, errors = _check_categories(body, categories, updates)
+
+        if not success:
+            return False, errors # type: ignore
+
+    if body.sections and template != "quadrant":
+        updates["sections"] = []
+        success, errors = _check_sections(body, categories, updates)
+
+        if not success:
+            return False, errors # type: ignore
+
+    if body.options:
+        updates["options"] = []
+        success, errors = _check_options(body, updates)
+
+        if not success:
+            return False, errors # type: ignore
+
+    return True, updates

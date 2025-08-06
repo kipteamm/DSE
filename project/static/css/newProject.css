@@ -393,6 +393,7 @@ header {
     font-size: 20px;
     color: var(--primary-font-clr-acc);
     transition: .2s;
+    cursor: pointer;
 }
 .option-element iconify-icon:hover {
     color: #000;

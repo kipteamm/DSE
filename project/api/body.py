@@ -11,5 +11,11 @@ class NewProjectBody(BodySchema):
     options: list = BodyField("options", list, True, 1, 1000)
 
 
+class EditProjectBody(BodySchema):
+    categories: dict = BodyField("categories", dict, False)
+    sections: dict = BodyField("sections", dict, False)
+    options: list = BodyField("options", list, False, 1, 1000)
+
+
 class SubmissionsBody(BodySchema):
     submissions: dict = BodyField("submissions", dict, True)

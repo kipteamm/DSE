@@ -3,8 +3,8 @@
 - [x] Mobile
 - [x] Add articles
 - [x] Host
+- [x] Add editing
 
-- [ ] Add editing
 - [ ] Add templates & template support
 - [ ] Add all diagram submission shapes
 - [ ] Add home page images
@@ -14,8 +14,8 @@
 - [ ] Fix facebook
 
 ## DOWN THE LINE
-- [ ] Write articles
-- [ ] Dashboard??
+- [ ] Google ads
 - [ ] Add account deleting
 - [ ] Add account data request
-- [ ] Google ads
+- [ ] Write articles
+- [ ] Dashboard??
