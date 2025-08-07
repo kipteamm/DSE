@@ -201,7 +201,7 @@ async function submit() {
     searchOptions = document.getElementById("search-options");
 
     document.body.classList.add("placing");
-    item.classList.remove();
+    item.remove();
     document.getElementById("loading").style.display = "flex";
     document.getElementById("loading-text").innerText = "Parsing results";
     main.classList.add("answered")
