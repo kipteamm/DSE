@@ -210,6 +210,17 @@ function copyUrl() {
 
 function makeChanges() { return window.location.href = "/app/edit/" + shareId; }
 function vote() { return window.location.href = "/a/" + shareId; }
+function moreShare() {
+    const shareText = "Check out my diagram!";
+    const shareUrl = `${window.location.protocol}//${window.location.host}/a/${shareId}`;
+
+    if (!navigator.share) return;
+    navigator.share({
+        title: "Vote on my diagram!",
+        text: shareText,
+        url: shareUrl
+    });
+}
 
 function moveStep(stepId) {
     document.getElementById("step-" + stepId).classList.add("active");

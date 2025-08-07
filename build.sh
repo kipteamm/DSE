@@ -1,5 +1,7 @@
 #!/bin/bash
 
+git pull
+
 GEN_DIR="project/static/gen"
 
 if [[ -d "$GEN_DIR" ]]; then

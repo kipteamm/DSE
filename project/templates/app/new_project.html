@@ -19,6 +19,7 @@
 <body>
     <div class="dark-overlay" id="dark-overlay"></div>
     <div class="modal col-con" id="share-modal">
+        <span class="close" onclick="window.location.href='/app'">&times;</span>
         <h2>Start Sharing!</h2>
         <p>
             Now that you finished your diagram, you can share it with your friends/community and get started!
@@ -37,12 +38,11 @@
             <a href="https://www.facebook.com/sharer/sharer.php?u=https://example.com" target="_blank" rel="noopener">
                 <iconify-icon icon="logos:facebook"></iconify-icon>
             </a>
-            <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://example.com" target="_blank" rel="noopener">
-                <iconify-icon icon="logos:linkedin-icon"></iconify-icon>
+            <a onclick="moreShare()">
+                <iconify-icon icon="gg:more-o" style="color:var(--primary-clr);transform:rotate(90deg);"></iconify-icon>
             </a>
         </div>
 
-        <button class="secondary" onclick="window.history.back()">Close</button>
         <button class="secondary" onclick="makeChanges()">Make changes</button>
         <button class="primary" onclick="vote()">Vote yourself</button>
     </div>
