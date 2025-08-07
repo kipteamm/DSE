@@ -18,6 +18,8 @@
 <body>
     <div class="dark-overlay" id="dark-overlay"></div>
 
+    {% include "components/share.html" %}
+
     <div class="modal col-con" id="profile-modal">
         <span class="close" onclick="toggleModal('profile')">&times;</span>
         <h2>{{ current_user.email }}</h2>

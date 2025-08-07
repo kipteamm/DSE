@@ -10,6 +10,25 @@ main.content {
     padding: 20vh 5vw 5vw 5vw;
 }
 
+.share-buttons {
+    margin: 5vh 0;
+    font-size: 40px;
+    justify-content: center;
+}
+
+.share-buttons img,
+.share-buttons iconify-icon {
+    transition: .2s;
+    cursor: pointer;
+}
+.share-buttons img:hover,
+.share-buttons iconify-icon:hover {
+    transform: scale(1.1);
+}
+.share-buttons img {
+    height: 40px;
+}
+
 .modal.create {
     max-width: 650px;
 }
@@ -40,9 +59,19 @@ main.content {
     gap: 25px;
 }
 
+.projects .pri-sec-con,
 .projects h3 {
-    margin-top: -15px;
+    margin-top: -10px;
     text-align: center;
+}
+
+.projects .actions.even-con {
+    gap: 10px;
+}
+.projects .actions.even-con button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 #project-modal {

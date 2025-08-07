@@ -2,10 +2,13 @@
     <img src="/static/icons/{{ project.2 }}.svg">
     <h3>{{ project.1 }}</h3>
 
-    <div class="even-con">
+    <div class="even-con actions">
+        <button class="secondary" onclick="share('{{ project.0 }}')"><iconify-icon icon="fa7-solid:share-alt"></iconify-icon></button>
         <button class="secondary" onclick="window.location.href='/app/edit/{{ project.0 }}'"><iconify-icon icon="fa7-solid:pencil"></iconify-icon></button>
         <button class="secondary" onclick="loadSubmissions('{{ project.0 }}')"><iconify-icon icon="fa6-solid:list-ul"></iconify-icon></button>
+    </div>
+    <div class="pri-sec-con">
+        <button class="pri primary" onclick="window.location.href='/a/{{ project.0 }}'">See</button>
         <button class="danger" onclick="deleteProject('{{ project.0 }}')"><iconify-icon icon="heroicons-solid:trash"></iconify-icon></button>
     </div>
-    <button class="primary" onclick="window.location.href='/a/{{ project.0 }}'">See</button>
 </div>

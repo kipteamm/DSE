@@ -124,28 +124,28 @@ header {
 
 #page-category.venn4 input:nth-child(1) {
     top: 20%;
-    left: 5%;
+    left: 0%;
 }
 #page-category.venn4 input:nth-child(2) {
     top: 15%;
-    left: 25%;
+    left: 20%;
 }
 #page-category.venn4 input:nth-child(3) {
     top: 15%;
-    right: 25%;
+    right: 20%;
 }
 #page-category.venn4 input:nth-child(4) {
     top: 20%;
-    right: 5%;
+    right: 0%;
 }
 
 #page-category.venn3 input:nth-child(1) {
     top: 7%;
-    left: 20%;
+    left: 10%;
 }
 #page-category.venn3 input:nth-child(2) {
     top: 7%;
-    right: 20%;
+    right: 10%;
 }
 #page-category.venn3 input:nth-child(3) {
     bottom: 7%;
@@ -158,11 +158,11 @@ header {
 
 #page-category.venn2 input:nth-child(1) {
     top: 18%;
-    left: 25%;
+    left: 15%;
 }
 #page-category.venn2 input:nth-child(2) {
     top: 18%;
-    right: 25%;
+    right: 15%;
 }
 #page-category.venn2 input:nth-child(3),
 #page-category.venn2 input:nth-child(4) {
@@ -414,12 +414,17 @@ header {
     justify-content: center;
 }
 
+.share-buttons img,
 .share-buttons iconify-icon {
     transition: .2s;
     cursor: pointer;
 }
+.share-buttons img:hover,
 .share-buttons iconify-icon:hover {
     transform: scale(1.1);
+}
+.share-buttons img {
+    height: 40px;
 }
 
 @media (min-width: 1024px) {

@@ -13,7 +13,7 @@ from flask import Flask, redirect, request
 
 
 app_css = Bundle("css/base.css", "css/app.css", filters="cssmin", output="gen/packed.%(version)s.css")
-app_js = Bundle("js/utils.js", "js/app.js", filters="rjsmin", output="gen/packed.%(version)s.js")
+app_js = Bundle("js/components/share.js", "js/utils.js", "js/app.js", filters="rjsmin", output="gen/packed.%(version)s.js")
 assets.register("app_css", app_css)
 assets.register("app_js", app_js)
 
@@ -28,7 +28,7 @@ assets.register("index_css", index_css)
 assets.register("index_js", index_js)
 
 new_project_css = Bundle("css/newProject.css", "css/base.css", filters="cssmin", output="gen/packed.%(version)s.css")
-new_project_js = Bundle("js/newProject.js", "js/utils.js", filters="rjsmin", output="gen/packed.%(version)s.js")
+new_project_js = Bundle("js/components/share.js", "js/newProject.js", "js/utils.js", filters="rjsmin", output="gen/packed.%(version)s.js")
 assets.register("new_project_css", new_project_css)
 assets.register("new_project_js", new_project_js)
 

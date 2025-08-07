@@ -165,7 +165,6 @@ function removeOption(elm) {
     elm.remove();
 }
 
-let shareId;
 async function create() {
     _categories = {};
     for (let i = 1; i < 5; i++) {
@@ -203,25 +202,6 @@ async function create() {
     toggleModal("share");
 }
 
-function copyUrl() {
-    navigator.clipboard.writeText(`${window.location.protocol}//${window.location.host}/a/${shareId}`);
-    alert("copied");
-}
-
-function makeChanges() { return window.location.href = "/app/edit/" + shareId; }
-function vote() { return window.location.href = "/a/" + shareId; }
-function moreShare() {
-    const shareText = "Check out my diagram!";
-    const shareUrl = `${window.location.protocol}//${window.location.host}/a/${shareId}`;
-
-    if (!navigator.share) return;
-    navigator.share({
-        title: "Vote on my diagram!",
-        text: shareText,
-        url: shareUrl
-    });
-}
-
 function moveStep(stepId) {
     document.getElementById("step-" + stepId).classList.add("active");
 
@@ -249,6 +229,12 @@ if (document.readyState !== "loading") {
         newProjectInit();
     });
 }
+
+document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState !== 'visible') return;
+    if (!shouldRedirect) return;
+    window.location.href = "/app";
+});
 
 window.onclick = (event) => {
     if (!categorySettings) return;

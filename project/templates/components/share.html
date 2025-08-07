@@ -1,0 +1,35 @@
+<div class="modal col-con" id="share-modal">
+    <span class="close" onclick="if(window.location.pathname.includes('/app')){toggleModal('share');}else{window.location.href='/app';}">&times;</span>
+    <h2>Start Sharing!</h2>
+    <p>
+        Share your diagram with your friends, community, collegues or peers and have the real fun start!
+    </p>
+
+    <div class="even-con share-buttons">
+        <a onclick="copyUrl()">
+            <iconify-icon icon="fa6-solid:copy" style="color:var(--primary-clr);"></iconify-icon>
+        </a>
+        <a onclick="moreShare()">
+            <iconify-icon icon="skill-icons:instagram"></iconify-icon>
+        </a>
+        <a href="https://twitter.com/intent/tweet?url=https://example.com&text=Check%20out%20my%20diagram!" target="_blank" rel="noopener">
+            <iconify-icon icon="logos:twitter"></iconify-icon>
+        </a>
+        <!--
+            <a href="https://www.facebook.com/sharer/sharer.php?u=https://example.com" target="_blank" rel="noopener">
+                <iconify-icon icon="logos:facebook"></iconify-icon>
+            </a>
+        -->            
+        <a href="https://api.whatsapp.com/send?text=Check%20out%20my%20diagram!%20https://example.com" target="_blank" rel="noopener">
+            <img src="https://pngimg.com/uploads/whatsapp/whatsapp_PNG21.png">
+        </a>
+        <a onclick="moreShare()">
+            <iconify-icon icon="gg:more-o" style="color:var(--primary-clr);rotate:90deg;"></iconify-icon>
+        </a>
+    </div>
+
+    {% if "create" in request.path %}
+        <button class="secondary" onclick="makeChanges()">Make changes</button>
+    {% endif %}
+    <button class="primary" onclick="vote()">Vote yourself</button>
+</div>

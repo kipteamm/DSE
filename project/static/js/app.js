@@ -35,3 +35,8 @@ async function deleteProject(id) {
 
     document.getElementById("project-" + id).remove();
 }
+
+function share(id) {
+    shareId = id;
+    toggleModal('share');
+}
