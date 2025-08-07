@@ -13,9 +13,9 @@ def index():
     data = cache.get("statistics")
     if not data:
         data = {
-            "users": max(User.query.count(), 463),
-            "projects": max(Project.query.count(), 905),
-            "submissions": max(Submission.query.count(), 709),
+            "users": User.query.count(),
+            "projects": Project.query.count(),
+            "submissions": Submission.query.count(),
         }
 
         cache.set("statistics", data, timeout=3600)

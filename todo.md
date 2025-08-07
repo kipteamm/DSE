@@ -6,11 +6,10 @@
 - [x] Add editing
 - [x] Template support
 - [x] Add all diagram submission shapes
+- [x] Add terms of service
+- [x] Add privacy policy
+- [X] Add home page images
 
-- [ ] Add home page images
-
-- [ ] Add terms of service
-- [ ] Add privacy policy
 - [ ] Fix facebook
 
 ## DOWN THE LINE
