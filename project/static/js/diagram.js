@@ -62,23 +62,35 @@ async function loadDiagram() {
 }
 
 async function prepareSubmissions() {
+    const startedProcessing = new Date().getTime();
     await loadDiagram();
-    
-    counter = document.getElementById("counter");
-    option = document.getElementById("option");
-    
-    currentOption = options[0];
-    option.innerText = currentOption;
-    counter.innerText = options.length;
-    
+
+    item.addEventListener("mousedown", dragStart);
+    window.addEventListener("mousemove", dragMove);
+    window.addEventListener("mouseup", dragEnd);
+
+    item.addEventListener("touchstart", dragStart, { passive: true });
+    window.addEventListener("touchmove", dragMove, { passive: false });
+    window.addEventListener("touchend", dragEnd);
+
+    document.getElementById("dark-overlay").classList.add("active");
+    item.innerText = options[0];
+
+    const loadingLeft = new Date().getTime() - startedProcessing;
+    if (loadingLeft >= 3000) return stopLoading();
+
+    setTimeout(() => stopLoading(), 3000 - loadingLeft);
+}
+
+function stopLoading() {
     document.getElementById("loading").style.display = "none";
+    document.body.classList.remove("placing");
     main.classList.add("active");
     dimension = main.offsetWidth;
 }
 
 let item;
 let option;
-let counter;
 let searchOptions;
 function diagramInit() {
     main = document.getElementById("main");
@@ -99,44 +111,47 @@ if (document.readyState !== 'loading') {
     });
 }
 
-document.addEventListener("mousemove", handleMove);
-document.addEventListener("touchmove", handleMove, { passive: false });
-
-document.addEventListener("click", handleClick);
-document.addEventListener("touchend", handleClick);
-
-let placements = {};
-function handleMove(event) {
-    if (!isPlacing) return;
-
-    let x, y;
-    if (event.touches) {
-        x = event.touches[0].clientX;
-        y = event.touches[0].clientY;
-    } else {
-        x = event.clientX;
-        y = event.clientY;
-    }
-
-    item.style.top = `${y}px`;
-    item.style.left = `${x}px`;
+function getEventXY(e) {
+    // while touching / moving
+    if (e.touches && e.touches.length > 0) return { x: e.touches[0].clientX, y: e.touches[0].clientY };
+    // at touchend
+    if (e.changedTouches && e.changedTouches.length > 0) return { x: e.changedTouches[0].clientX, y: e.changedTouches[0].clientY };
+    // mouse events
+    return { x: e.clientX, y: e.clientY };
 }
 
-function handleClick(event) {
-    if (!isPlacing) return;
-    if (isReplacing && new Date().getTime() - replaceFired < 500) return;
 
-    let x, y;
-    if (event.touches) {
-        x = event.changedTouches[0].clientX;
-        y = event.changedTouches[0].clientY;
-    } else {
-        x = event.clientX;
-        y = event.clientY;
-    }
+let holdTimeout = null;
+let isDragging = false;
+let dragStartX = 0;
+let dragStartY = 0;
+let placements = {};
 
+function dragStart(event) {
+    const { x, y } = getEventXY(event);
+    dragStartX = x;
+    dragStartY = y;
+
+    isDragging = true;
+    document.body.classList.add("placing");
+}
+
+function dragMove(event) {
+    if (!isDragging) return;
+    const { x, y } = getEventXY(event);
+
+    item.style.left = `${x}px`;
+    item.style.top = `${y}px`;
+}
+
+function dragEnd(event) {
+    if (!isDragging) return;
+    isDragging = false;
+    item.style.pointerEvents = "none";
+
+    const { x, y } = getEventXY(event);
     const realTarget = document.elementFromPoint(x, y);
-    if (!realTarget.closest("ellipse") && !realTarget.closest("path"))  return;
+    if (!realTarget.closest("ellipse") && !realTarget.closest("path"))  return console.log("early");
 
     const isLandscape = (window.innerWidth / window.innerHeight) > 1;
     let offsetX = 0, offsetY = 0;
@@ -151,83 +166,42 @@ function handleClick(event) {
     const left = Math.round(((x - offsetX) / dimension) * 100);
 
     const elm = document.createElement("li");
-    elm.innerText = currentOption;
+    elm.innerText = options[0];
     elm.style.top = top + "%";
     elm.style.left = left + "%";
-    elm.onclick = (event) => replace(event, elm);
-
     main.appendChild(elm);
+
+    item.style.pointerEvents = "all";
+    item.style.display = "none";
+
     placements[elm.innerText] = `${top}%${left}`;
-
-    togglePlacing(null, option);
-
-    if (!isReplacing) {
-        counter.innerText = options.length - 1;
-        options.shift();
-    }
-
-    if (options.length === 0) {
-        option.innerText = "All done!";
-        return;
-    }
-
-    currentOption = options[0];
-    option.innerText = currentOption;
-    isReplacing = false;
 }
 
-let isPlacing = false;
-function togglePlacing(event, btn) {
-    if (options.length === 0) return;
-
-    btn.classList.toggle("secondary", isPlacing);
-    btn.classList.toggle("tertiary", !isPlacing);
-    item.classList.toggle("active", !isPlacing);
-
-    isPlacing = !isPlacing;
-    if (!isPlacing) return;
-
-    let x = 0;
-    if (event) {
-        if (event.touches) {
-            x = event.touches[0].clientX;
-        } else {
-            x = event.clientX;
-        }
-    }
-
-    // item.style.top = `${y}px`;
-    item.style.left = `${x}px`;
-    item.innerText = currentOption || btn.innerText;
-}
-
-let isReplacing = false;
-let currentOption = null;
-let replaceFired = 0;
-function replace(event, elm) {
-    if (isPlacing) togglePlacing(null, option);
-
-    delete placements[elm.innerText];
-    currentOption = elm.innerText;
-    option.innerText = currentOption;
-    elm.remove();
-
-    isReplacing = true;
-    replaceFired = new Date().getTime();
-    togglePlacing(event, option);
-}
-
-function skip() {
-    if (isPlacing) togglePlacing(null, option);
-
+function next() {
     options.shift();
-    currentOption = options[0];
-    option.innerText = currentOption;
+
+    item.removeAttribute("style");
+    document.body.classList.remove("placing");
+
+    if (options.length > 0) {
+        item.innerText = options[0];
+        return;
+    } 
+
+    item.innerText = "Finished!"
+    document.getElementById("placement-text").innerText = "You have placed all available options."
+    const button = document.getElementById("placement-btn");
+    button.innerText = "Submit"
+    button.classList.remove("secondary");
+    button.classList.add("primary");
+    button.setAttribute("onclick", "submit()")
 }
 
 async function submit() {
     searchOptions = document.getElementById("search-options");
-    
+
+    document.body.classList.add("placing");
+    item.classList.remove();
     document.getElementById("loading").style.display = "flex";
     document.getElementById("loading-text").innerText = "Parsing results";
     main.classList.add("answered")
@@ -269,6 +243,7 @@ async function submit() {
 }
 
 async function loadAnswers() {
+    document.getElementById("loading-text").innerText = "Loading...";
     main.classList.add("answered")
 
     const response = await fetch(`/api/diagram/${id}/answers`, {headers: {"Authorization": `Bearer ${getCookie("i_t")}`}});

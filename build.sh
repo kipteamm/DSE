@@ -15,4 +15,6 @@ fi
 echo "Rebuilding assets..."
 flask assets build
 
+echo "Restarting..."
 touch /var/www/nerdmatrix_eu_pythonanywhere_com_wsgi.py
+echo "Done"

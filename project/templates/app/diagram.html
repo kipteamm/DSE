@@ -22,7 +22,7 @@
         const id = "{{ id }}";
     </script>
 </head>
-<body>
+<body class="placing">
     <div class="dark-overlay" id="dark-overlay"></div>
 
     <div class="modal col-con" id="auth-modal">
@@ -32,21 +32,23 @@
 
     <header class="loading cen-con" id="loading">
         <div class="loader"></div>    
-        <p id="loading-text">Preparing</p>
+        <p id="loading-text">Preparing...<br>Your submission will be anonymous.</p>
     </header>
 
-    <span class="item" id="item"></span>
+    {% if not answered %}
+        <span class="item" id="item"></span>
 
-    <main id="main">
-        <div class="even-con actions submit-actions">
-            <button class="secondary" id="counter" disabled>0</button>
-            <button class="secondary option" id="option" onclick="togglePlacing(event, this)"></button>
-
-            <div class="even-con">
-                <button class="secondary" onclick="skip()">Skip</button>
-                <button class="primary" onclick="submit()">Finish</button>
+        <div class="placement-wrapper">
+            <div class="placement">
+                <p id="placement-text">
+                    Hold the name for a short while then drag it and drop it wherever you like.
+                </p>
+                <button class="secondary" onclick="next()" id="placement-btn">Skip</button>
             </div>
         </div>
+    {% endif %}
+
+    <main id="main">
         <div class="even-con actions answer-actions search">
             <input type="text" placeholder="Search name..." oninput="searchItem(this.value)">
             <button class="secondary" onclick="toggleVisible()"><iconify-icon icon="fa6-solid:eye"></iconify-icon></button>
@@ -56,10 +58,9 @@
             <div class="search-options search" id="search-options"></div>
         </div>
 
-        <p>
-            Click the name up top and place them on the diagram.<br>
-            Your submission remains completely anonymous.
-        </p>
+        <div class="actions submit-actions">
+            <button class="primary" onclick="next()">Next</button>
+        </div>
     </main>
 </body>
 </html>

@@ -23,7 +23,7 @@ def project_from_template(template: str, user_id: str, name: str) -> Project:
                 "John Doe||Jane Doe"
                 )
     
-    if template == "sleeping_habtis":
+    if template == "sleeping_habits":
         return Project(name, user_id, "venn2",
                 "Night owl#7A45FF||Early bird#14aa5a",
                 "Healthy",
