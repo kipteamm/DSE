@@ -18,7 +18,7 @@ def test():
 @app_blueprint.get("/app")
 @login_required
 def app():
-    projects = Project.query.with_entities(Project.id, Project.name, Project.template_id).filter_by(user_id=current_user.id).all() # type: ignore
+    projects = Project.query.with_entities(Project.id, Project.name, Project.template_id).filter_by(user_id=current_user.id).order_by(Project.last_edit_timestamp.desc()).all() # type: ignore
     return render_template("app/app.html", projects=projects)
 
 

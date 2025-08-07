@@ -1,6 +1,7 @@
-path,
-ellipse {
-    transition-delay: .2s;
+svg {
+    width: 100%;
+    max-width: 500px;
+    height: 100%;
 }
 
 button.back.even-con {
@@ -46,9 +47,15 @@ button.back.even-con {
     color: var(--primary-font-clr);
 }
 
+.settings {
+    width: 100%;
+}
+
 .setting.col-con {
     display: none;
-    margin-top: 25px;
+    overflow: auto;
+    padding: 25px 25px 0px 0px;
+    margin-right: -25px;
     height: 60vh;
 }
 .setting.active {
@@ -85,6 +92,7 @@ button.back.even-con {
     transition: .2s;
     padding: 15px 0;
     background: var(--primary-bg);
+    border-top: 2px solid var(--primary-bg-80);
 }
 .changes.active {
     bottom: 0;
@@ -92,6 +100,10 @@ button.back.even-con {
 
 .changes p {
     flex: 1;
+    font-size: 14px;
+}
+.changes button {
+    font-size: 14px;
 }
 
 .option-input iconify-icon {
@@ -131,4 +143,16 @@ button.back.even-con {
 }
 .option-element iconify-icon:hover {
     color: #000;
+}
+
+@media (min-width: 1024px) {
+    header.col-con {
+        flex-direction: row;
+    }
+}
+
+@media (max-width: 1024px) {
+    svg {
+        margin-top: 5vh;
+    }
 }
