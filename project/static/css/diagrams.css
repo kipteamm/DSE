@@ -110,11 +110,11 @@ main:not(.answered) .answer-actions {
     transform: translateX(-50%);
     width: 100%;
     padding: 0 5vw;
+    max-width: 800px;
 }
 .answer-actions {
     top: 5vh;
     flex-wrap: nowrap;
-    max-width: 800px;
 }
 .actions .option {
     flex: 1;
