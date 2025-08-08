@@ -133,7 +133,19 @@ main:not(.answered) .answer-actions {
     max-width: 80px;
 }
 
-.item {
+li {
+    cursor: pointer;
+    position: absolute;
+    z-index: 10;
+    padding: 5px 15px;
+    border-radius: 50px;
+    font-weight: 500;
+    background: #e2e2e299;
+    user-select: none;
+    margin: -5px -15px;
+}
+li.placing {
+    display: inline-block;
     position: fixed;
     top: 44%;
     left: 50%;
@@ -141,26 +153,9 @@ main:not(.answered) .answer-actions {
     z-index: 1001;
     touch-action: none;
     cursor: grab;
+    margin: 0px;
 }
 
-li,
-.item {
-    padding: 5px 15px;
-    border-radius: 50px;
-    font-weight: 500;
-    background: #e2e2e299;
-    user-select: none;
-}
-.item.active {
-    display: inline-block;
-}
-
-li {
-    cursor: pointer;
-    position: absolute;
-    margin: -5px -15px;
-    z-index: 10;
-}
 main.hide li:not(.specific) {
     display: none;
 }

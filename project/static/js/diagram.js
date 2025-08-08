@@ -76,10 +76,12 @@ async function prepareSubmissions() {
     document.getElementById("dark-overlay").classList.add("active");
     item.innerText = options[0];
 
-    const loadingLeft = new Date().getTime() - startedProcessing;
-    if (loadingLeft >= 3000) return stopLoading();
+    return stopLoading();
 
-    setTimeout(() => stopLoading(), 3000 - loadingLeft);
+    // const loadingLeft = new Date().getTime() - startedProcessing;
+    // if (loadingLeft >= 3000) return stopLoading();
+
+    // setTimeout(() => stopLoading(), 3000 - loadingLeft);
 }
 
 function stopLoading() {
@@ -126,11 +128,15 @@ let isDragging = false;
 let dragStartX = 0;
 let dragStartY = 0;
 let placements = {};
+let dragged = null;
 
 function dragStart(event) {
     const { x, y } = getEventXY(event);
     dragStartX = x;
     dragStartY = y;
+
+    dragged = event.currentTarget;
+    dragged.classList.add("placing");
 
     isDragging = true;
     document.body.classList.add("placing");
@@ -140,18 +146,20 @@ function dragMove(event) {
     if (!isDragging) return;
     const { x, y } = getEventXY(event);
 
-    item.style.left = `${x}px`;
-    item.style.top = `${y}px`;
+    dragged.style.left = `${x}px`;
+    dragged.style.top = `${y}px`;
 }
 
 function dragEnd(event) {
     if (!isDragging) return;
     isDragging = false;
-    item.style.pointerEvents = "none";
+    dragged.style.pointerEvents = "none";
 
     const { x, y } = getEventXY(event);
     const realTarget = document.elementFromPoint(x, y);
-    if (!realTarget.closest("ellipse") && !realTarget.closest("path"))  return console.log("early");
+
+    dragged.style.pointerEvents = "all";
+    if (!realTarget.closest("ellipse") && !realTarget.closest("path")) return;
 
     const isLandscape = (window.innerWidth / window.innerHeight) > 1;
     let offsetX = 0, offsetY = 0;
@@ -165,23 +173,37 @@ function dragEnd(event) {
     const top = Math.round(((y - offsetY) / dimension) * 100);
     const left = Math.round(((x - offsetX) / dimension) * 100);
 
-    const elm = document.createElement("li");
-    elm.innerText = options[0];
-    elm.style.top = top + "%";
-    elm.style.left = left + "%";
-    main.appendChild(elm);
+    dragged.classList.remove("placing");
 
-    item.style.pointerEvents = "all";
-    item.style.display = "none";
+    placements[dragged.innerText] = `${top}%${left}`;
+    if (dragged.id === "item") return;
 
-    placements[elm.innerText] = `${top}%${left}`;
+    dragged.style.top = top + "%";
+    dragged.style.left = left + "%";
 }
 
 function next() {
     options.shift();
 
-    item.removeAttribute("style");
+    dragged.removeAttribute("style");
+
+
+    
+    const elm = dragged.cloneNode(true);
+    const positions = placements[elm.innerText].split("%")
+    elm.removeAttribute("id");
+    elm.style.top = positions[0] + "%";
+    elm.style.left = positions[1] + "%";
+    elm.addEventListener("mousedown", dragStart);
+    elm.addEventListener("touchstart", dragStart);
+    main.appendChild(elm);
+
+
+
     document.body.classList.remove("placing");
+    
+    dragged.classList.add("placing");
+    dragged = null;
 
     if (options.length > 0) {
         item.innerText = options[0];
@@ -189,6 +211,7 @@ function next() {
     } 
 
     item.innerText = "Finished!"
+
     document.getElementById("placement-text").innerText = "You have placed all available options."
     const button = document.getElementById("placement-btn");
     button.innerText = "Submit"
