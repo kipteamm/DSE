@@ -8,9 +8,10 @@
 - [x] Add all diagram submission shapes
 - [x] Add terms of service
 - [x] Add privacy policy
-- [X] Add home page images
+- [x] Add home page images
+- [x] Add submission deleting
+- [x] Allow moving (no longer work with 2 elements, but rather with one li element that is either list-style or not depending on whether it was placed)
 
-- [ ] Allow moving (no longer work with 2 elements, but rather with one li element that is either list-style or not depending on whether it was placed)
 - [ ] Fix facebook
 
 ## DOWN THE LINE

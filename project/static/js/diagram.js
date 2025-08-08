@@ -159,7 +159,7 @@ function dragEnd(event) {
     const realTarget = document.elementFromPoint(x, y);
 
     dragged.style.pointerEvents = "all";
-    if (!realTarget.closest("ellipse") && !realTarget.closest("path")) return;
+    if (!realTarget.closest("ellipse") && !realTarget.closest("path") && !realTarget.closest("li")) return;
 
     const isLandscape = (window.innerWidth / window.innerHeight) > 1;
     let offsetX = 0, offsetY = 0;
