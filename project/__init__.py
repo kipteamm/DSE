@@ -33,7 +33,7 @@ assets.register("new_project_css", new_project_css)
 assets.register("new_project_js", new_project_js)
 
 edit_project_css = Bundle("css/editProject.css", "css/base.css", filters="cssmin", output="gen/packed.%(version)s.css")
-edit_project_js = Bundle("js/editProject.js", "js/utils.js", filters="rjsmin", output="gen/packed.%(version)s.js")
+edit_project_js = Bundle("js/components/share.js", "js/editProject.js", "js/utils.js", filters="rjsmin", output="gen/packed.%(version)s.js")
 assets.register("edit_project_css", edit_project_css)
 assets.register("edit_project_js", edit_project_js)
 

@@ -46,13 +46,14 @@ def edit_project(id):
     if not body.is_valid():
         return body.error, 400
     
-    template = Project.query.with_entities(Project.template_id).filter_by(id=id, user_id=g.user.id).first() # type: ignore
+    template: tuple | None = Project.query.with_entities(Project.template_id).filter_by(id=id, user_id=g.user.id).first() # type: ignore
     if not template:
         return Errors.PROJECT_NOT_FOUND.as_dict(), 400
 
-    valid, changes = parse_edit_diagram(body, template)
+    valid, changes = parse_edit_diagram(body, template[0])
 
     if not valid:
+        print(changes)
         return changes, 400
     
     Project.query.filter_by(id=id).update(changes)

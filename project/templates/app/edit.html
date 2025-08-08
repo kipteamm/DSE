@@ -21,11 +21,14 @@
     <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
 </head>
 <body>
+    <div class="dark-overlay" id="dark-overlay"></div>
+    {% include "components/share.html" %}
+
     <button class="secondary back even-con" onclick="window.history.back()">
         <iconify-icon icon="fa6-solid:arrow-left"></iconify-icon>Back
     </button>
-    <button class="secondary back even-con" onclick="window.history.back()">
-        <iconify-icon icon="fa6-solid:arrow-left"></iconify-icon>Share
+    <button class="secondary share even-con" onclick="share()">
+        <iconify-icon icon="fa7-solid:share-alt"></iconify-icon>Share
     </button>
 
     <div class="changes" id="changes">

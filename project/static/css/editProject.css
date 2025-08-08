@@ -4,15 +4,40 @@ svg {
     height: 100%;
 }
 
+button.share.even-con,
 button.back.even-con {
     position: fixed;
-    left: 25px;
     top: 25px;
     gap: 10px;
 }
+button.back {
+    left: 25px;
+}
+button.share {
+    right: 25px;
+}
+
+.share-buttons {
+    margin: 5vh 0;
+    font-size: 40px;
+    justify-content: center;
+}
+
+.share-buttons img,
+.share-buttons iconify-icon {
+    transition: .2s;
+    cursor: pointer;
+}
+.share-buttons img:hover,
+.share-buttons iconify-icon:hover {
+    transform: scale(1.1);
+}
+.share-buttons img {
+    height: 40px;
+}
 
 .color-picker {
-    position: fixed;
+    position: absolute;
     grid-template-columns: repeat(4, 25px);
     gap: 5px;
     padding: 10px;

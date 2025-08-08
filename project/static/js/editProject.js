@@ -79,8 +79,8 @@ async function loadDiagram() {
         categoriesSetting.appendChild(elm);
 
         document.querySelector(`[elm="category-${id}"]`).style.fill = `#${category[1]}66`;
-        categories[id] = {"name": category[0], "color": category[1]};
-        originalCategories[id] = {"name": category[0], "color": category[1]};
+        categories[id] = {"name": category[0], "color": "#" + category[1]};
+        originalCategories[id] = {"name": category[0], "color": "#" + category[1]};
     }
 
     if (template === "quadrant") return;
@@ -138,7 +138,6 @@ let visibleCategories = null;
 
 function toggleCategory(visible, categoryIds) {
     visibleCategories = visible ? categoryIds : null;
-    console.log(visibleCategories, categoryIds);
     updateSvgs();
 }
 
@@ -150,7 +149,7 @@ function updateSvgs() {
         if (visibleCategories === null) {
             const category = categories[catId];
             if (category?.color) {
-                svgElm.style.fill = `#${category.color}66`;
+                svgElm.style.fill = `${category.color}66`;
             }
         } else if (!visibleCategories.includes(elmAttr.replace("category-", ""))) {
             svgElm.style.fill = '#66666666';
@@ -184,7 +183,7 @@ function addOption(input) {
     `;
 
     document.getElementById("option-elements").appendChild(elm);
-    options.push(input.value);
+    options.push(input.value.trim());
     input.value = "";
 
     changes.classList.toggle("active", hasChanges());
@@ -213,6 +212,7 @@ function hasChanges() {
 
 function getChanges() {
     let changes = []
+
     if (JSON.stringify(options) !== JSON.stringify(originalOptions)) changes.push("options");
     if (JSON.stringify(sections) !== JSON.stringify(originalSections)) changes.push("sections");
 
@@ -220,7 +220,7 @@ function getChanges() {
         const current = categories[id];
         const original = originalCategories[id];
 
-        if (original && current.name === origin.name && current.color === original.color) continue;
+        if (original && current.name === original.name && current.color === original.color) continue;
         changes.push("categories");
         break
     }
@@ -244,7 +244,7 @@ function toggleColorPicker(input, id) {
 
     if (id === activePicker) {
         activePicker = null;
-        colorPicker.classList.remove("active")
+        colorPicker.classList.remove("active");
         return;
     }
 
@@ -254,15 +254,23 @@ function toggleColorPicker(input, id) {
     const inputRect = input.getBoundingClientRect();
     const parentRect = input.offsetParent.getBoundingClientRect();
 
-    const offsetTop = inputRect.top - parentRect.top + input.offsetHeight;
-    const offsetLeft = inputRect.left - parentRect.left - 50;
+    const scrollY = window.scrollY || window.pageYOffset;
+
+    const pickerWidth = 135;
+    const viewportWidth = window.innerWidth;
+
+    const offsetTop = (inputRect.top + scrollY) - (parentRect.top + scrollY) + input.offsetHeight;
+    let offsetLeft = inputRect.left - parentRect.left - 50;
+
+    if (offsetLeft + pickerWidth > viewportWidth) offsetLeft = viewportWidth - pickerWidth - 15;
 
     colorPicker.style.top = `${offsetTop}px`;
     colorPicker.style.left = `${offsetLeft}px`;
 }
 
+
 function setColour(color) {
-    categories[activePicker].color = color.replace("#", "");
+    categories[activePicker].color = color;
     colorInput.style.background = color;
     colorInput.style.borderColor = color;
     document.querySelector(`[elm="category-${activePicker}"]`).style.color = color + "66";
@@ -282,17 +290,17 @@ async function submit(btn) {
     btn.innerText = "Saving..."
     isSaving = true;
 
-    const changes = getChanges();
+    const editedFields = getChanges();
     let data = {};
 
-    if (changes.includes("categories")) {
+    if (editedFields.includes("categories")) {
         data["categories"] = categories
     }
-    if (changes.includes("sections")) {
+    if (editedFields.includes("sections")) {
         data["sections"] = sections
     }
-    if (changes.includes("options")) {
-        data["options"] = options.map((option) => option.innerText.trim())
+    if (editedFields.includes("options")) {
+        data["options"] = options;
     }
 
     const response = await fetch(`/api/${id}/edit`, {
@@ -305,10 +313,20 @@ async function submit(btn) {
     });
 
     if (!response.ok) return;
+
     changes.classList.remove("active");
     btn.disabled = false;
     btn.innerText = "save";
     isSaving = false;
+
+    originalCategories = structuredClone(categories);
+    originalSections = structuredClone(sections);
+    originalOptions = structuredClone(options);
+}
+
+function share(id) {
+    shareId = id;
+    toggleModal('share');
 }
 
 window.onclick = (event) => {

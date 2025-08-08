@@ -180,6 +180,8 @@ def parse_edit_diagram(body: EditProjectBody, template: str) -> tuple[bool, dict
 
         if not success:
             return False, errors # type: ignore
+        
+        updates["categories"] = "||".join(updates["categories"])
 
     if body.sections and template != "quadrant":
         updates["sections"] = []
@@ -187,6 +189,8 @@ def parse_edit_diagram(body: EditProjectBody, template: str) -> tuple[bool, dict
 
         if not success:
             return False, errors # type: ignore
+        
+        updates["sections"] = "||".join(updates["sections"])
 
     if body.options:
         updates["options"] = []
@@ -194,5 +198,7 @@ def parse_edit_diagram(body: EditProjectBody, template: str) -> tuple[bool, dict
 
         if not success:
             return False, errors # type: ignore
+        
+        updates["options"] = "||".join(updates["options"])
 
     return True, updates
