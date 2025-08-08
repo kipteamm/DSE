@@ -107,3 +107,20 @@ main.content {
 .submission iconify-icon {
     cursor: pointer;
 }
+
+@media (max-width: 500px) {
+    .submission {
+        flex-wrap: wrap;
+        row-gap: 1px;    
+    }
+    .submission span {
+        width: 100%;
+        font-size: 14px;
+    }
+    .submission b {
+        order: 2;
+    }
+    .submission iconify-icon {
+        order: 3;
+    }
+}

@@ -156,7 +156,7 @@ def submissions(id):
     
     data = cache.get(f"submissions:{id}")
     if data:
-        return data, 200
+        return {"submissions": data}, 200
 
     results = (
         db.session.query(Submission.id, Submission._created_at, User.email) # type: ignore
@@ -171,3 +171,18 @@ def submissions(id):
 
     cache.set(f"submissions:{id}", data, timeout=600)
     return {"submissions": data}, 200
+
+
+@api_blueprint.delete("/submission/<string:project_id>/<string:submission_id>/delete")
+@authorized()
+def delete_submission(project_id, submission_id):
+    project = Project.query.with_entities(Project.id).filter_by(id=project_id, user_id=g.user.id).first() # type: ignore
+    
+    if not project:
+        return Errors.PROJECT_NOT_FOUND.as_dict(), 404
+    
+    Submission.query.filter_by(project_id=project_id, id=submission_id).delete()
+    db.session.commit()
+
+    cache.delete(f"submissions:{project_id}")
+    return {"success": True}, 200

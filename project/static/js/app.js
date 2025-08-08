@@ -12,7 +12,6 @@ async function loadSubmissions(id) {
     const response = await fetch(`/api/diagram/${id}/submissions`, {headers: {"Authorization": `Bearer ${getCookie("i_t")}`}});
     if (!response.ok) return;
 
-
     const json = await response.json();
     let HTML = `<h2>Submissions</h2><span class="close" onclick="toggleModal('project')">&times;</span>`;
 
@@ -20,9 +19,10 @@ async function loadSubmissions(id) {
         const date = submission.created_at.split(" ");
         date.splice(4, 2);
 
-        HTML += `<div class="pri-sec-con submission">
-            <b>${submission.email}</b>${date.join(" ")}
-            <iconify-icon icon="heroicons-solid:trash"></iconify-icon>
+        HTML += `<div class="pri-sec-con submission" id="${submission.id}">
+            <b>${submission.email}</b>
+            <span>${date.join(" ")}</span>
+            <iconify-icon icon="heroicons-solid:trash" style="font-size: 18px;"onclick="deleteSubmission('${id}', '${submission.id}')"></iconify-icon>
         </div>`;
     });
 
@@ -34,6 +34,13 @@ async function deleteProject(id) {
     if (!response.ok) return;
 
     document.getElementById("project-" + id).remove();
+}
+
+async function deleteSubmission(projectId, submissionId) {
+    const response = await fetch(`/api/submission/${projectId}/${submissionId}/delete`, {method: "DELETE", headers: {"Authorization": `Bearer ${getCookie("i_t")}`}});
+    if (!response.ok) return;
+
+    document.getElementById(submissionId).remove();
 }
 
 function share(id) {

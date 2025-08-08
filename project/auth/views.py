@@ -1,6 +1,5 @@
 from werkzeug.wrappers import Response
 from urllib.parse import quote_plus
-from sqlalchemy.sql import exists
 
 from flask_login import login_user, logout_user
 from flask_mail import Message
