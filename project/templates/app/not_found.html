@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Document</title>
+
+    {% assets "index_css" %}
+        <link rel="stylesheet" href="{{ ASSET_URL }}">
+    {% endassets %}
+
+    {% assets "utils_js" %}
+        <script src="{{ ASSET_URL }}"></script>
+    {% endassets %}
+</head>
+<body>
+    <header class="cen-con col-con">
+        <div class="top">
+            <div class="content even-con">
+                <b>letsm.app</b>
+                <a><button class="tertiary" onclick="{% if current_user.is_authenticated %}window.location.href='/app'{% else %}toggleModal('auth'){% endif %}">Log in</button></a>
+            </div>
+        </div>
+
+        <h1>
+           Nothing found :(
+        </h1>
+        <p>
+            Create custom tailored graphs to explore the dynamics of your group.
+        </p>
+        <button class="primary cta" onclick="{% if current_user.is_authenticated %}window.location.href='/app'{% else %}toggleModal('auth'){% endif %}"><b>Start creating</b></button>
+    </header>
+</body>
+</html>

@@ -57,6 +57,8 @@ def diagram(id):
     if not project:
         return render_template("app/not_found.html")
 
-    answered = Submission.query.with_entities(Submission.id).filter_by(project_id=id, user_id=current_user.id).first() # type: ignore
+    answered = False
+    if current_user.is_authenticated:
+        answered = Submission.query.with_entities(Submission.id).filter_by(project_id=id, user_id=current_user.id).first() != None # type: ignore
 
-    return render_template("app/diagram.html", user=current_user, id=id, next="/a/" + id, template=project[0], answered=answered != None, name=project[1])
+    return render_template("app/diagram.html", user=current_user, id=id, next="/a/" + id, template=project[0], answered=answered, name=project[1])

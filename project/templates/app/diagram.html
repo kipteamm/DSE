@@ -30,7 +30,7 @@
         {% include "components/login.html" %}
     </div>
 
-    <header class="loading cen-con" id="loading">
+    <header class="loading cen-con" id="loading"{% if not user.is_authenticated %}style="display:none;"{% endif %}>
         <div class="loader"></div>    
         <p id="loading-text">Preparing...<br>Your submission will be anonymous.</p>
     </header>

@@ -102,6 +102,7 @@ function diagramInit() {
         if (answered) return loadAnswers();
         return prepareSubmissions();
     }
+
     toggleModal("auth");
 }
 

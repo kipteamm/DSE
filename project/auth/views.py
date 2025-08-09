@@ -78,7 +78,7 @@ def _handle_email(email: str | None, next_url: str) -> Response | str:
         subject="Verifying it's you",
         sender=MAIL_ADDRESS,
         recipients=[email],
-        html=render_template("email/verification.html", user=email.split("@")[0], code=authentication.code, app_domain=request.host_url, email=email)
+        html=render_template("email/verification.html", user=email.split("@")[0], code=authentication.code, app_domain=request.host_url, email=email, next=next_url)
     )
 
     mail.send(message)

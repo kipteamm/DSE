@@ -24,5 +24,5 @@ function continueEmail() {
     const input = document.getElementById("auth-email-input");
     if (!input.value) return input.focus();
 
-    window.location.href = "/login/email?email=" + input.value;
+    window.location.href = `/login/email?email=${input.value}&next=${window.location.pathname}`;
 }

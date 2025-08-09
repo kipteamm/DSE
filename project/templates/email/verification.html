@@ -8,7 +8,7 @@
         <h2>Hi there {{ user }},</h2>
 
         <p>
-            A login request was made for this email address. If this was you, copy the code below and go back to the webpage. Or click <a href="{{ app_domain }}auth/email?email={{ email }}" target="_blank">this</a> link if you closed it.
+            A login request was made for this email address. If this was you, copy the code below and go back to the webpage. Or click <a href="{{ app_domain }}auth/email?email={{ email }}&next={{ next_url }}" target="_blank">this</a> link if you closed it.
         </p>
 
         <div style="margin:15% 0;text-align:center;">
