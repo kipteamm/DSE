@@ -12,6 +12,7 @@
 - [x] Add submission deleting
 - [x] Allow moving (no longer work with 2 elements, but rather with one li element that is either list-style or not depending on whether it was placed)
 
+- [ ] Fix share link on edit page
 - [ ] Fix facebook
 
 ## DOWN THE LINE
