@@ -17,8 +17,10 @@ def proccess_placement(app, user_id: str, project_id: str, track_id: str, data: 
         submissions = Submission.query.with_entities(Submission.submissions).filter_by(project_id=project_id).all() # type: ignore
 
         for _submission in submissions:
+            if not _submission[0]:
+                continue
+
             _submission = _submission[0].split("||")
-            
             for _entry in _submission:
                 entry = _entry.split("``")
                 pos = entry[1].split("%")
@@ -38,8 +40,10 @@ def cache_submissions(project_id: str) -> dict:
     cache_data: dict[str, dict[str, list[int]]] = {}
 
     for _submission in submissions:
-        _submission = _submission[0].split("||")
-        
+        if not _submission[0]:
+            continue
+
+        _submission = _submission[0].split("||")  
         for _entry in _submission:
             entry = _entry.split("``")
             pos = entry[1].split("%")

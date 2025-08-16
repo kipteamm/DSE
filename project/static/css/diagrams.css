@@ -63,7 +63,7 @@ body {
 
 .placement button {
     position: absolute;
-    bottom: 25px;
+    bottom: 10vh;
     left: 25px;
     width: calc(100% - 50px);
 }
@@ -209,6 +209,10 @@ button:disabled {
         max-width: 450px;
         border-radius: 15px;
         height: 250px;
+    }
+
+    .placement button {
+        bottom: 25px;
     }
 }
 

@@ -18,4 +18,4 @@ class EditProjectBody(BodySchema):
 
 
 class SubmissionsBody(BodySchema):
-    submissions: dict = BodyField("submissions", dict, True)
+    submissions: dict = BodyField("submissions", dict, False)

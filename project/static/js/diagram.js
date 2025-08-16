@@ -183,23 +183,21 @@ function dragEnd(event) {
     dragged.style.left = left + "%";
 }
 
-function next() {
+function next(skip) {
     options.shift();
 
     dragged.removeAttribute("style");
 
-
-    
-    const elm = dragged.cloneNode(true);
-    const positions = placements[elm.innerText].split("%")
-    elm.removeAttribute("id");
-    elm.style.top = positions[0] + "%";
-    elm.style.left = positions[1] + "%";
-    elm.addEventListener("mousedown", dragStart);
-    elm.addEventListener("touchstart", dragStart);
-    main.appendChild(elm);
-
-
+    if (!skip) {
+        const elm = dragged.cloneNode(true);
+        const positions = placements[elm.innerText].split("%")
+        elm.removeAttribute("id");
+        elm.style.top = positions[0] + "%";
+        elm.style.left = positions[1] + "%";
+        elm.addEventListener("mousedown", dragStart);
+        elm.addEventListener("touchstart", dragStart);
+        main.appendChild(elm);
+    }
 
     document.body.classList.remove("placing");
     
@@ -219,6 +217,11 @@ function next() {
     button.classList.remove("secondary");
     button.classList.add("primary");
     button.setAttribute("onclick", "submit()")
+}
+
+function skip() {
+    dragged = item;
+    next(true);
 }
 
 async function submit() {

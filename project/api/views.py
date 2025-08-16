@@ -98,7 +98,7 @@ def submit(id):
 
     if Submission.query.with_entities(Submission.id).filter_by(project_id=id, user_id=g.user.id).first(): # type: ignore
         return Errors.ALREADY_ANSWERED.as_dict(), 403
-    
+
     project = Project.query.with_entities(Project.options).filter_by(id=id).first() # type: ignore
     
     if not project:
