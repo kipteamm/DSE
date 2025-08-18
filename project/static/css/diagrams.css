@@ -155,6 +155,10 @@ li.placing {
     cursor: grab;
     margin: 0px;
 }
+li.finished {
+    touch-action: none;
+    pointer-events: none;
+}
 
 main.hide li:not(.specific) {
     display: none;

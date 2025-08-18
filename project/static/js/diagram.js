@@ -210,6 +210,7 @@ function next(skip) {
     } 
 
     item.innerText = "Finished!"
+    item.classList.add("finished")
 
     document.getElementById("placement-text").innerText = "You have placed all available options."
     const button = document.getElementById("placement-btn");
