@@ -300,8 +300,8 @@ function parseAnswers(data) {
     for (const [key, positions] of Object.entries(data)) {
         if (key === "__track_id") continue;
 
-        const medianTop = calculateMedian(positions.top);
-        const medianLeft = calculateMedian(positions.left);
+        const medianTop = calculateMedian(positions.top.sort());
+        const medianLeft = calculateMedian(positions.left.sort());
 
         orderedData[key] = {
             "top": positions.top,

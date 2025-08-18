@@ -51,8 +51,8 @@ def cache_submissions(project_id: str) -> dict:
             if not entry[0] in cache_data:
                 cache_data[entry[0]] = {"top": [], "left": []}
 
-            cache_data[entry[0]]["top"].append(pos[0])
-            cache_data[entry[0]]["left"].append(pos[1])
+            cache_data[entry[0]]["top"].append(int(pos[0]))
+            cache_data[entry[0]]["left"].append(int(pos[1]))
 
     cache_data["__track_id"] = generate_uuid() # type: ignore
     cache.set(f"answers:{project_id}", cache_data, timeout=3600)
