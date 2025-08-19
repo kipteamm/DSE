@@ -76,12 +76,10 @@ async function prepareSubmissions() {
     document.getElementById("dark-overlay").classList.add("active");
     item.innerText = options[0];
 
-    return stopLoading();
+    const loadingLeft = new Date().getTime() - startedProcessing;
+    if (loadingLeft >= 3000) return stopLoading();
 
-    // const loadingLeft = new Date().getTime() - startedProcessing;
-    // if (loadingLeft >= 3000) return stopLoading();
-
-    // setTimeout(() => stopLoading(), 3000 - loadingLeft);
+    setTimeout(() => stopLoading(), 3000 - loadingLeft);
 }
 
 function stopLoading() {
@@ -186,10 +184,10 @@ function dragEnd(event) {
 function next(skip) {
     options.shift();
 
-    dragged.removeAttribute("style");
+    item.removeAttribute("style");
 
     if (!skip) {
-        const elm = dragged.cloneNode(true);
+        const elm = item.cloneNode(true);
         const positions = placements[elm.innerText].split("%")
         elm.removeAttribute("id");
         elm.style.top = positions[0] + "%";
@@ -201,7 +199,7 @@ function next(skip) {
 
     document.body.classList.remove("placing");
     
-    dragged.classList.add("placing");
+    item.classList.add("placing");
     dragged = null;
 
     if (options.length > 0) {
