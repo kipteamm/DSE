@@ -3,7 +3,7 @@ from project.app.models import Project, Submission
 from project.extensions import db
 
 from flask_login import login_required, current_user
-from flask import Blueprint, render_template, redirect, request
+from flask import Blueprint, render_template, redirect, request, make_response
 
 
 app_blueprint = Blueprint("app", __name__)
@@ -55,10 +55,14 @@ def diagram(id):
     project = Project.query.with_entities(Project.template_id, Project.name).filter_by(id=id).first() # type: ignore
     
     if not project:
-        return render_template("app/not_found.html")
+        response = make_response(render_template("app/not_found.html"))
+        response.headers["X-Robots-Tag"] = "noindex, nofollow"
+        return response
 
     answered = False
     if current_user.is_authenticated:
         answered = Submission.query.with_entities(Submission.id).filter_by(project_id=id, user_id=current_user.id).first() != None # type: ignore
 
-    return render_template("app/diagram.html", user=current_user, id=id, next="/a/" + id, template=project[0], answered=answered, name=project[1])
+    response = make_response(render_template("app/diagram.html", user=current_user, id=id, next="/a/" + id, template=project[0], answered=answered, name=project[1]))
+    response.headers["X-Robots-Tag"] = "noindex, nofollow"  
+    return response
