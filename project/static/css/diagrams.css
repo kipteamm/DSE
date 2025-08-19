@@ -142,7 +142,9 @@ li {
     font-weight: 500;
     background: #e2e2e299;
     user-select: none;
-    margin: -5px -15px;
+    margin: -15px -17px;
+    list-style-position: inside;
+    height: 30px;
 }
 li.placing {
     display: inline-block;

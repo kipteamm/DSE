@@ -64,4 +64,5 @@ p.disclaimer {
     font-size: 20px;
     padding: 20px 0;
     font-weight: bold;
+    -moz-appearance: textfield;
 }

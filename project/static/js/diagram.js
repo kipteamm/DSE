@@ -171,8 +171,8 @@ function dragEnd(event) {
         offsetY = (window.innerHeight - dimension) / 2;
     }
 
-    const top = Math.round(((y - offsetY) / dimension) * 100);
-    const left = Math.round(((x - offsetX) / dimension) * 100);
+    const top = Math.round(((y - offsetY) / dimension) * 1000) / 10;
+    const left = Math.round(((x - offsetX) / dimension) * 1000) / 10;
 
     dragged.classList.remove("placing");
 
