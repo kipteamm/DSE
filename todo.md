@@ -13,13 +13,13 @@
 - [x] Allow moving (no longer work with 2 elements, but rather with one li element that is either list-style or not depending on whether it was placed)
 - [x] Fix share link on edit page
 
-- [ ] Fix placements not exactly translating over (negative margins, positions calcs, what not) FIREFOX
+- [!] Fix placements not exactly translating over (negative margins, positions calcs, what not) FIREFOX (perhaps fixed)
+
 - [ ] Fix facebook
 
 ## DOWN THE LINE
-- [ ] Add more templates
-- [ ] Google ads
 - [ ] Add account deleting
 - [ ] Add account data request
+- [ ] Domain & Name
 - [ ] Write articles
-- [ ] Dashboard??
+- [ ] Money

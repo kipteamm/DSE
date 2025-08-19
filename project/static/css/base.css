@@ -232,7 +232,6 @@ button.danger:hover {
     gap: 20px;
 }
 
-.pri-sec-con .pri,
 .even-con > div,
 .even-con > button {
     flex: 1;

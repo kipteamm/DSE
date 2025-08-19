@@ -47,6 +47,9 @@ main.content {
 .template img {
     width: 100%;
 }
+.template button {
+    margin-top: auto;
+}
 
 .nothing {
     width: 100%;
@@ -72,6 +75,9 @@ main.content {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+.projects .pri-sec-con .pri {
+    flex: 1;
 }
 
 #project-modal {

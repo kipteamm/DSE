@@ -29,4 +29,13 @@ def project_from_template(template: str, user_id: str, name: str) -> Project:
                 "Healthy",
                 "John Doe||Jane Doe"
                 )
+    
+    if template == "nerdiness":
+        return Project(name, user_id, "venn3",
+                "Intelligent#00fbff||Socially Awkward#D745FF||Obsession#f7ec1f",
+                "Dweeb||Geek||Dork||Nerd",
+                "John Doe||Jane Doe"       
+                )
+    
+    raise ValueError("Invalid template")
 

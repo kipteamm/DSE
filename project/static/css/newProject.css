@@ -311,7 +311,7 @@ header {
     font-size: 25px;
 }
 
-.pri-sec-con .divider {
+.divider {
     width: 2px;
     height: 50px;
     background: var(--primary-bg-80);
@@ -357,6 +357,8 @@ header {
 }
 
 .final {
+    display: flex;
+    gap: 10px;
     justify-content: center;
     border-bottom: 2px solid var(--primary-bg-80);
     padding: 20px;
