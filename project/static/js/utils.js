@@ -17,7 +17,16 @@ function get(name){
 function toggleModal(id) {
     document.body.classList.toggle("no-scroll");
     document.getElementById("dark-overlay").classList.toggle("active");
-    document.getElementById(id + "-modal").classList.toggle("active");
+    
+    const modal = document.getElementById(id + "-modal");
+    modal.classList.toggle("active");
+
+    if (id !== "share") return;
+    if (modal.classList.contains("active")) return;
+
+    document.querySelectorAll(".share-buttons a").forEach(a => {
+        a.href = a.originalHref;
+    });
 }
 
 function continueEmail() {

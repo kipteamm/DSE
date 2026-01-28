@@ -45,5 +45,11 @@ async function deleteSubmission(projectId, submissionId) {
 
 function share(id) {
     shareId = id;
-    toggleModal('share');
+
+    document.querySelectorAll(".share-buttons a").forEach(a => {
+        a.originalHref = a.href;
+        a.href = a.href.replace("https://example.com", `${window.location.protocol}//${window.location.host}/a/${shareId}`);
+    });
+
+    toggleModal("share");
 }

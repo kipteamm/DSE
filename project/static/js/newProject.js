@@ -196,6 +196,7 @@ async function create() {
 
     shareId = json.id;
     document.querySelectorAll(".share-buttons a").forEach(a => {
+        a.originalHref = a.href;
         a.href = a.href.replace("https://example.com", `${window.location.protocol}//${window.location.host}/a/${shareId}`);
     });
 
