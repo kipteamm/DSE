@@ -20,42 +20,35 @@
 }
 
 @font-face {
-    font-family: "CoFo Robert";
+    font-family: "Lora";
     font-style: normal;
     font-weight: 400;
-    src: local("CoFo Robert Regular"), url("/static/font/CoFo_Robert-Regular.woff") format("woff");
+    src: local("Lora Regular"), url("/static/font/Lora-Regular.ttf") format("ttf");
 }
 
 @font-face {
-    font-family: "CoFo Robert";
+    font-family: "Lora";
     font-style: normal;
     font-weight: 500;
-    src: local("CoFo Robert Medium"), url("/static/font/CoFo_Robert-Medium.woff") format("woff");
+    src: local("Lora Medium"), url("/static/font/Lora-Medium.ttf") format("ttf");
 }
 
 @font-face {
-    font-family: "CoFo Robert";
+    font-family: "Lora";
     font-style: normal;
     font-weight: 700;
-    src: local("CoFo Robert Bold"), url("/static/font/CoFo_Robert-Bold.woff") format("woff");
+    src: local("Lora Bold"), url("/static/font/Lora-Bold.ttf") format("ttf");
 }
 
 @font-face {
-    font-family: "CoFo Robert";
-    font-style: normal;
-    font-weight: 800;
-    src: local("CoFo Robert Heavy"), url("/static/font/CoFo_Robert-Heavy.woff") format("woff");
-}
-
-@font-face {
-    font-family: "CoFo Robert";
+    font-family: "Lora";
     font-style: normal;
     font-weight: 900;
-    src: local("CoFo Robert Black"), url("/static/font/CoFo_Robert-Black.woff") format("woff");
+    src: local("Lora Heavy"), url("/static/font/Lora-Heavy.ttf") format("ttf");
 }
 
 :root {
-    --primary-font: "CoFo Robert";
+    --primary-font: "Lora";
     --secondary-font: "Montserrat";
 
     --primary-font-clr: #000;
